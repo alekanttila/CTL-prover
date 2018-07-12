@@ -1,0 +1,288 @@
+/*
+package Prover;
+
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.util.*;
+import java.util.Stack;
+
+public class Parser {
+
+    private enum Production {
+
+        R1(Token.Type.ALPHA, 3, Formula.Connective.U),
+        R2(Token.Type.ALPHA, 1),
+        R3(Token.Type.BETA, 3, Formula.Connective.AND),
+        R4(Token.Type.BETA, 1),
+        R5(Token.Type.GAMMA, 2, Formula.Connective.NOT),
+        R6(Token.Type.GAMMA, 2, Formula.Connective.X),
+        R7(Token.Type.GAMMA, 2, Formula.Connective.A),
+        R8(Token.Type.GAMMA, 1),
+        R9(Token.Type.DELTA, 1),
+        R10(Token.Type.DELTA, 3);
+
+        private Token.Type lhs;
+        private int rhsLength;
+        private Formula.Connective c;
+
+        Production(Token.Type lhs, int rhsLength) {
+            this.lhs = lhs;
+            this.rhsLength = rhsLength;
+        }
+        Production(Token.Type lhs, int rhsLength, Formula.Connective c) {
+            this(lhs, rhsLength);
+            this.c = c;
+        }
+    }
+
+    private class ProductionPair {
+        private Production production;
+        private String atomID;
+
+        ProductionPair(Production production, String atomID) {
+            this.production = production;
+            this.atomID = atomID;
+        }
+        ProductionPair(Production production) {
+            this(production, null);
+        }
+    }
+
+    private final String[][] pTable = new String[19][13];
+    private Stack<Object> stack;
+    private final Map<Token.Type, Integer> indexMap = new HashMap<Token.Type, Integer>();
+    private Formula f;
+
+    public void Parser() {
+
+        indexMap.put(Token.Type.ATOMIC,  0);
+        indexMap.put(Token.Type.NOT,   1);
+        indexMap.put(Token.Type.AND,   2);
+        indexMap.put(Token.Type.U,     3);
+        indexMap.put(Token.Type.X,     4);
+        indexMap.put(Token.Type.A,     5);
+        indexMap.put(Token.Type.LB,    6);
+        indexMap.put(Token.Type.RB,    7);
+        indexMap.put(Token.Type.END,   8);
+        indexMap.put(Token.Type.ALPHA, 9);
+        indexMap.put(Token.Type.BETA,  10);
+        indexMap.put(Token.Type.GAMMA, 11);
+        indexMap.put(Token.Type.DELTA, 12);
+
+        //state 0 (starting state)
+        pTable[0][indexMap.get(Token.Type.ATOMIC)]=  "s8";  pTable[0][indexMap.get(Token.Type.NOT)]=   "s5";
+        pTable[0][indexMap.get(Token.Type.X)]=     "s6";  pTable[0][indexMap.get(Token.Type.A)]=     "s7";
+        pTable[0][indexMap.get(Token.Type.LB)]=    "s9";  pTable[0][indexMap.get(Token.Type.ALPHA)]= "1";
+        pTable[0][indexMap.get(Token.Type.BETA)]=  "2";   pTable[0][indexMap.get(Token.Type.GAMMA)]= "3";
+        pTable[0][indexMap.get(Token.Type.DELTA)]= "4";
+
+        //state 1 (after reading alpha; accept)
+        pTable[1][indexMap.get(Token.Type.END)]=   "a";
+
+        //state 2 (after reading beta)
+        pTable[2][indexMap.get(Token.Type.U)]=     "s10"; pTable[2][indexMap.get(Token.Type.RB)]=   "r2";
+        pTable[2][indexMap.get(Token.Type.END)]=   "r2";
+
+        //state 3 (after reading gamma)
+        pTable[3][indexMap.get(Token.Type.AND)]=   "s12"; pTable[3][indexMap.get(Token.Type.U)]=    "r4";
+        pTable[3][indexMap.get(Token.Type.RB)]=    "r4";  pTable[3][indexMap.get(Token.Type.END)]=  "r4";
+
+        //state 4 (after reading delta)
+        pTable[4][indexMap.get(Token.Type.AND)]=   "r8";  pTable[4][indexMap.get(Token.Type.U)]=     "r8";
+        pTable[4][indexMap.get(Token.Type.RB)]=    "r8";  pTable[4][indexMap.get(Token.Type.END)] =  "r8";
+
+        //state 5 (after reading not)
+        pTable[5][indexMap.get(Token.Type.ATOMIC)]=  "s8";  pTable[5][indexMap.get(Token.Type.LB)]=    "s9";
+        pTable[5][indexMap.get(Token.Type.DELTA)]= "14";
+
+        //state 6 (after reading X)
+        pTable[6] = pTable[5];
+        pTable[6][indexMap.get(Token.Type.DELTA)]= "15";
+
+        //state 7 (after reading A)
+        pTable[7] = pTable[5];
+        pTable[7][indexMap.get(Token.Type.DELTA)]= "16";
+
+        //state 8 (after reading an atom)
+        pTable[8][indexMap.get(Token.Type.AND)]=   "r9";  pTable[8][indexMap.get(Token.Type.U)]=     "r9";
+        pTable[8][indexMap.get(Token.Type.RB)]=    "r9";  pTable[8][indexMap.get(Token.Type.END)] =  "r9";
+
+        //state 9 (after reading '(')
+        pTable[9] = pTable[0];
+        pTable[9][indexMap.get(Token.Type.ALPHA)]= "17";
+
+        //state 10 (after reading beta U)
+        pTable[10] = pTable[0];
+        pTable[10][indexMap.get(Token.Type.ALPHA)]="11";
+
+        //state 11 (after reading beta U alpha)
+        pTable[11][indexMap.get(Token.Type.RB)]=   "r1";  pTable[11][indexMap.get(Token.Type.END)]=  "r1";
+
+        //state 12 (after reading gamma and)
+        pTable[12] = pTable[0];
+        pTable[12][indexMap.get(Token.Type.ALPHA)]=null;  pTable[12][indexMap.get(Token.Type.BETA)]= "13";
+
+        //state 13 (after reading gamma and beta)
+        pTable[13][indexMap.get(Token.Type.U)]=    "r3";  pTable[13][indexMap.get(Token.Type.RB)]=   "r3";
+        pTable[13][indexMap.get(Token.Type.END)]=  "r3";
+
+        //state 14 (after reading not delta)
+        pTable[14][indexMap.get(Token.Type.AND)]=  "r5";  pTable[14][indexMap.get(Token.Type.U)]=    "r5";
+        pTable[14][indexMap.get(Token.Type.RB)]=   "r5";  pTable[14][indexMap.get(Token.Type.END)]=  "r5";
+
+        //state 15 (after reading X delta)
+        pTable[15][indexMap.get(Token.Type.AND)]=  "r6";  pTable[15][indexMap.get(Token.Type.U)]=    "r6";
+        pTable[15][indexMap.get(Token.Type.RB)]=   "r6";  pTable[15][indexMap.get(Token.Type.END)]=  "r6";
+
+        //state 16 (after reading A delta)
+        pTable[16][indexMap.get(Token.Type.AND)]=  "r7";  pTable[16][indexMap.get(Token.Type.U)]=    "r7";
+        pTable[16][indexMap.get(Token.Type.RB)]=   "r7";  pTable[16][indexMap.get(Token.Type.END)]=  "r7";
+
+        //state 17 (after reading '( alpha')
+        pTable[17][indexMap.get(Token.Type.RB)]=   "s18";
+
+        //state 18 (after reading '( alpha )')
+        pTable[18][indexMap.get(Token.Type.AND)]=  "r10";  pTable[18][indexMap.get(Token.Type.U)]=    "r10";
+        pTable[18][indexMap.get(Token.Type.RB)]=   "r10";  pTable[18][indexMap.get(Token.Type.END)]=  "r10";
+    }
+
+    public void parse(List<Token> tokenStack) {
+        int state;
+        String action;
+        Stack<ProductionPair> derivation = new Stack<ProductionPair>();
+        stack.push(0);
+        for (Token t : tokenStack) {
+            state = (Integer)stack.peek();
+            action = pTable[state][indexMap.get(t.getType())];
+            switch (action.charAt(0)) {
+                case 's':
+                    stack.push(t);
+                    stack.push(action.substring(1));
+                    break;
+                case 'r':
+                    Production production = Production.valueOf("R" + action.substring(1));
+                    if (production == Production.R8) {
+                        derivation.push(new ProductionPair(production, t.getId()));
+                    } else {
+                        derivation.push(new ProductionPair(production));
+                    }
+                    for (int i = 0; i < production.rhsLength; i++) {
+                        stack.pop();
+                    }
+                    state = (Integer)stack.peek();
+                    stack.push(production.lhs);
+                    stack.push(pTable[state][indexMap.get(production.lhs)]);
+                    break;
+                case 'a':
+                    if (state == 0) {
+                        break;
+                    } else {
+                        //TODO: throw exception
+                    }
+                default:
+                    //TODO: throw exception
+            }
+        }
+        Formula currentFormula = null;
+        for (ProductionPair p : derivation) {
+            switch (p.production) {
+                case R8:
+                    if (currentFormula == null) {
+                        currentFormula = new Formula(p.atomID);
+                    } else {
+                        currentFormula
+                    }
+            }
+
+
+        }
+
+    }
+
+}
+*/
+    /*
+    private interface pSymbol{};
+    private enum NonTerminal implements pSymbol {
+        ALPHA, ALPHA2, BETA, BETA2, GAMMA, DELTA
+    }
+    private class Terminal implements pSymbol {
+        private Token.Type type;
+        private String id;
+        Terminal(Token.Type type, String id) {
+            this.type = type;
+            this.id = id;
+        }
+        Terminal(Token.Type type) {
+            this(type, null);
+        }
+    }
+    private enum Production {
+       P1(new ArrayList<pSymbol>({NonTerminal.ALPHA}) {
+       })
+        private List<pSymbol> rhs;
+        Production(List<pSymbol> rhs) {
+            this.rhs = rhs;
+        }
+        private final int[][] pTable = new int[12][17];
+        private final Map<String, Integer> row = new HashMap<String, Integer>();
+        private final Map<Token.Type, Integer> column = new HashMap<Token.Type, Integer>();
+        public Parser () {
+
+            row.put("alpha",  0);
+            row.put("alpha2", 1);
+            row.put("beta",   2);
+            row.put("beta2",  3);
+            row.put("gamma",  4);
+            row.put("gamma2", 5);
+            row.put("delta",  6);
+            row.put("delta2", 7);
+            row.put("zeta",   8);
+            row.put("zeta2",  9);
+            row.put("eta",    10);
+            row.put("theta",  12);
+
+            column.put(Token.Type.ATOMIC,   0);
+            column.put(Token.Type.TRUE,   1);
+            column.put(Token.Type.FALSE,  2);
+            column.put(Token.Type.NOT,    3);
+            column.put(Token.Type.X,      4);
+            column.put(Token.Type.A,      5);
+            column.put(Token.Type.E,      6);
+            column.put(Token.Type.F,      7);
+            column.put(Token.Type.G,      8);
+            column.put(Token.Type.U,      9);
+            column.put(Token.Type.AND,    10);
+            column.put(Token.Type.OR,     11);
+            column.put(Token.Type.IFTHEN, 12);
+            column.put(Token.Type.IFF,    13);
+            column.put(Token.Type.LB,     14);
+            column.put(Token.Type.RB,     15);
+            column.put(Token.Type.END,    16);
+
+            //columns 0-8 and 14 (for LB) correspond to the symbols in
+            //FIRST(eta)=FIRST(zeta)=FIRST(delta)=FIRST(gamma)=FIRST(beta)=FIRST(alpha)
+            pTable[row.get("alpha")][0-8]                            = 1;
+            pTable[row.get("alpha")][column.get(Token.Type.LB)]      = 1;
+
+            pTable[row.get("alpha2")][column.get(Token.Type.IFF)]    = 2;
+            pTable[row.get("alpha2")][column.get(Token.Type.RB)]     = 3;
+            pTable[row.get("alpha2")][column.get(Token.Type.END)]    = 3;
+
+            pTable[row.get("beta")][0-8]                             = 4;
+            pTable[row.get("beta")][column.get(Token.Type.LB)]       = 1;
+
+            pTable[row.get("beta2")][column.get(Token.Type.IFTHEN)]  = 5;
+            pTable[row.get("beta2")][column.get(Token.Type.IFF)]     = 6;
+            pTable[row.get("beta2")][column.get(Token.Type.RB)]      = 6;
+            pTable[row.get("beta2")][column.get(Token.Type.END)]     = 6;
+
+            pTable[row.get("gamma")][0-8]                             = 7;
+            pTable[row.get("gamma")][column.get(Token.Type.LB)]       = 7;
+
+            pTable[row.get("gamma2")][column.get(Token.Type.IFTHEN)]  = 5;
+            pTable[row.get("gamma2")][column.get(Token.Type.IFF)]     = 6;
+            pTable[row.get("gamm2")][column.get(Token.Type.RB)]      = 6;
+            pTable[row.get("beta2")][column.get(Token.Type.END)]     = 6;
+        }
+*/
