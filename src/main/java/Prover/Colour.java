@@ -10,15 +10,15 @@ public class Colour extends HueSet {
 
     public Colour() {
         super();
-        this.instantiables = new FormulaSet();
     }
 
     public Colour(Colour c) {
-        this.addAll(c);
-        this.instantiables = c.instantiables;
+        super.addAll(c);
     }
 
-    public FormulaSet instantiables;
+    public Colour(HueSet hS) {
+        super.addAll(hS);
+    }
 
     public int getIndex() {
         return Integer.parseInt(this.name.substring(1));
@@ -26,27 +26,27 @@ public class Colour extends HueSet {
 
     public static ColourSet getColours(HueSet hS) {
         ColourSet result = new ColourSet();
-        ColourSet uninstantiated = new ColourSet();
+        TreeSet<HueSet> uninstantiated = new TreeSet<HueSet>();
         TreeSet<HueSet> rAClasses = hS.getRAClasses();
         Iterator<HueSet> classIterator = rAClasses.iterator();
         while (classIterator.hasNext()) {
             HueSet rAC = classIterator.next();
             uninstantiated.addAll(getClassColours(rAC));
         }
-        Iterator<Colour> i = uninstantiated.iterator();
+        Iterator<HueSet> i = uninstantiated.iterator();
         while (i.hasNext()) {
-            Colour c = i.next();
+            HueSet c = i.next();
             if (c.instantiables.isEmpty()) {
-                result.add(c);
+                result.add(new Colour(c));
             }
         }
         return result;
     }
 
-    public static ColourSet getClassColours(HueSet rAC) {
+    public static TreeSet<HueSet> getClassColours(HueSet rAC) {
         HueSet rACCopy = new HueSet();
         rACCopy.addAll(rAC);
-        ColourSet result = new ColourSet();
+        TreeSet<HueSet> result = new TreeSet<HueSet>();
 
         Hue h = rACCopy.last();
         Iterator<Formula> fI = h.iterator();
@@ -70,7 +70,7 @@ public class Colour extends HueSet {
         //System.out.println();
 
         //make a new potential colour consisting of only h
-        Colour justH = new Colour();
+        HueSet justH = new HueSet();
         justH.add(h);
         justH.instantiables = hInstantiables;
         result.add(justH);
@@ -80,16 +80,16 @@ public class Colour extends HueSet {
         if (rACCopy.size() != 1) {
 
             rACCopy.remove(h);
-            ColourSet previous = getClassColours(rACCopy);
+            TreeSet<HueSet> previous = getClassColours(rACCopy);
             //previous potential colours are also potential colours at this stage
             result.addAll(previous);
 
             //make new potential colours using h
-            Iterator<Colour> cI = previous.iterator();
+            Iterator<HueSet> i = previous.iterator();
             A:
-            while (cI.hasNext()) {
+            while (i.hasNext()) {
                 FormulaSet newCInstantiables = new FormulaSet();
-                Colour c = cI.next();
+                HueSet c = i.next();
                 //System.out.println("processing colour ");
                 //c.sugarPrint();
                 //two loops here to avoid checking the hues in c for c-instatiables again
@@ -129,7 +129,8 @@ public class Colour extends HueSet {
                         newCInstantiables.add(f);
                     }
                 }
-                Colour withH = new Colour(c);
+                HueSet withH = new HueSet();
+                withH.addAll(c);
                 withH.add(h);
                 withH.instantiables = newCInstantiables;
                 result.add(withH);
@@ -184,6 +185,35 @@ public class Colour extends HueSet {
        return rX(c, null);
     }
 
+    //colours are immutable
+    @Override
+    public boolean add(Hue e) {
+        //TODO: error!
+        return false;
+    }
+
+    @Override
+    public boolean addAll(Collection e) {
+        //TODO: error!
+        return false;
+    }
+
+    @Override
+    public boolean remove(Object e) {
+        //TODO: error!
+        return false;
+    }
+
+    @Override
+    public boolean removeAll(Collection c) {
+        //TODO: error!
+        return false;
+    }
+
+    @Override
+    public void clear() {
+        //TODO: error!
+    }
 }
 
 

@@ -34,7 +34,7 @@
         System.out.println("///////////////");
         System.out.println("FINIIISH");
         FormulaSet closure = f.getClosure();
-        HueSet hues = getHueSet(closure, closure);
+        HueSet hues = getHueSet(closure);
         Map<Formula, String> names = new HashMap<Formula, String>();
         names.put(f, "φ");
         System.out.println("HUE");

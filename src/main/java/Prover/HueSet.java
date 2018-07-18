@@ -12,6 +12,23 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
     protected boolean[][] rX;
     protected boolean[][] rA;
     protected TreeSet<HueSet> rAClasses;
+    protected FormulaSet instantiables = new FormulaSet();
+
+    public HueSet() {
+        super();
+    }
+
+    public HueSet(TreeSet<FormulaSet> formulaSetSet) {
+        for (FormulaSet fS: formulaSetSet) {
+            Hue h = new Hue(fS);
+            this.add(h);
+        }
+    }
+
+    public HueSet(Formula f) {
+        FormulaSet closure = f.getClosure();
+        this.addAll(getHueSet(closure));
+    }
 
     //@Override
     public int compareTo(HueSet hS) {
@@ -36,16 +53,14 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         return result;
     }
 
-    public HueSet() {
-        super();
+    public static HueSet getHueSet(FormulaSet closure) {
+        TreeSet<FormulaSet> mutableHues = getHueSet(closure, closure);
+        HueSet immutableHues = new HueSet(mutableHues);
+        return immutableHues;
     }
 
-    public HueSet(Formula f) {
-        FormulaSet closure = f.getClosure();
-        this.addAll(getHueSet(closure, closure));
-    }
-
-    public static HueSet getHueSet(FormulaSet closureConst, FormulaSet closureNonConst) {
+    //auxiliary method: uses FormulaSets for mutability and two copies of closures for convenience
+    public static TreeSet<FormulaSet> getHueSet(FormulaSet closureConst, FormulaSet closureNonConst) {
         //we keep passing the original getClosure to perform containment
         //checks, and use a copy that we manipulate to build the hue
         //closureCopy copied here so we can just pass getClosure for convenience
@@ -58,13 +73,13 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         //copy for proper call by value
         //FormulaSet set = new FormulaSet();
         //set.addAll(getClosure);
-        HueSet hues = new HueSet();
+        TreeSet<FormulaSet> partialHues = new TreeSet<FormulaSet>();
 
         if (!closureCopy.isEmpty()) {
             Formula f = closureCopy.last();
             closureCopy.remove(f);
-            HueSet previousPowerSet = getHueSet(closureConst, closureCopy);
-            Iterator<Hue> i = previousPowerSet.iterator();
+            TreeSet<FormulaSet> previousHues = getHueSet(closureConst, closureCopy);
+            Iterator<FormulaSet> i = previousHues.iterator();
             //if we branched on f.c within the following while loops, we could combine
             //them into one and reduce the amount of code considerably, but we would also
             //be doing a far larger number of checks
@@ -83,95 +98,95 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
                         notNot = true;
                     }
                     while (i.hasNext()) {
-                        Hue h = i.next();
+                        FormulaSet h = i.next();
                         if (notNot && h.contains(f.sf1)) {
                             h.add(new Formula(f, NOT));
                         }
-                        hues.add(h);
+                        partialHues.add(h);
                     }
                     break;
                 case AND:
                     while (i.hasNext()) {
-                        Hue h = i.next();
+                        FormulaSet h = i.next();
                         //do check with or+negation to potentially avoid checking two subformulae
                         if (h.contains(f.sf1.negated()) || h.contains(f.sf2.negated())) {
                             h.add(new Formula(f, NOT));
                         } else {
                             h.add(f);
                         }
-                        hues.add(h);
+                        partialHues.add(h);
                     }
                     break;
                 case U:
                     while (i.hasNext()) {
-                        Hue h = i.next();
+                        FormulaSet h = i.next();
                         //code repeated here for clarity
                         if (h.contains(f.sf1)) {
                             if (h.contains(f.sf2)) {
                                 //if a and b, can have aUb, but not ~(aUb)
                                 h.add(f);
-                                hues.add(h);
+                                partialHues.add(h);
                             } else {
                                 //if a and ~b, can have aUb and ~(aUb)
-                                Hue notH = new Hue();
+                                FormulaSet notH = new FormulaSet();
                                 notH.addAll(h);
                                 h.add(f);
                                 notH.add(new Formula(f, NOT));
-                                hues.add(h);
-                                hues.add(notH);
+                                partialHues.add(h);
+                                partialHues.add(notH);
                             }
                         } else {
                             if (h.contains(f.sf2)) {
                                 //if ~a and b, can have aUb, but not ~(aUb)
                                 h.add(f);
-                                hues.add(h);
+                                partialHues.add(h);
                             } else {
                                 //if ~a and ~b, can have ~(aUb) but not aUb
                                 h.add(new Formula(f, NOT));
-                                hues.add(h);
+                                partialHues.add(h);
                             }
                         }
                     }
                     break;
                 case A:
                     while (i.hasNext()) {
-                        Hue h = i.next();
-                        Hue notH = new Hue();
+                        FormulaSet h = i.next();
+                        FormulaSet notH = new FormulaSet();
                         notH.addAll(h);
                         notH.add(new Formula(f, NOT));
-                        hues.add(notH);
+                        partialHues.add(notH);
                         if (h.contains(f.sf1)) {
                            h.add(f);
-                           hues.add(h);
+                           partialHues.add(h);
                         }
                     }
                 case TRUE://special case because we do not want to add bottom to a hue
                     //TODO: mention in report
                     while (i.hasNext()) {
-                        Hue h = i.next();
+                        FormulaSet h = i.next();
                         h.add(f);
-                        hues.add(h);
+                        partialHues.add(h);
                     }
                     break;
 
                 default:
                     while (i.hasNext()) {
-                        Hue h = i.next();
-                        Hue notH = new Hue();
+                        FormulaSet h = i.next();
+                        FormulaSet notH = new FormulaSet();
                         notH.addAll(h);
                         h.add(f);
                         notH.add(new Formula(f, NOT));
-                        hues.add(h);
-                        hues.add(notH);
+                        partialHues.add(h);
+                        partialHues.add(notH);
                     }
             }
         } else {
-            Hue empty = new Hue();
-            HueSet onlyEmpty = new HueSet();
+            FormulaSet empty = new FormulaSet();
+            TreeSet<FormulaSet> onlyEmpty = new TreeSet<FormulaSet>();
             onlyEmpty.add(empty);
-            hues = onlyEmpty;
+            partialHues = onlyEmpty;
         }
-        return hues;
+        return partialHues;
     }
 
     public boolean namesSet = false;

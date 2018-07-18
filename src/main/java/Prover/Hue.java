@@ -16,6 +16,14 @@ public class Hue extends FormulaSet {
     //Hues with the same members but different names are the same hue (to the equals method)
     protected String name;
 
+    public Hue() {
+        super();
+    }
+
+    public Hue(FormulaSet fS) {
+        super.addAll(fS);
+    }
+
     public int getIndex() {
         return Integer.parseInt(this.name.substring(1));
     }

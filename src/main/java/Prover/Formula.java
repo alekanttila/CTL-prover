@@ -275,7 +275,7 @@ public class Formula implements Comparable<Formula>{
 
     public HueSet getHues() {
         FormulaSet closure = this.getClosure();
-        return getHueSet(closure, closure);
+        return getHueSet(closure);
     }
 
     public Connective sugarTest() {

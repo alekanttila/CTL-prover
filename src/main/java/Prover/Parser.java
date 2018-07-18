@@ -3,6 +3,7 @@ package Prover;
 import java.util.Stack;
 
 import static Prover.Formula.Connective.*;
+import static Prover.Token.Type.RB;
 
 public class Parser {
 
@@ -101,7 +102,7 @@ public class Parser {
             default:
                 throw new ParserException("Syntax error: expected alpha production, but received a token of type "
                         + currentToken.getType() + " at input position " + currentPosition +
-                        ". Can only alpha-produce with one of: atom, 1, 0, ~, X, A, E, F, G, and (.");
+                        ". Can only alpha-produce with one of: atom, '1', '0', '~', 'X', 'A', 'E', 'F', 'G', or '('.");
         }
         return f;
     }
@@ -127,7 +128,7 @@ public class Parser {
             default:
                 throw new ParserException("Syntax error: expected alpha2 production, but received a token of type "
                         + currentToken.getType() + " at input position " + currentPosition +
-                        ". Can only alpha2-produce with one of: =, ), or the end of input.");
+                        ". Can only alpha2-produce with one of: '=', ')', or the end of input.");
         }
         return f;
     }
@@ -152,7 +153,7 @@ public class Parser {
             default:
                 throw new ParserException("Syntax error: expected beta production, but received a token of type "
                         + currentToken.getType() + " at input position " + currentPosition +
-                        ". Can only beta-produce with one of: atom, 1, 0, ~, X, A, E, F, G, and (.");
+                        ". Can only beta-produce with one of: atom, '1', '0', '~', 'X', 'A', 'E', 'F', 'G', or '('.");
         }
         return f;
     }
@@ -179,7 +180,7 @@ public class Parser {
             default:
                 throw new ParserException("Syntax error: expected beta2 production, but received a token of type "
                         + currentToken.getType() + " at input position " + currentPosition +
-                        ". Can only beta2-produce with one of: >, =, ), or the end of input.");
+                        ". Can only beta2-produce with one of: '>', '=', ')', or the end of input.");
         }
         return f;
     }
@@ -204,7 +205,7 @@ public class Parser {
             default:
                 throw new ParserException("Syntax error: expected gamma production, but received a token of type "
                         + currentToken.getType() + " at input position " + currentPosition +
-                        ". Can only gamma-produce with one of: atom, 1, 0, ~, X, A, E, F, G, and (.");
+                        ". Can only gamma-produce with one of: atom, '1', '0', '~', 'X', 'A', 'E', 'F', 'G', or '('.");
         }
         return f;
     }
@@ -232,7 +233,7 @@ public class Parser {
             default:
                 throw new ParserException("Syntax error: expected gamma2 production, but received a token of type "
                         + currentToken.getType() + " at input position " + currentPosition +
-                        ". Can only gamma2-produce with one of: |, >, =, ), or the end of input.");
+                        ". Can only gamma2-produce with one of: '|', '>', '=', ')', or the end of input.");
         }
         return f;
     }
@@ -257,7 +258,7 @@ public class Parser {
             default:
                 throw new ParserException("Syntax error: expected delta production, but received a token of type "
                         + currentToken.getType() + " at input position " + currentPosition +
-                        ". Can only delta-produce with one of: atom, 1, 0, ~, X, A, E, F, G, and (.");
+                        ". Can only delta-produce with one of: atom, '1', '0', '~', 'X', 'A', 'E', 'F', 'G', or '('.");
         }
         return f;
     }
@@ -286,7 +287,7 @@ public class Parser {
             default:
                 throw new ParserException("Syntax error: expected delta2 production, but received a token of type "
                         + currentToken.getType() + " at input position " + currentPosition +
-                        ". Can only delta2-produce with one of: &, >, =, ), or the end of input.");
+                        ". Can only delta2-produce with one of: '&', '>', '=', ')', or the end of input.");
         }
         return f;
     }
@@ -311,7 +312,7 @@ public class Parser {
             default:
                 throw new ParserException("Syntax error: expected zeta production, but received a token of type "
                         + currentToken.getType() + " at input position " + currentPosition +
-                        ". Can only zeta-produce with one of: atom, 1, 0, ~, X, A, E, F, G, and (.");
+                        ". Can only zeta-produce with one of: atom, '1', '0', '~', 'X', 'A', 'E', 'F', 'G', or '('.");
         }
         return f;
     }
@@ -341,7 +342,7 @@ public class Parser {
             default:
                 throw new ParserException("Syntax error: expected zeta2 production, but received a token of type "
                         + currentToken.getType() + " at input position " + currentPosition +
-                        ". Can only zeta2-produce with one of: U, >, =, ), or the end of input.");
+                        ". Can only zeta2-produce with one of: 'U', '>', '=', ')', or the end of input.");
         }
         return f;
     }
@@ -389,7 +390,7 @@ public class Parser {
             default:
                 throw new ParserException("Syntax error: expected eta production, but received a token of type "
                         + currentToken.getType() + " at input position " + currentPosition +
-                        ". Can only eta-produce with one of: atom, 1, 0, ~, X, A, E, F, G, and (.");
+                        ". Can only eta-produce with one of: atom, '1', '0', '~', 'X', 'A', 'E', 'F', 'G', or '('.");
         }
         return f;
     }
@@ -412,12 +413,19 @@ public class Parser {
             case LB:
                 eat(Token.Type.LB);
                 f = alpha();
-                eat(Token.Type.RB);
+                if (currentToken.getType() == Token.Type.RB) {
+                    eat(RB);
+                } else {
+                    throw new ParserException("Syntax error: attempted theta production, but, but after processing "
+                            + "'(' and alpha-producing, received a token of type "
+                            + currentToken.getType() + " at input position " + currentPosition +
+                            ". Expected ')'.");
+                }
                 break;
             default:
                 throw new ParserException("Syntax error: expected theta production, but received a token of type "
                         + currentToken.getType() + " at input position " + currentPosition +
-                        ". Can only theta-produce with one of: atom, 1, 0, and (.");
+                        ". Can only theta-produce with one of: atom, '1', '0', or '('.");
         }
         return f;
     }
