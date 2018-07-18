@@ -8,10 +8,12 @@ public class Parser {
 
     static Token currentToken;
     static Stack<Token> tokenStack;
+    static int currentPosition;
 
-    public static Formula parse(Stack<Token> input) {
+    public static Formula parse(Stack<Token> input) throws ParserException {
         tokenStack = input;
         currentToken = input.pop();
+        currentPosition = 0;
         Formula f = alpha();
         return removeSugar(f);
     }
@@ -19,7 +21,8 @@ public class Parser {
     private static void eat(Token.Type t) {
         if (t == currentToken.getType()) {
             currentToken = tokenStack.pop();
-        }
+            currentPosition++;
+        } else throw new AssertionError("Parse error: eat: unexpected Token type");
     }
 
     private static Formula removeSugar(Formula f) {
@@ -73,16 +76,12 @@ public class Parser {
                     returnFormula = new Formula(new Formula(TRUE), NOT);
                     break;
                 default:
-                    //TODO: error
+                    throw new AssertionError("Connective " + f.c + " not accounted for");
             }
         return returnFormula;
     }
 
-
-
-
-    private static Formula alpha() {
-        System.out.println("ALPHA");
+    private static Formula alpha() throws ParserException {
         Formula betaF = null;
         Formula f = null;
         switch (currentToken.getType()) {
@@ -100,15 +99,14 @@ public class Parser {
                 f = alpha2(betaF);
                 break;
             default:
-                //TODO: error
+                throw new ParserException("Syntax error: expected alpha production, but received a token of type "
+                        + currentToken.getType() + " at input position " + currentPosition +
+                        ". Can only alpha-produce with one of: atom, 1, 0, ~, X, A, E, F, G, and (.");
         }
-        System.out.println("ALPHA FORMULA");
-        f.print();
         return f;
     }
 
-    private static Formula alpha2(Formula betaF) {
-        System.out.println("ALPHA2");
+    private static Formula alpha2(Formula betaF) throws ParserException {
         Formula betaF2 = null;
         Formula alpha2F = null;
         Formula f = null;
@@ -127,18 +125,14 @@ public class Parser {
                 f = betaF;
                 break;
             default:
-                //TODO: error
+                throw new ParserException("Syntax error: expected alpha2 production, but received a token of type "
+                        + currentToken.getType() + " at input position " + currentPosition +
+                        ". Can only alpha2-produce with one of: =, ), or the end of input.");
         }
-        System.out.println("ALPHA2 FORMULA");
-        if (f != null) {
-            f.print();
-        }
-        f.print();
         return f;
     }
 
-    private static Formula beta() {
-        System.out.println("BETA");
+    private static Formula beta() throws ParserException {
         Formula gammaF = null;
         Formula f = null;
         switch (currentToken.getType()) {
@@ -156,21 +150,17 @@ public class Parser {
                 f = beta2(gammaF);
                 break;
             default:
-                //TODO: error
+                throw new ParserException("Syntax error: expected beta production, but received a token of type "
+                        + currentToken.getType() + " at input position " + currentPosition +
+                        ". Can only beta-produce with one of: atom, 1, 0, ~, X, A, E, F, G, and (.");
         }
-        System.out.println("BETA FORMULA");
-        f.print();
         return f;
     }
 
-    private static Formula beta2(Formula gammaF) {
-        System.out.println("BETA2");
+    private static Formula beta2(Formula gammaF) throws ParserException {
         Formula gammaF2 = null;
         Formula beta2F = null;
         Formula f = null;
-        System.out.println("TOKEN");
-        System.out.println(currentToken.getType());
-        System.out.println("TOKEN");
         switch (currentToken.getType()) {
             case IFTHEN:
                 eat(Token.Type.IFTHEN);
@@ -187,18 +177,14 @@ public class Parser {
                 f = gammaF;
                 break;
             default:
-                //TODO: error
+                throw new ParserException("Syntax error: expected beta2 production, but received a token of type "
+                        + currentToken.getType() + " at input position " + currentPosition +
+                        ". Can only beta2-produce with one of: >, =, ), or the end of input.");
         }
-        System.out.println("BETA2 FORMULA");
-        if (f != null) {
-            f.print();
-        }
-        f.print();
         return f;
     }
 
-    private static Formula gamma() {
-        System.out.println("GAMMA");
+    private static Formula gamma() throws ParserException {
         Formula deltaF = null;
         Formula f = null;
         switch (currentToken.getType()) {
@@ -216,15 +202,14 @@ public class Parser {
                 f = gamma2(deltaF);
                 break;
             default:
-                //TODO: error
+                throw new ParserException("Syntax error: expected gamma production, but received a token of type "
+                        + currentToken.getType() + " at input position " + currentPosition +
+                        ". Can only gamma-produce with one of: atom, 1, 0, ~, X, A, E, F, G, and (.");
         }
-        System.out.println("GAMMA FORMULA");
-        f.print();
         return f;
     }
 
-    private static Formula gamma2(Formula deltaF) {
-        System.out.println("GAMMA2");
+    private static Formula gamma2(Formula deltaF) throws ParserException {
         Formula deltaF2 = null;
         Formula gamma2F = null;
         Formula f = null;
@@ -245,17 +230,14 @@ public class Parser {
                 f = deltaF;
                 break;
             default:
-                //TODO: error
-        }
-        System.out.println("GAMMA2 FORMULA");
-        if (f != null) {
-            f.print();
+                throw new ParserException("Syntax error: expected gamma2 production, but received a token of type "
+                        + currentToken.getType() + " at input position " + currentPosition +
+                        ". Can only gamma2-produce with one of: |, >, =, ), or the end of input.");
         }
         return f;
     }
 
-    private static Formula delta() {
-        System.out.println("DELTA");
+    private static Formula delta() throws ParserException {
         Formula zetaF = null;
         Formula f = null;
         switch (currentToken.getType()) {
@@ -273,15 +255,14 @@ public class Parser {
                 f = delta2(zetaF);
                 break;
             default:
-                //TODO: error
+                throw new ParserException("Syntax error: expected delta production, but received a token of type "
+                        + currentToken.getType() + " at input position " + currentPosition +
+                        ". Can only delta-produce with one of: atom, 1, 0, ~, X, A, E, F, G, and (.");
         }
-        System.out.println("DELTA FORMULA");
-        f.print();
         return f;
     }
 
-    private static Formula delta2(Formula zetaF) {
-        System.out.println("DELTA2");
+    private static Formula delta2(Formula zetaF) throws ParserException {
         Formula zetaF2 = null;
         Formula delta2F = null;
         Formula f = null;
@@ -303,17 +284,14 @@ public class Parser {
                 f = zetaF;
                 break;
             default:
-                //TODO: error
-        }
-        System.out.println("DELTA2 FORMULA");
-        if (f != null) {
-            f.print();
+                throw new ParserException("Syntax error: expected delta2 production, but received a token of type "
+                        + currentToken.getType() + " at input position " + currentPosition +
+                        ". Can only delta2-produce with one of: &, >, =, ), or the end of input.");
         }
         return f;
     }
 
-    private static Formula zeta() {
-        System.out.println("ZETA");
+    private static Formula zeta() throws ParserException {
         Formula etaF = null;
         Formula f = null;
         switch (currentToken.getType()) {
@@ -331,15 +309,14 @@ public class Parser {
                 f = zeta2(etaF);
                 break;
             default:
-                //TODO: error
+                throw new ParserException("Syntax error: expected zeta production, but received a token of type "
+                        + currentToken.getType() + " at input position " + currentPosition +
+                        ". Can only zeta-produce with one of: atom, 1, 0, ~, X, A, E, F, G, and (.");
         }
-        System.out.println("ZETA FORMULA");
-        f.print();
         return f;
     }
 
-    private static Formula zeta2(Formula etaF) {
-        System.out.println("ZETA2");
+    private static Formula zeta2(Formula etaF) throws ParserException {
         Formula etaF2 = null;
         Formula zeta2F = null;
         Formula f = null;
@@ -362,18 +339,14 @@ public class Parser {
                 f = etaF;
                 break;
             default:
-                System.out.println("ERROR");
-                //TODO: error
-        }
-        System.out.println("ZETA2 FORMULA");
-        if (f != null) {
-            f.print();
+                throw new ParserException("Syntax error: expected zeta2 production, but received a token of type "
+                        + currentToken.getType() + " at input position " + currentPosition +
+                        ". Can only zeta2-produce with one of: U, >, =, ), or the end of input.");
         }
         return f;
     }
 
-    private static Formula eta() {
-        System.out.println("ETA");
+    private static Formula eta() throws ParserException {
         Formula etaF = null;
         Formula f = null;
         switch (currentToken.getType()) {
@@ -414,15 +387,14 @@ public class Parser {
                 f = new Formula(etaF, G);
                 break;
             default:
-                //TODO: error
+                throw new ParserException("Syntax error: expected eta production, but received a token of type "
+                        + currentToken.getType() + " at input position " + currentPosition +
+                        ". Can only eta-produce with one of: atom, 1, 0, ~, X, A, E, F, G, and (.");
         }
-        System.out.println("ETA FORMULA");
-        f.print();
         return f;
     }
 
-    private static Formula theta() {
-        System.out.println("THETA");
+    private static Formula theta() throws ParserException {
         Formula f = null;
         switch (currentToken.getType()) {
             case ATOM:
@@ -443,10 +415,10 @@ public class Parser {
                 eat(Token.Type.RB);
                 break;
             default:
-                //TODO: error
+                throw new ParserException("Syntax error: expected theta production, but received a token of type "
+                        + currentToken.getType() + " at input position " + currentPosition +
+                        ". Can only theta-produce with one of: atom, 1, 0, and (.");
         }
-        System.out.println("THETA FORMULA");
-        f.print();
         return f;
     }
 }

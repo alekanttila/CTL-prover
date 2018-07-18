@@ -1,21 +1,17 @@
 package Prover;
 
-import java.util.List;
-import java.util.Scanner;
 import java.util.Stack;
 import java.util.regex.Pattern;
 
 public class Lexer {
 
-    private Stack<Token> tokenStack = new Stack<Token>();
+    private static Stack<Token> tokenStack = new Stack<Token>();
 
-    public Stack<Token> scan() {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+    public static Stack<Token> scan(String input) throws LexerException {
+        tokenStack.clear();
         tokenStack.push(new Token(Token.Type.END));
 
         for (int i = input.length() - 1; i >= 0; i--) {
-            System.out.println("testing " + input.charAt(i));
             switch (input.charAt(i)) {
                 case '~':
                 case '¬':
@@ -74,24 +70,22 @@ public class Lexer {
                     break;
                 default:
                     if (Pattern.matches("[a-z]", input.substring(i,i+1))) {
-                        System.out.println("match " + input.substring(i, i + 1));
                         tokenStack.add(new Token(Token.Type.ATOM, input.substring(i, i + 1)));
                         break;
                     } else if (Pattern.matches("[ \t\f\r\n]", input.substring(i,i+1))) {
                         break;
                     } else {
-                        System.out.println("Scan error");
-                        System.err.println("Scan error");
+                        throw new LexerException("Invalid input character " + input.charAt(i) + " at input position "
+                        + i);
                     }
             }
         }
-        System.out.println(input);
         return tokenStack;
     }
 
-    public void printTokenList() {
+    public static void printTokenList() {
         System.out.println("Printing token list:");
-        for (Token t: this.tokenStack) {
+        for (Token t: tokenStack) {
             System.out.println(t.getType() + " " + t.getId());
         }
         System.out.println();

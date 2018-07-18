@@ -8,6 +8,7 @@ import static Prover.Formula.Connective.*;
 
 public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
 
+    //protected final Map<Hue, String> hueNames;
     protected boolean[][] rX;
     protected boolean[][] rA;
     protected TreeSet<HueSet> rAClasses;
@@ -42,9 +43,6 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
     public HueSet(Formula f) {
         FormulaSet closure = f.getClosure();
         this.addAll(getHueSet(closure, closure));
-        this.generateNames();
-        this.rX = this.generateRX();
-        this.rA = this.generateRA();
     }
 
     public static HueSet getHueSet(FormulaSet closureConst, FormulaSet closureNonConst) {
@@ -230,22 +228,6 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
             }
         }
         return result;
-    }
-
-    public static void printRelation(boolean[][] r) {
-        boolean printed = false;
-        for (int i = 0; i <  r.length; i++) {
-            for (int j = 0; j < r[i].length; j++) {
-                if (r[i][j]) {
-                    System.out.print("h" + i + "r" + "h" + j + " ");
-                    printed = true;
-                }
-            }
-            if (printed) {
-                System.out.println();
-                printed = false;
-            }
-        }
     }
 
     //does not use generateRA

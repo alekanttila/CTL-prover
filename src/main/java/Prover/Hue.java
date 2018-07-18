@@ -1,10 +1,14 @@
 package Prover;
 
+import javax.swing.text.html.HTMLDocument;
 import java.util.*;
 
 import static Prover.Formula.Connective.*;
 
 public class Hue extends FormulaSet {
+
+    //TODO: immutability
+    //private final FormulaSet members;
 
     //names are given in the context of some HueSet, and should
     //not be relied upon for uniquess or comparisons outside the HueSet
@@ -30,13 +34,13 @@ public class Hue extends FormulaSet {
                     }
                     break;
                 case U: //R3
-                    if (this.contains(new Formula(f.sf2, NOT)) && (h.contains(f))) {
+                    if (this.contains(new Formula(f.sf2, NOT)) && !h.contains(f)) {
                         result = false;
                         break A;
                     }
                     break;
                 case NOT:
-                    if (f.sf1.c == X && !h.contains(new Formula(f.sf1.sf1, NOT))) { //R2
+                    if (f.sf1.c == X && !h.contains(new Formula(f.sf1.sf1, NOT))) { //R2 //note: negated not needed here
                         result = false;
                         break A;
                     } else if (f.sf1.c == U && this.contains(f.sf1.sf1) && !h.contains(f)) { //R4
@@ -84,6 +88,36 @@ public class Hue extends FormulaSet {
             }
         }
         return result;
+    }
+
+    //hues are immutable
+    @Override
+    public boolean add(Formula e) {
+        //TODO: error!
+        return false;
+    }
+
+    @Override
+    public boolean addAll(Collection e) {
+        //TODO: error!
+        return false;
+    }
+
+    @Override
+    public boolean remove(Object e) {
+        //TODO: error!
+        return false;
+    }
+
+    @Override
+    public boolean removeAll(Collection c) {
+        //TODO: error!
+        return false;
+    }
+
+    @Override
+    public void clear() {
+        //TODO: error!
     }
 
 

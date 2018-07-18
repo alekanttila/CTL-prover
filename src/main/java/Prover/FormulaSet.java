@@ -1,5 +1,6 @@
 package Prover;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeSet;
@@ -154,55 +155,6 @@ public class FormulaSet extends TreeSet<Formula> implements Comparable<FormulaSe
         }
         System.out.print(" }");
     }
-
-    /*
-    public static void printSet(TreeSet<FormulaSet> sFS) {
-        System.out.println("{");
-        Iterator<FormulaSet> i = sFS.iterator();
-        int counter = 0;
-        while (i.hasNext()) {
-            FormulaSet fS = i.next();
-            System.out.print(counter + ": ");
-            fS.print();
-            if (counter != fS.size()) {
-                System.out.println(",");
-                counter++;
-            }
-        }
-        System.out.println("}");
-    }
-
-    public static void sugarPrintSet(TreeSet<FormulaSet> sFS) {
-        System.out.println("{");
-        Iterator<FormulaSet> i = sFS.iterator();
-        int counter = 0;
-        while (i.hasNext()) {
-            FormulaSet fS = i.next();
-            System.out.print(counter + ": ");
-            fS.sugarPrint();
-            if (counter != fS.size()) {
-                System.out.println(",");
-                counter++;
-            }
-        }
-        System.out.println("}");
-    }
-
-    public static void sugarPrintSet(TreeSet<FormulaSet> sFS, Map<Formula, String> formulaeNames) {
-        System.out.println("{");
-        Iterator<FormulaSet> i = sFS.iterator();
-        int counter = 0;
-        while (i.hasNext()) {
-            FormulaSet fS = i.next();
-            System.out.print(counter + ": ");
-            fS.sugarPrint(formulaeNames);
-            if (counter != fS.size()) {
-                System.out.println(",");
-                counter++;
-            }
-        }
-        System.out.println("}");
-    }*/
 
     public static TreeSet<FormulaSet> getPowerSet(FormulaSet input) {
         //we don't want to manipulate the original set;

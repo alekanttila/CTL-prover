@@ -4,16 +4,29 @@
 
     import static Prover.Colour.getColours;
     import static Prover.HueSet.getHueSet;
-    import static Prover.HueSet.printRelation;
+    import static Prover.Misc.printRelation;
 
     public class Main {
     public static void main(String args[]){
+        //TextMenu.start();
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
         System.out.println("START");
         Lexer lexer = new Lexer();
-        Stack<Token> stack = lexer.scan();
+        Stack<Token> stack = null;
+        try {
+            stack = lexer.scan(input);
+        } catch (LexerException e) {
+
+        }
         lexer.printTokenList();
         Parser parser = new Parser();
-        Formula f = parser.parse(stack);
+        Formula f = null;
+        try {
+            f = parser.parse(stack);
+        } catch (ParserException e) {
+
+        }
         System.out.println();
         System.out.println("/////////////");
         f.print();
@@ -40,21 +53,22 @@
         f.sugarPrint(names);
         System.out.println();
         hues.generateNames();
-        printRelation(hues.generateRX());
+        printRelation(hues.generateRX(), "h", "rX");
         System.out.println();
-        printRelation(hues.generateRA());
+        printRelation(hues.generateRA(), "h", "rA");
         TreeSet<HueSet> rAClasses = hues.getRAClasses();
         System.out.println(rAClasses.size());
         for (HueSet s : rAClasses) {
             s.sugarPrint();
         }
-        TreeSet<Colour> colours = getColours(hues);
+        ColourSet colours = getColours(hues);
         System.out.println("COLOURS");
         for (Colour c : colours) {
             c.sugarPrint();
         }
         Hue empty = new Hue();
         System.out.println(colours.size());
-
+        printRelation(colours.generateRX(),"c", "RX");
+        System.out.println(hues.first().rX(hues.first()));
     }
 }

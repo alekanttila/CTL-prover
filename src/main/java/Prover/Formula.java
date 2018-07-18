@@ -253,7 +253,7 @@ public class Formula implements Comparable<Formula>{
     public FormulaSet getClosure() {
         FormulaSet returnSet = new FormulaSet();
         returnSet.add(this);
-        //note: getClosure is a syntactic notion, so ~φ gets added even if φ≡~χ
+        //note: closure is a syntactic notion, so ~φ gets added even if φ≡~χ
         returnSet.add(new Formula(this, NOT));
 
         switch (this.getArity()) {
@@ -344,6 +344,7 @@ public class Formula implements Comparable<Formula>{
         }
     }
 
+    //TODO: note in report that sugarprint not necessarily same as original (eg theta1)
     public void sugarPrint() {
         switch (this.sugarTest()) {
             case ATOM:
