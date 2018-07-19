@@ -8,26 +8,15 @@ import static Prover.Formula.Connective.*;
 
 public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
 
-    //protected final Map<Hue, String> hueNames;
-    protected boolean[][] rX;
-    protected boolean[][] rA;
-    protected TreeSet<HueSet> rAClasses;
     protected FormulaSet instantiables = new FormulaSet();
 
     public HueSet() {
         super();
     }
 
-    public HueSet(TreeSet<FormulaSet> formulaSetSet) {
-        for (FormulaSet fS: formulaSetSet) {
-            Hue h = new Hue(fS);
-            this.add(h);
-        }
-    }
-
     public HueSet(Formula f) {
         FormulaSet closure = f.getClosure();
-        this.addAll(getHueSet(closure));
+        this.addAll(getAllHues(closure));
     }
 
     //@Override
@@ -53,14 +42,21 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         return result;
     }
 
-    public static HueSet getHueSet(FormulaSet closure) {
-        TreeSet<FormulaSet> mutableHues = getHueSet(closure, closure);
-        HueSet immutableHues = new HueSet(mutableHues);
+    public static HueSet getAllHues(FormulaSet closure) {
+        TreeSet<FormulaSet> mutableHues = getAllHues(closure, closure);
+        HueSet immutableHues = new HueSet();
+        //name the hues in the context of this complete set of hues
+        int counter = 0;
+        for (FormulaSet fS : mutableHues) {
+            Hue h = new Hue(fS, counter);
+            immutableHues.add(h);
+            counter++;
+        }
         return immutableHues;
     }
 
     //auxiliary method: uses FormulaSets for mutability and two copies of closures for convenience
-    public static TreeSet<FormulaSet> getHueSet(FormulaSet closureConst, FormulaSet closureNonConst) {
+    public static TreeSet<FormulaSet> getAllHues(FormulaSet closureConst, FormulaSet closureNonConst) {
         //we keep passing the original getClosure to perform containment
         //checks, and use a copy that we manipulate to build the hue
         //closureCopy copied here so we can just pass getClosure for convenience
@@ -78,7 +74,7 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         if (!closureCopy.isEmpty()) {
             Formula f = closureCopy.last();
             closureCopy.remove(f);
-            TreeSet<FormulaSet> previousHues = getHueSet(closureConst, closureCopy);
+            TreeSet<FormulaSet> previousHues = getAllHues(closureConst, closureCopy);
             Iterator<FormulaSet> i = previousHues.iterator();
             //if we branched on f.c within the following while loops, we could combine
             //them into one and reduce the amount of code considerably, but we would also
@@ -189,23 +185,7 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         return partialHues;
     }
 
-    public boolean namesSet = false;
-
-    public void generateNames() {
-        Iterator<Hue> i = this.iterator();
-        int counter = 0;
-        while (i.hasNext()) {
-            Hue h = i.next();
-            h.name = "h" + counter;
-            counter++;
-        }
-        this.namesSet = true;
-    }
-
     public boolean[][] generateRX() {
-        if (!this.namesSet) {
-            this.generateNames();
-        }
         boolean[][] result = new boolean[this.size()][this.size()];
         Iterator<Hue> i = this.iterator();
         while (i.hasNext()) {
@@ -225,9 +205,6 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
     }
 
     public boolean[][] generateRA() {
-        if (!this.namesSet) {
-            this.generateNames();
-        }
         boolean[][] result = new boolean[this.size()][this.size()];
         Iterator<Hue> i = this.iterator();
         while (i.hasNext()) {
@@ -269,6 +246,33 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
             }
             foundHues.add(h);
             result.add(hClass);
+        }
+        return result;
+    }
+
+    public HueSet getHueSuccessors(Hue h) {
+        //check if resultset contains first
+        boolean[][] rX = generateRX();
+        HueSet result = new HueSet();
+        int index = h.getIndex();
+        for (int i = 0; i < index; i++) {
+            if (rX[index][i]) {
+                result.add(getHue(i));
+            }
+        }
+        return result;
+    }
+
+    public Hue getHue(int index) {
+        return getHue("h" + index);
+    }
+
+    public Hue getHue(String name) {
+        Hue result = null;
+        for (Hue h : this) {
+            if (h.name.compareTo(name) == 0) {
+                result = h;
+            }
         }
         return result;
     }

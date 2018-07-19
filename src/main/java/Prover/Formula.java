@@ -5,7 +5,6 @@ import java.util.Objects;
 
 import static Prover.Formula.Arity.*;
 import static Prover.Formula.Connective.*;
-import static Prover.HueSet.getHueSet;
 
 public class Formula implements Comparable<Formula>{
 
@@ -72,6 +71,7 @@ public class Formula implements Comparable<Formula>{
     //store length to avoid recursive calculations;
     // easy to keep track of when constructing
     protected final int length;
+    public ResultSet results;
 
     //CONSTRUCTORS
 
@@ -110,6 +110,11 @@ public class Formula implements Comparable<Formula>{
         this.c = c2;
         this.id = null;
         this.length = 1;
+    }
+
+    public void createResultSet() {
+        this.results = new ResultSet();
+        results.setFormula(this);
     }
 
     //METHODS
@@ -270,13 +275,38 @@ public class Formula implements Comparable<Formula>{
             default:
                 //TODO:error
         }
+
         return returnSet;
     }
 
-    public HueSet getHues() {
+    public void setClosure() {
         FormulaSet closure = this.getClosure();
-        return getHueSet(closure);
+        if (results == null) {
+            createResultSet();
+        }
+        this.results.setClosure(closure);
     }
+
+    public HueSet getHueSet() {
+        FormulaSet closure;
+        if (results != null && results.getClosure() != null) {
+            closure = results.getClosure();
+        } else {
+            closure = this.getClosure();
+        }
+        return HueSet.getAllHues(closure);
+    }
+
+    public void setHueSet() {
+        HueSet hueSet = this.getHueSet();
+        if (results == null) {
+            createResultSet();
+        }
+        this.results.setHueSet(hueSet);
+    }
+
+
+
 
     public Connective sugarTest() {
         Connective result = null;

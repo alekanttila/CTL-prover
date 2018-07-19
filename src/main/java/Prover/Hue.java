@@ -14,14 +14,11 @@ public class Hue extends FormulaSet {
     //not be relied upon for uniquess or comparisons outside the HueSet
     //FormulaSet (and hence Hue) equality is defined in terms of member Formula equality.
     //Hues with the same members but different names are the same hue (to the equals method)
-    protected String name;
+    protected final String name;
 
-    public Hue() {
-        super();
-    }
-
-    public Hue(FormulaSet fS) {
+    public Hue(FormulaSet fS, int index) {
         super.addAll(fS);
+        this.name = "h " + index;
     }
 
     public int getIndex() {

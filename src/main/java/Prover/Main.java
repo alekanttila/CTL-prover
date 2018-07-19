@@ -2,8 +2,7 @@
 
     import java.util.*;
 
-    import static Prover.Colour.getColours;
-    import static Prover.HueSet.getHueSet;
+    import static Prover.ColourSet.getAllColours;
     import static Prover.Misc.printRelation;
 
     public class Main {
@@ -34,7 +33,7 @@
         System.out.println("///////////////");
         System.out.println("FINIIISH");
         FormulaSet closure = f.getClosure();
-        HueSet hues = getHueSet(closure);
+        HueSet hues = HueSet.getAllHues(closure);
         Map<Formula, String> names = new HashMap<Formula, String>();
         names.put(f, "φ");
         System.out.println("HUE");
@@ -52,23 +51,22 @@
         System.out.println("getClosure done");
         f.sugarPrint(names);
         System.out.println();
-        hues.generateNames();
         printRelation(hues.generateRX(), "h", "rX");
         System.out.println();
         printRelation(hues.generateRA(), "h", "rA");
         TreeSet<HueSet> rAClasses = hues.getRAClasses();
         System.out.println(rAClasses.size());
-        for (HueSet s : rAClasses) {
-            s.sugarPrint();
-        }
-        ColourSet colours = getColours(hues);
+        //for (HueSet s : rAClasses) {
+        //    s.sugarPrint();
+        //}
+        ColourSet colours = getAllColours(hues);
         System.out.println("COLOURS");
-        for (Colour c : colours) {
-            c.sugarPrint();
-        }
-        Hue empty = new Hue();
+        //for (Colour c : colours) {
+        //    c.sugarPrint();
+        //}
+        //Hue empty = new Hue();
         System.out.println(colours.size());
-        printRelation(colours.generateRX(),"c", "RX");
-        System.out.println(hues.first().rX(hues.first()));
+        //printRelation(colours.generateRX(),"c", "RX");
+        //System.out.println(hues.first().rX(hues.first()));
     }
 }

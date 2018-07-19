@@ -51,7 +51,7 @@ public class Parser {
     private final String[][] pTable = new String[19][13];
     private Stack<Object> stack;
     private final Map<Token.Type, Integer> indexMap = new HashMap<Token.Type, Integer>();
-    private Formula f;
+    private Formula formula;
 
     public void Parser() {
 
