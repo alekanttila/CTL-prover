@@ -15,13 +15,11 @@ public class Tableau {
     private int steps = 0;
     private int maxSteps = -1;
     private final Formula f;
-    private final ColourSet allColours;
-    private final HueSet allHues;
 
     //private final ColourSet colours;
     private final int maxBranchLength;
 
-    private class Node {
+    class Node {
         private Map<Integer, Node> successors;
         //note: must order colour!
         private final Colour z;
@@ -51,6 +49,7 @@ public class Tableau {
                 this.ancestors.add(this);
                 this.branchLength = 1;
             }
+            this.successors = new HashMap<Integer, Node>();
         }
        /*
         //custom node creation
@@ -88,8 +87,6 @@ public class Tableau {
         //TODO: check result set
         this.f = f;
         //TODO: remove duplication (since these in result set)???
-        this.allColours = f.results.getColourSet();
-        this.allHues = f.results.getHueSet();
         this.maxBranchLength = 1000;//TODO: replace
     }
 
@@ -115,11 +112,15 @@ public class Tableau {
 
     public ExtendResult solve() {
         ExtendResult result = null;
-        ColourSet fColours = allColours.getColoursWithF(f);
+        ColourSet fColours = f.getFColours();
+        if (fColours.isEmpty()) {
+           result = ExtendResult.FAILURE;
+        }
         A:
         for (Colour c : fColours) {
             for (Hue h : c) {
                 root = new Node(c, h, null);
+                System.out.println("creating root with first hue " + h.name);
                 switch (extend(root)) {
                     case SUCCESS:
                         result = ExtendResult.SUCCESS;
@@ -144,16 +145,19 @@ public class Tableau {
 
     private ExtendResult extend(Node n) {
         ExtendResult result = null;
-        if (steps <= maxSteps) {
+        if (maxSteps == -1 || steps <= maxSteps) {
             if (upLinkCheck(n)) {
+                System.out.println("uplinkcheck ok");
                 steps++;
                 result = ExtendResult.SUCCESS;
             } else if (n.branchLength <= maxBranchLength) {
-                ColourSet successorColours = allColours.getColourSuccessors(n.z);
+                System.out.println("adding leaves");
+                ColourSet successorColours = f.getAllColours().getColourSuccessors(n.z);
                 A:
                 //iterating through zOrder in key order
                 for (Hue h : n.zOrder) {
-                    HueSet successorHues = allHues.getHueSuccessors(h);
+                    System.out.println("adding leaves for " + h.name);
+                    HueSet successorHues = f.getAllHues().getHueSuccessors(h);
                     B:
                     for (Colour c : successorColours) {
                         for (Hue s : successorHues) {
@@ -200,6 +204,7 @@ public class Tableau {
     public boolean upLinkCheck(Node node) {
         boolean result = false;
         for (Hue h : node.zOrder) {
+            System.out.println("uplinkcheck for " + h.name);
             for (Node a : node.ancestors) {
                 if (h.rX(a.zOrder.get(0))) {
                     //check LG

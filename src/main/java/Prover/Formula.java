@@ -1,7 +1,6 @@
 package Prover;
 
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 import static Prover.Formula.Arity.*;
 import static Prover.Formula.Connective.*;
@@ -117,11 +116,18 @@ public class Formula implements Comparable<Formula>{
         results.setFormula(this);
     }
 
+    public void setInitialResults(String originalInput, Stack<Token> tokenStack) {
+        if (this.results == null) {
+            createResultSet();
+        }
+        this.results.setOriginalFormula(originalInput);
+        this.results.setTokenStack(tokenStack);
+    }
+
     //METHODS
 
     //note: this ensures sets work correctly!
-    //only properly works on sugar-free formulae
-    //TODO: override hashcode
+    //only properly works on sugar-free formulae (think more, maybe remove this)
     //TODO: check nulls!
     @Override
     public boolean equals(Object o) {
@@ -255,58 +261,145 @@ public class Formula implements Comparable<Formula>{
         return result;
     }
 
-    public FormulaSet getClosure() {
-        FormulaSet returnSet = new FormulaSet();
-        returnSet.add(this);
-        //note: closure is a syntactic notion, so ~φ gets added even if φ≡~χ
-        returnSet.add(new Formula(this, NOT));
-
-        switch (this.getArity()) {
-            case BINARY:
-                returnSet.addAll(this.sf1.getClosure());
-                returnSet.addAll(this.sf2.getClosure());
-                break;
-            case UNARY:
-                returnSet.addAll(this.sf1.getClosure());
-                break;
-            case ATOMIC:
-            case BOOL:
-                break;
-            default:
-                //TODO:error
-        }
-
-        return returnSet;
-    }
-
-    public void setClosure() {
-        FormulaSet closure = this.getClosure();
-        if (results == null) {
-            createResultSet();
-        }
-        this.results.setClosure(closure);
-    }
-
-    public HueSet getHueSet() {
-        FormulaSet closure;
-        if (results != null && results.getClosure() != null) {
-            closure = results.getClosure();
+    public Map<Formula, String> getFormulaNames() {
+        Map<Formula, String> result;
+        if (results != null && results.getFormulaNames()!= null) {
+            result = results.getFormulaNames();
         } else {
-            closure = this.getClosure();
+            result = new HashMap<Formula, String>();
         }
-        return HueSet.getAllHues(closure);
+        return result;
     }
 
-    public void setHueSet() {
-        HueSet hueSet = this.getHueSet();
+    public void addFormulaName(Formula f, String name) {
         if (results == null) {
             createResultSet();
         }
-        this.results.setHueSet(hueSet);
+        results.addFormulaName(f, name);
     }
 
+    public FormulaSet getClosure() {
+        FormulaSet result;
+        if (results != null && results.getClosure() != null) {
+            result = results.getClosure();
+        } else {
+            result = new FormulaSet();
+            result.add(this);
+            //note: closure is a syntactic notion, so ~φ gets added even if φ≡~χ
+            result.add(new Formula(this, NOT));
 
+            switch (this.getArity()) {
+                case BINARY:
+                    result.addAll(this.sf1.getClosure());
+                    result.addAll(this.sf2.getClosure());
+                    break;
+                case UNARY:
+                    result.addAll(this.sf1.getClosure());
+                    break;
+                case ATOMIC:
+                case BOOL:
+                    break;
+                default:
+                    //TODO:error
+            }
+            if (results == null) {
+                createResultSet();
+            }
+            results.setClosure(result);
+        }
+        return result;
+    }
 
+    public HueSet getAllHues() {
+        HueSet result;
+        if (results != null && results.getAllHues() != null) {
+            result = results.getAllHues();
+        } else {
+            FormulaSet closure = this.getClosure();
+            result = HueSet.getAllHues(closure);
+            results.setAllHues(result);
+        }
+        return result;
+    }
+
+    public boolean[][] getHueRX() {
+        boolean[][] result;
+        if (results != null && results.getHueRX() != null) {
+            result = results.getHueRX();
+        } else {
+            HueSet hueSet = getAllHues();
+            result = hueSet.getRX();
+            results.setHueRX(result);
+        }
+        return result;
+    }
+
+    public boolean[][] getRA() {
+        boolean[][] result;
+        if (results != null && results.getRA() != null) {
+            result = results.getRA();
+        } else {
+            HueSet hueSet = getAllHues();
+            result = hueSet.getRA();
+            results.setRA(result);
+        }
+        return result;
+    }
+
+    public TreeSet<HueSet> getRAClasses() {
+        TreeSet<HueSet> result;
+        if (results != null && results.getRAClasses() != null) {
+            result = results.getRAClasses();
+        } else {
+            HueSet hueSet = getAllHues();
+            result = hueSet.getRAClasses();
+            results.setRAClasses(result);
+        }
+        return result;
+    }
+
+    public ColourSet getAllColours() {
+        ColourSet result;
+        if (results != null && results.getAllColours() != null) {
+            result = results.getAllColours();
+        } else {
+            TreeSet<HueSet> rAClasses = getRAClasses();
+            result = ColourSet.getAllColours(rAClasses);
+            results.setAllColours(result);
+        }
+        return result;
+    }
+
+    public boolean[][] getColourRX() {
+        boolean[][] result;
+        if (results != null && results.getColourRX() != null) {
+            result = results.getColourRX();
+        } else {
+            boolean[][] hueRX;
+            if (results == null || results.getHueRX() == null) {
+                hueRX = getHueRX();
+            } else {
+                hueRX = results.getHueRX();
+            }
+            ColourSet colourSet = getAllColours();
+            colourSet.setHueRX(hueRX);
+            result = colourSet.getRX();
+            results.setColourRX(result);
+        }
+        return result;
+    }
+
+    public ColourSet getFColours() {
+        ColourSet result;
+        if (results != null && results.getFColours() != null) {
+            result = results.getFColours();
+        } else {
+            ColourSet colourSet = getAllColours();
+            result = colourSet.getColoursWithF(this);
+            results.setFColours(result);
+        }
+        return result;
+    }
 
     public Connective sugarTest() {
         Connective result = null;
@@ -374,71 +467,20 @@ public class Formula implements Comparable<Formula>{
         }
     }
 
-    //TODO: note in report that sugarprint not necessarily same as original (eg theta1)
     public void sugarPrint() {
-        switch (this.sugarTest()) {
-            case ATOM:
-                System.out.print(this.id);
-                break;
-            case TRUE:
-            case FALSE:
-                System.out.print(this.c.printString());
-                break;
-            case NOT:
-            case X:
-            case A:
-                System.out.print(this.c.printString());
-                this.sf1.sugarPrint();
-                break;
-            case AND:
-            case U:
-                System.out.print("(");
-                this.sf1.sugarPrint();
-                System.out.print(" " + this.c.printString() + " ");
-                this.sf2.sugarPrint();
-                System.out.print(")");
-                break;
-            case E:
-                System.out.print("E");
-                this.sf1.sf1.sf1.sugarPrint();
-                break;
-            case F:
-                System.out.print("F");
-                this.sf2.sugarPrint();
-                break;
-            case G:
-                System.out.print("G");
-                this.sf1.sf2.sf1.sugarPrint();
-                break;
-            case OR:
-                System.out.print("(");
-                this.sf1.sf1.sf1.sugarPrint();
-                System.out.print(" ∨ ");
-                this.sf1.sf2.sf1.sugarPrint();
-                System.out.print(")");
-                break;
-            case IFTHEN:
-                System.out.print("(");
-                this.sf1.sf1.sugarPrint();
-                System.out.print(" → ");
-                this.sf1.sf2.sf1.sugarPrint();
-                System.out.print(")");
-                break;
-            case IFF:
-                System.out.print("(");
-                this.sf1.sf1.sf1.sugarPrint();
-                System.out.print(" ↔ ");
-                this.sf2.sf1.sf1.sugarPrint();
-                System.out.print(")");
-                break;
-            default:
-                //TODO:error
+        Map<Formula, String> formulaNames;
+        if (results != null && results.getFormulaNames() != null) {
+            formulaNames = results.getFormulaNames();
+        } else {
+            formulaNames = new HashMap<Formula, String>();
         }
+        sugarPrint(formulaNames);
     }
 
+    //TODO: note in report that sugarprint not necessarily same as original (eg theta1)
     //TODO: check subformulae for names before applying sugar?
-    public void sugarPrint(Map<Formula, String> formulaeNames) {
-        String name = formulaeNames.get(this);
+    public void sugarPrint(Map<Formula, String> formulaNames) {
+        String name = formulaNames.get(this);
         if (name != null) {
             System.out.print(name);
             return;
@@ -455,47 +497,47 @@ public class Formula implements Comparable<Formula>{
             case X:
             case A:
                 System.out.print(this.c.printString());
-                this.sf1.sugarPrint(formulaeNames);
+                this.sf1.sugarPrint(formulaNames);
                 break;
             case AND:
             case U:
                 System.out.print("(");
-                this.sf1.sugarPrint(formulaeNames);
+                this.sf1.sugarPrint(formulaNames);
                 System.out.print(" " + this.c.printString() + " ");
-                this.sf2.sugarPrint(formulaeNames);
+                this.sf2.sugarPrint(formulaNames);
                 System.out.print(")");
                 break;
             case E:
                 System.out.print("E");
-                this.sf1.sf1.sf1.sugarPrint(formulaeNames);
+                this.sf1.sf1.sf1.sugarPrint(formulaNames);
                 break;
             case F:
                 System.out.print("F");
-                this.sf2.sugarPrint(formulaeNames);
+                this.sf2.sugarPrint(formulaNames);
                 break;
             case G:
                 System.out.print("G");
-                this.sf1.sf2.sf1.sugarPrint(formulaeNames);
+                this.sf1.sf2.sf1.sugarPrint(formulaNames);
                 break;
             case OR:
                 System.out.print("(");
-                this.sf1.sf1.sf1.sugarPrint(formulaeNames);
+                this.sf1.sf1.sf1.sugarPrint(formulaNames);
                 System.out.print(" ∨ ");
-                this.sf1.sf2.sf1.sugarPrint(formulaeNames);
+                this.sf1.sf2.sf1.sugarPrint(formulaNames);
                 System.out.print(")");
                 break;
             case IFTHEN:
                 System.out.print("(");
-                this.sf1.sf1.sugarPrint(formulaeNames);
+                this.sf1.sf1.sugarPrint(formulaNames);
                 System.out.print(" → ");
-                this.sf1.sf2.sf1.sugarPrint(formulaeNames);
+                this.sf1.sf2.sf1.sugarPrint(formulaNames);
                 System.out.print(")");
                 break;
             case IFF:
                 System.out.print("(");
-                this.sf1.sf1.sf1.sugarPrint(formulaeNames);
+                this.sf1.sf1.sf1.sugarPrint(formulaNames);
                 System.out.print(" ↔ ");
-                this.sf2.sf1.sf1.sugarPrint(formulaeNames);
+                this.sf2.sf1.sf1.sugarPrint(formulaNames);
                 System.out.print(")");
                 break;
             default:

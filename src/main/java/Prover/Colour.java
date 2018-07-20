@@ -8,7 +8,7 @@ public class Colour extends HueSet {
 
     public Colour(HueSet hS, int index) {
         super.addAll(hS);
-        this.name = "c + index";
+        this.name = "c" + index;
     }
 
     public int getIndex() {
@@ -18,39 +18,18 @@ public class Colour extends HueSet {
     public boolean rX(Colour c, boolean[][] hueRX) {
         boolean result = true;
         Iterator<Hue> i = c.iterator();
-        if (hueRX == null) {
-            A:
-            while (i.hasNext()) {
-                Hue h = i.next();
-                Iterator<Hue> i2 = c.iterator();
-                while (i2.hasNext()) {
-                    Hue h2 = i2.next();
-                    if (h2.rX(h)) {
-                        continue A;
-                    }
+        A:
+        while (i.hasNext()) {
+            Hue h = i.next();
+            for (boolean[] rXRow : hueRX) {
+                if (rXRow[h.getIndex()]) {
+                    continue A;
                 }
-                result = false;
-                break A;
             }
-        } else {
-            A:
-            while (i.hasNext()) {
-                Hue h = i.next();
-                for (boolean[] rXRow : hueRX) {
-                    if (rXRow[h.getIndex()]) {
-                        continue A;
-                    }
-                }
-                result = false;
-                break A;
-            }
+            result = false;
+            break A;
         }
         return result;
-    }
-
-    //optional args support:
-    public boolean rX(Colour c) {
-       return rX(c, null);
     }
 
     //colours are immutable
@@ -82,6 +61,7 @@ public class Colour extends HueSet {
     public void clear() {
         //TODO: error!
     }
+
 }
 
 

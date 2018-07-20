@@ -8,6 +8,9 @@ import static Prover.Formula.Connective.*;
 
 public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
 
+    private boolean[][] rX;
+    private boolean[][] rA;
+
     protected FormulaSet instantiables = new FormulaSet();
 
     public HueSet() {
@@ -185,7 +188,14 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         return partialHues;
     }
 
-    public boolean[][] generateRX() {
+    public boolean[][] getRX() {
+        if (this.rX == null) {
+            generateRX();
+        }
+        return this.rX;
+    }
+
+    public void generateRX() {
         boolean[][] result = new boolean[this.size()][this.size()];
         Iterator<Hue> i = this.iterator();
         while (i.hasNext()) {
@@ -201,10 +211,21 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
                 }
             }
         }
-        return result;
+        this.rX = result;
     }
 
-    public boolean[][] generateRA() {
+    public boolean rX(Hue h1, Hue h2) {
+        return getRX()[h1.getIndex()][h2.getIndex()];
+    }
+
+    public boolean[][] getRA() {
+        if (this.rA == null) {
+            generateRA();
+        }
+        return this.rA;
+    }
+
+    public void generateRA() {
         boolean[][] result = new boolean[this.size()][this.size()];
         Iterator<Hue> i = this.iterator();
         while (i.hasNext()) {
@@ -219,40 +240,37 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
                 }
             }
         }
-        return result;
+        this.rA = result;
     }
 
-    //does not use generateRA
+    public boolean rA(Hue h1, Hue h2) {
+        return getRA()[h1.getIndex()][h2.getIndex()];
+    }
+
     public TreeSet<HueSet> getRAClasses() {
         TreeSet<HueSet> result = new TreeSet<HueSet>();
-        Iterator<Hue> i = this.iterator();
         HueSet foundHues = new HueSet();
-        while (i.hasNext()) {
-            Hue h = i.next();
-            if (foundHues.contains(h)) {
+        boolean[][] rA = getRA();
+        for (int i = 0; i < rA.length; i++) {
+            if (foundHues.contains(getHue(i))) {
                 continue;
             }
             HueSet hClass = new HueSet();
-            Iterator<Hue> i2 = this.iterator();
-            while (i2.hasNext()) {
-                Hue h2 = i2.next();
-                if (foundHues.contains(h2)) {
-                    continue;
-                }
-                if (h.rA(h2)) {
-                    hClass.add(h2);
-                    foundHues.add(h2);
+            for (int j = 0; j < rA[i].length; j++) {
+                if (rA[i][j]) {
+                    //could check foundhues here as well, but the answer is in the matrix anyway
+                    Hue h = getHue(j);
+                    hClass.add(h);
+                    foundHues.add(h);
                 }
             }
-            foundHues.add(h);
             result.add(hClass);
         }
         return result;
     }
 
     public HueSet getHueSuccessors(Hue h) {
-        //check if resultset contains first
-        boolean[][] rX = generateRX();
+        boolean[][] rX = getRX();
         HueSet result = new HueSet();
         int index = h.getIndex();
         for (int i = 0; i < index; i++) {
@@ -267,6 +285,7 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         return getHue("h" + index);
     }
 
+    //should only be used when when iterating through all hues (for complexity reasons)
     public Hue getHue(String name) {
         Hue result = null;
         for (Hue h : this) {
@@ -276,6 +295,7 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         }
         return result;
     }
+
 
     public void sugarPrint() {
         System.out.println("{");
@@ -304,6 +324,19 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
             }
         }
         System.out.println();
-        System.out.println("}");
+        System.out.print("}");
+    }
+
+    public void huePrint() {
+        System.out.print("{");
+        Iterator<Hue> i = this.iterator();
+        while (i.hasNext()) {
+            Hue h = i.next();
+            System.out.print(h.name);
+            if (i.hasNext()) {
+                System.out.print(",");
+            }
+        }
+        System.out.print("}");
     }
 }

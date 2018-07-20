@@ -5,10 +5,7 @@ import java.util.*;
 
 import static Prover.Formula.Connective.*;
 
-public class Hue extends FormulaSet {
-
-    //TODO: immutability
-    //private final FormulaSet members;
+public class Hue extends PartialHue {
 
     //names are given in the context of some HueSet, and should
     //not be relied upon for uniquess or comparisons outside the HueSet
@@ -18,14 +15,15 @@ public class Hue extends FormulaSet {
 
     public Hue(FormulaSet fS, int index) {
         super.addAll(fS);
-        this.name = "h " + index;
+        this.name = "h" + index;
     }
 
     public int getIndex() {
         return Integer.parseInt(this.name.substring(1));
     }
 
-    public boolean rX(Hue h) {
+    //only to be used by HueSet
+    protected boolean rX(Hue h) {
         boolean result = true;
         Iterator<Formula> i = this.iterator();
         A:

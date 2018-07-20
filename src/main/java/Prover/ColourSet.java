@@ -1,18 +1,26 @@
 package Prover;
 
 import java.util.Iterator;
+import java.util.Map;
 import java.util.TreeSet;
 
 import static Prover.Formula.Connective.*;
 
 public class ColourSet extends TreeSet<Colour> {
 
-    private boolean namesSet = false;
+    private boolean[][] rX;
+    private boolean[][] hueRX;
 
+    /*
     public static ColourSet getAllColours(HueSet hS) {
+        TreeSet<HueSet> rAClasses = hS.getRAClasses();
+        return getAllColours(rAClasses);
+    }
+    */
+
+    public static ColourSet getAllColours(TreeSet<HueSet> rAClasses) {
         ColourSet result = new ColourSet();
         TreeSet<HueSet> uninstantiated = new TreeSet<HueSet>();
-        TreeSet<HueSet> rAClasses = hS.getRAClasses();
         Iterator<HueSet> classIterator = rAClasses.iterator();
         while (classIterator.hasNext()) {
             HueSet rAC = classIterator.next();
@@ -134,7 +142,30 @@ public class ColourSet extends TreeSet<Colour> {
         return result;
     }
 
-    public boolean[][] generateRX() {
+    public boolean[][] getRX() {
+        if (this.rX == null) {
+            if (this.hueRX == null) {
+                generateLocalHueRX();
+            }
+            generateRX(this.hueRX);
+        }
+        return this.rX;
+    }
+
+    //safety, in case hueRX has not been set
+    private void generateLocalHueRX() {
+        HueSet localHues =  new HueSet();
+        for (Colour c: this) {
+            localHues.addAll(c);
+        }
+        setHueRX(localHues.getRX());
+    }
+
+    public void setHueRX(boolean[][] hueRX) {
+        this.hueRX = hueRX;
+    }
+
+    public void generateRX(boolean[][] hueRX) {
         boolean[][] result = new boolean[this.size()][this.size()];
         Iterator<Colour> i = this.iterator();
         while (i.hasNext()) {
@@ -142,14 +173,14 @@ public class ColourSet extends TreeSet<Colour> {
             Iterator<Colour> i2 = this.iterator();
             while (i2.hasNext()) {
                 Colour c2 = i2.next();
-                if (c.rX(c2)) {
+                if (c.rX(c2, hueRX)) {
                     result[c.getIndex()][c2.getIndex()] = true;
                 } else {
                     result[c.getIndex()][c2.getIndex()] = false;
                 }
             }
         }
-        return result;
+        this.rX = result;
     }
 
     public ColourSet getColoursWithF(Formula f) {
@@ -167,8 +198,7 @@ public class ColourSet extends TreeSet<Colour> {
     }
 
     public ColourSet getColourSuccessors(Colour c) {
-        //check if resultset contains first
-        boolean[][] rX = generateRX();
+        boolean[][] rX = getRX();
         ColourSet result = new ColourSet();
         int index = c.getIndex();
         for (int i = 0; i < index; i++) {
@@ -193,4 +223,31 @@ public class ColourSet extends TreeSet<Colour> {
         return result;
     }
 
+    public void sugarPrint(Map<Formula, String> formulaNames) {
+        System.out.println("{");
+        Iterator<Colour> i = this.iterator();
+        while (i.hasNext()) {
+            Colour c = i.next();
+            System.out.print(c.name + ": ");
+            c.sugarPrint(formulaNames);
+            if (i.hasNext()) {
+                System.out.println(",");
+            }
+        }
+        System.out.println();
+        System.out.println("}");
+    }
+
+    public void huePrint() {
+        System.out.print("{");
+        Iterator<Colour> i = this.iterator();
+        while (i.hasNext()) {
+            Colour c = i.next();
+            System.out.print(c.name + ": ");
+            c.huePrint();
+            if (i.hasNext()) {
+                System.out.println(",");
+            }
+        }
+    }
 }

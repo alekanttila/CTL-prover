@@ -2,12 +2,11 @@
 
     import java.util.*;
 
-    import static Prover.ColourSet.getAllColours;
-    import static Prover.Misc.printRelation;
+    import static Prover.TextMenu.printRelation;
 
     public class Main {
     public static void main(String args[]){
-        //TextMenu.start();
+        TextMenu.start();
         Scanner scanner = new Scanner(System.in);
         String input = scanner.nextLine();
         System.out.println("START");
@@ -51,21 +50,21 @@
         System.out.println("getClosure done");
         f.sugarPrint(names);
         System.out.println();
-        printRelation(hues.generateRX(), "h", "rX");
+        //printRelation(hues.generateRX(), "h", "rX");
         System.out.println();
-        printRelation(hues.generateRA(), "h", "rA");
+        //printRelation(hues.generateRA(), "h", "rA");
         TreeSet<HueSet> rAClasses = hues.getRAClasses();
         System.out.println(rAClasses.size());
         //for (HueSet s : rAClasses) {
         //    s.sugarPrint();
         //}
-        ColourSet colours = getAllColours(hues);
+        //ColourSet colours = getAllColours(hues);
         System.out.println("COLOURS");
         //for (Colour c : colours) {
         //    c.sugarPrint();
         //}
         //Hue empty = new Hue();
-        System.out.println(colours.size());
+        //System.out.println(colours.size());
         //printRelation(colours.generateRX(),"c", "RX");
         //System.out.println(hues.first().rX(hues.first()));
     }
