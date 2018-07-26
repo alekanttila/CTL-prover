@@ -1,8 +1,8 @@
     package Prover;
 
-    import java.util.*;
+    import Prover.Formula.*;
 
-    import static Prover.TextMenu.printRelation;
+    import java.util.*;
 
     public class Main {
     public static void main(String args[]){
@@ -41,9 +41,9 @@
         System.out.println("getClosure:");
         int x = 0;
         for (FormulaSet s : hues) {
-            if (s.contains(new Formula(new Formula(Formula.Connective.TRUE), Formula.Connective.NOT))) {
+            //if (s.contains(new Formula(new Formula(Formula.Connective.TRUE), Formula.Connective.NOT))) {
                 x++;
-            }
+            //}
         }
         System.out.println(x);
         closure.sugarPrint(names);
@@ -53,7 +53,7 @@
         //printRelation(hues.generateRX(), "h", "rX");
         System.out.println();
         //printRelation(hues.generateRA(), "h", "rA");
-        TreeSet<HueSet> rAClasses = hues.getRAClasses();
+        TreeSet<HueSet> rAClasses = hues.generateRAClasses();
         System.out.println(rAClasses.size());
         //for (HueSet s : rAClasses) {
         //    s.sugarPrint();

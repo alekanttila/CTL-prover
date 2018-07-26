@@ -1,5 +1,11 @@
 package Prover;
 
+import Prover.Formula.ColourSet;
+import Prover.Formula.Formula;
+import Prover.Formula.FormulaSet;
+import Prover.Formula.HueSet;
+import Prover.Formula.Token;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
@@ -10,15 +16,12 @@ public class ResultSet {
     private String originalFormula;
     private Stack<Token> tokenStack;
     private Formula formula;
+    //TODO: add formulanames as member in all these;; change methods
     private Map<Formula, String> formulaNames = new HashMap<Formula, String>();
     private FormulaSet closure;
     private HueSet allHues;
-    private boolean[][] hueRX;
-    private boolean[][] rA;
-    private TreeSet<HueSet> rAClasses;
     private ColourSet allColours;
-    private boolean[][] colourRX;
-    private ColourSet fColours;
+    private ColourSet fColours;//remove
 
     public void setOriginalFormula(String originalFormula) {
         //TODO: trim etc
@@ -76,28 +79,34 @@ public class ResultSet {
         return allHues;
     }
 
-    public void setHueRX(boolean[][] hueRX) {
-        this.hueRX = hueRX;
-    }
-
     public boolean[][] getHueRX() {
-        return hueRX;
-    }
-
-    public void setRA(boolean[][] rA) {
-        this.rA = rA;
+        boolean[][] result;
+        if (getAllHues() != null) {
+            result = getAllHues().getRX();
+        } else {
+            result = null;
+        }
+        return result;
     }
 
     public boolean[][] getRA() {
-        return rA;
-    }
-
-    public void setRAClasses(TreeSet<HueSet> rAClasses) {
-        this.rAClasses = rAClasses;
+        boolean[][] result;
+        if (getAllHues() != null) {
+            result = getAllHues().getRA();
+        } else {
+            result = null;
+        }
+        return result;
     }
 
     public TreeSet<HueSet> getRAClasses() {
-        return rAClasses;
+        TreeSet<HueSet> result;
+        if (getAllHues() != null) {
+            result = getAllHues().getrAClasses();
+        } else {
+            result = null;
+        }
+        return result;
     }
 
     public void setAllColours(ColourSet allColours) {
@@ -108,12 +117,14 @@ public class ResultSet {
         return allColours;
     }
 
-    public void setColourRX(boolean[][] colourRX) {
-        this.colourRX = colourRX;
-    }
-
     public boolean[][] getColourRX() {
-        return colourRX;
+        boolean[][] result;
+        if (getAllColours() != null) {
+            result = getAllColours().getRX();
+        } else {
+            result = null;
+        }
+        return result;
     }
 
     public void setFColours(ColourSet fColours) {

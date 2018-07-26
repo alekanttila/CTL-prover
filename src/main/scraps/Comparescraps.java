@@ -12,14 +12,14 @@ public class Comparescraps {
             //the following are included as special cases so as to order formulae so that the negation of an
             // atom (or TRUE) always immediately follows the atom so that ordered sets of formulae are easier
             // to compare
-            if (this.c == NOT && (f.getArity() == ATOMIC || f.getArity() == BOOL)) {
+            if (this.getC()== NOT && (f.getArity() == ATOMIC || f.getArity() == BOOL)) {
                 int idDiff = this.sf1.compareTo(f);
                 if (idDiff == 0) {
                     result = 1;
                 } else {
                     result = idDiff;
                 }
-            } else if ((this.getArity() == ATOMIC || this.getArity() == BOOL) && f.c == NOT) {
+            } else if ((this.getArity() == ATOMIC || this.getArity() == BOOL) && f.getC()== NOT) {
                 int idDiff = f.sf1.compareTo(this);
                 if (idDiff == 0) {
                     result = -1;
@@ -43,7 +43,7 @@ public class Comparescraps {
                             if (sf1Diff != 0) {
                                 result = sf1Diff;
                             } else {
-                                result = this.sf2.compareTo(f.sf2);
+                                result = this.getSf2().compareTo(f.getSf2());
                             }
                             break;
                         case UNARY:

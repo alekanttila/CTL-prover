@@ -59,8 +59,8 @@ public class ColourWithNull extends HueSet {
             while (fI.hasNext()) {
                 Formula f = fI.next();
                 //do not include the formulae that h instantaties own its own
-                if (f.c == NOT && f.sf1.c == A && !h.contains(f.sf1.sf1.negated())) {
-                    hInstantiables.add(f.sf1.sf1.negated()); //TODO: write in report
+                if (f.getC() == NOT && f.getSf1().getC() == A && !h.contains(f.getSf1().getSf1().negated())) {
+                    hInstantiables.add(f.getSf1().getSf1().negated()); //TODO: write in report
                     f.sugarPrint();
                     System.out.print("---");
                     f.sf1.sf1.negated().sugarPrint();

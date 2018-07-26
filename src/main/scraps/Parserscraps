@@ -31,7 +31,7 @@ public class Parser {
         }
         Production(Token.Type lhs, int rhsLength, Formula.Connective c) {
             this(lhs, rhsLength);
-            this.c = c;
+            this.getC() = c;
         }
     }
 

@@ -1,11 +1,5 @@
-import static Prover.FormulaSet.getPowerSet;
-import static Prover.Hue.getMPCSets;
-import static org.junit.jupiter.api.Assertions.*;
 
-import Prover.*;
 import org.junit.jupiter.api.Test;
-
-import java.util.TreeSet;
 
 class FormulaSetTests {
 

@@ -87,7 +87,7 @@
                     }
                     while (i.hasNext()) {
                         FormulaSet s = i.next();
-                        if (notNot && s.contains(f.sf1)) {
+                        if (notNot && s.contains(f.getSf1())) {
                             s.add(new Formula(f, NOT));
                         }
                         mpcSet.add(s);
@@ -96,7 +96,7 @@
                 case AND:
                     while (i.hasNext()) {
                         FormulaSet s = i.next();
-                        if (s.contains(f.sf1.negated()) || s.contains(f.sf2.negated())) {
+                        if (s.contains(f.getSf1().negated()) || s.contains(f.getSf2().negated())) {
                             s.add(new Formula(f, NOT));
                         } else {
                             s.add(f);

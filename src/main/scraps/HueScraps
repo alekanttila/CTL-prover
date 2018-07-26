@@ -7,7 +7,7 @@ public static boolean mpcCheck(FormulaSet set, FormulaSet closure) {
             Iterator<Formula> i = closure.iterator();
             while (i.hasNext()) {
                 Formula formula = i.next();
-                if (formula.c == AND) {
+                if (formula.getC()== AND) {
                     andSet.add(formula);
                 }
             }
@@ -15,12 +15,12 @@ public static boolean mpcCheck(FormulaSet set, FormulaSet closure) {
             A:
             while (i2.hasNext()) {
                 Formula formula = i2.next();
-                if (formula.c == NOT) {
+                if (formula.getC()== NOT) {
                     Iterator<Formula> i3 = set.iterator();
                     B:
                     while (i3.hasNext()) {
                         Formula f2 = i3.next();
-                        if (formula.sf1.equals(f2)) {
+                        if (formula.getSf1().equals(f2)) {
                             result = false;
                             break A;
                         }
@@ -30,7 +30,7 @@ public static boolean mpcCheck(FormulaSet set, FormulaSet closure) {
                             break B;
                         }
                     }
-                } else if (formula.c == AND) {
+                } else if (formula.getC()== AND) {
                     Iterator<Formula> i3 = set.iterator();
                     while (i3.hasNext()){
                         Formula f2 = i3.next();

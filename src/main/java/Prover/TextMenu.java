@@ -1,5 +1,8 @@
 package Prover;
 
+import Prover.Formula.*;
+import Prover.Prover.Tableau;
+
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -50,7 +53,8 @@ public class TextMenu {
                 switch (choice) {
                     case 1:
                         Tableau t = new Tableau(f);
-                        System.out.println(t.solve());
+                        System.out.println(t.solveBreadthFirst());
+                        t.printInfo();
                         break;
                     case 2:
                         infoMenu(f);
