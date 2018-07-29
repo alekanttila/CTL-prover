@@ -2,12 +2,13 @@ package Prover;
 
 import static Prover.StatusMessage.Level.MAX;
 import static Prover.StatusMessage.Level.NONE;
+import static Prover.StatusMessage.Level.SOME;
 
 public class StatusMessage {
     public enum Level {
         NONE, SOME, MAX
     }
-    public static Level level = MAX;
+    public static Level level = SOME;
     public static void statusPrint(String message) {
         if (level.compareTo(NONE) > 0)  {
             System.out.println(message);

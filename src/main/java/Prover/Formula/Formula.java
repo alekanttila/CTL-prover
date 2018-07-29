@@ -453,109 +453,94 @@ public class Formula implements Comparable<Formula>{
         return result;
     }
 
-    public void print() {
+    public String printString() {
+        String result = "";
         switch (this.getArity()) {
             case BINARY:
-                System.out.print("(");
-                this.sf1.print();
-                System.out.print(" " + this.c.printString() + " ");
-                this.sf2.print();
-                System.out.print(")");
+                result = "( " + this.sf1.printString() + " " + this.c.printString() + " ";
+                result = result + this.sf2.printString() + ")";
                 break;
             case UNARY:
-                System.out.print("(");
-                System.out.print(this.c.printString());
-                this.sf1.print();
-                System.out.print(")");
+                result = "( " + this.c.printString() + ")";
                 break;
             case ATOMIC:
-                System.out.print(this.id);
+                result = this.id;
                 break;
             case BOOL:
-                System.out.print(this.c.printString());
+                result = this.c.printString();
                 break;
             default:
                 //TODO:error
         }
+        return result;
     }
 
-    public void sugarPrint() {
+    public String sugarString() {
         Map<Formula, String> formulaNames;
         if (results != null && results.getFormulaNames() != null) {
             formulaNames = results.getFormulaNames();
         } else {
             formulaNames = new HashMap<Formula, String>();
         }
-        sugarPrint(formulaNames);
+        return sugarString(formulaNames);
     }
 
     //TODO: note in report that sugarprint not necessarily same as original (eg theta1)
     //TODO: check subformulae for names before applying sugar?
-    public void sugarPrint(Map<Formula, String> formulaNames) {
+    public String sugarString(Map<Formula, String> formulaNames) {
+        String result = "";
         String name = formulaNames.get(this);
         if (name != null) {
-            System.out.print(name);
-            return;
+            return name;
         }
         switch (this.sugarTest()) {
             case ATOM:
-                System.out.print(this.id);
+                result = result + this.id;
                 break;
             case TRUE://TODO: change logic here to allow giving name to true?
-                System.out.print(this.c.printString());
+                result = result + this.c.printString();
                 break;
             case FALSE:
-                System.out.print("⊥");
+                result = result + "⊥";
                 break;
             case NOT:
             case X:
             case A:
-                System.out.print(this.c.printString());
-                this.sf1.sugarPrint(formulaNames);
+                result = result + this.c.printString();
+                result = result + this.sf1.sugarString(formulaNames);
                 break;
             case AND:
             case U:
-                System.out.print("(");
-                this.sf1.sugarPrint(formulaNames);
-                System.out.print(" " + this.c.printString() + " ");
-                this.sf2.sugarPrint(formulaNames);
-                System.out.print(")");
+                result = result + "(" + this.sf1.sugarString(formulaNames) + this.c.printString() + " ";
+                result = result + this.sf2.sugarString(formulaNames) + ")";
                 break;
             case E:
-                System.out.print("E");
-                this.sf1.sf1.sf1.sugarPrint(formulaNames);
+                result = result + "E";
+                result = result + this.sf1.sf1.sf1.sugarString(formulaNames);
                 break;
             case F:
-                System.out.print("F");
-                this.sf2.sugarPrint(formulaNames);
+                result = result + "F";
+                result = result + this.sf2.sugarString(formulaNames);
                 break;
             case G:
-                System.out.print("G");
-                this.sf1.sf2.sf1.sugarPrint(formulaNames);
+                result = result + "G";
+                result = result + this.sf1.sf2.sf1.sugarString(formulaNames);
                 break;
             case OR:
-                System.out.print("(");
-                this.sf1.sf1.sf1.sugarPrint(formulaNames);
-                System.out.print(" ∨ ");
-                this.sf1.sf2.sf1.sugarPrint(formulaNames);
-                System.out.print(")");
+                result = result + "(" + this.sf1.sf1.sf1.sugarString(formulaNames) + " ∨ ";
+                result = result + this.sf1.sf2.sf1.sugarString(formulaNames) + ")";
                 break;
             case IFTHEN:
-                System.out.print("(");
-                this.sf1.sf1.sugarPrint(formulaNames);
-                System.out.print(" → ");
-                this.sf1.sf2.sf1.sugarPrint(formulaNames);
-                System.out.print(")");
+                result = result + "(" + this.sf1.sf1.sugarString(formulaNames) + " → ";
+                result = result + this.sf1.sf2.sf1.sugarString(formulaNames) + ")";
                 break;
             case IFF:
-                System.out.print("(");
-                this.sf1.sf1.sf1.sugarPrint(formulaNames);
-                System.out.print(" ↔ ");
-                this.sf2.sf1.sf1.sugarPrint(formulaNames);
-                System.out.print(")");
+                result = result + "(" + this.sf1.sf1.sf1.sugarString(formulaNames) + " ↔ ";
+                result = result + this.sf2.sf1.sf1.sugarString(formulaNames) + ")";
                 break;
             default:
                 //TODO:error
         }
+        return result;
     }
 }

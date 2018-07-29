@@ -92,6 +92,21 @@ public class Hue extends FormulaSet {
         return result;
     }
 
+    @Override
+    public String printString() {
+        return this.name + ": " + super.printString();
+    }
+
+    @Override
+    public String sugarString() {
+        return this.name + ": " + super.sugarString();
+    }
+
+    @Override
+    public String sugarString(Map<Formula, String> formulaNames) {
+        return this.name + ": " + super.sugarString(formulaNames);
+    }
+
     //hues are immutable
     @Override
     public boolean add(Formula e) {

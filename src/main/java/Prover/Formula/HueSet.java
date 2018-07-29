@@ -101,7 +101,7 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
                     while (i.hasNext()) {
                         FormulaSet h = i.next();
                         if (notNot && h.contains(f.getSf1())) {
-                            h.add(new Formula(f, NOT));
+                            h.add(closureConst.getReference(new Formula(f, NOT)));
                         }
                         partialHues.add(h);
                     }
@@ -111,7 +111,7 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
                         FormulaSet h = i.next();
                         //do check with or+negation to potentially avoid checking two subformulae
                         if (h.contains(f.getSf1().negated()) || h.contains(f.getSf2().negated())) {
-                            h.add(new Formula(f, NOT));
+                            h.add(closureConst.getReference(new Formula(f, NOT)));
                         } else {
                             h.add(f);
                         }
@@ -132,7 +132,7 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
                                 FormulaSet notH = new FormulaSet();
                                 notH.addAll(h);
                                 h.add(f);
-                                notH.add(new Formula(f, NOT));
+                                notH.add(closureConst.getReference(new Formula(f, NOT)));
                                 partialHues.add(h);
                                 partialHues.add(notH);
                             }
@@ -143,7 +143,7 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
                                 partialHues.add(h);
                             } else {
                                 //if ~a and ~b, can have ~(aUb) but not aUb
-                                h.add(new Formula(f, NOT));
+                                h.add(closureConst.getReference(new Formula(f, NOT)));
                                 partialHues.add(h);
                             }
                         }
@@ -154,7 +154,7 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
                         FormulaSet h = i.next();
                         FormulaSet notH = new FormulaSet();
                         notH.addAll(h);
-                        notH.add(new Formula(f, NOT));
+                        notH.add(closureConst.getReference(new Formula(f, NOT)));
                         partialHues.add(notH);
                         if (h.contains(f.getSf1())) {
                            h.add(f);
@@ -176,7 +176,7 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
                         FormulaSet notH = new FormulaSet();
                         notH.addAll(h);
                         h.add(f);
-                        notH.add(new Formula(f, NOT));
+                        notH.add(closureConst.getReference(new Formula(f, NOT)));
                         partialHues.add(h);
                         partialHues.add(notH);
                     }
@@ -319,6 +319,24 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         return result;
     }
 
+    public String printString(int indentLevel) {
+        String indent = "";
+        for (int i = 0; i < indentLevel; i++) {
+            indent = indent + "  ";
+        }
+        String result = indent + "{\n";
+        Iterator<Hue> i = this.iterator();
+        while (i.hasNext()) {
+            Hue h = i.next();
+            result = result + indent + "  " + h.printString();
+            if (i.hasNext()) {
+                result = result + ",\n";
+            }
+        }
+        result = result + "\n" + indent + "}";
+        return result;
+    }
+
     public String nameString() {
         String result = "{ ";
         Iterator<Hue> i = this.iterator();
@@ -333,38 +351,40 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         return result;
     }
 
-    public void namePrint() {
-        System.out.println(this.nameString());
-    }
-
-    public void sugarPrint() {
-        System.out.println("{");
+    public String sugarString(int indentLevel) {
+        String indent = "";
+        for (int i = 0; i < indentLevel; i++) {
+            indent = indent + "  ";
+        }
+        String result = indent + "{\n";
         Iterator<Hue> i = this.iterator();
         while (i.hasNext()) {
             Hue h = i.next();
-            System.out.print(h.name + ": ");
-            h.sugarPrint();
+            result = result + indent + "  " + h.sugarString();
             if (i.hasNext()) {
-                System.out.println(",");
+                result = result + ",\n";
             }
         }
-        System.out.println();
-        System.out.println("}");
+        result = result + "\n" + indent + "}";
+        return result;
     }
 
-    public void sugarPrint(Map<Formula, String> formulaeNames) {
-        System.out.println("{");
+    public String sugarString(int indentLevel, Map<Formula, String> formulaNames) {
+        String indent = "";
+        for (int i = 0; i < indentLevel; i++) {
+            indent = indent + "  ";
+        }
+        String result = indent + "{\n";
         Iterator<Hue> i = this.iterator();
         while (i.hasNext()) {
             Hue h = i.next();
-            System.out.print(h.name + ": ");
-            h.sugarPrint(formulaeNames);
+            result = result + indent + "  " + h.sugarString(formulaNames);
             if (i.hasNext()) {
-                System.out.println(",");
+                result = result + ",\n";
             }
         }
-        System.out.println();
-        System.out.print("}");
+        result = result + "\n" + indent + "}";
+        return result;
     }
 
 

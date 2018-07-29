@@ -65,20 +65,18 @@ class PartialStructure extends Pair<List<Node>, Pair<Map<Node, TreeSet<FormulaSe
     //TODOL:add as part of partialstructure
     //TODO: improve this with checks form old LG calls?
     protected void initialize(Node n) {
-        System.out.println("INITIALIZING ");
-        System.out.println(n.z.name);
         if (!nodes().contains(n)) {
             TreeSet<FormulaSet> startColour = new TreeSet<FormulaSet>();
             startColour.add(LG3.getEmptyHue());
             pC().put(n, startColour);
             nodes().add(n);
             hS().put(nH(n, LG3.getEmptyHue()), new HashSet<NodeHue>());
-            for (int i = 0; i < n.successors.size(); i++) {
-                Node s = n.successors.get(i);
+            Iterator<Node> i = n.successors.values().iterator();
+            while (i.hasNext()) {
+                Node s = i.next();
                 initialize(s);
                 //TODO: change this
                 hS().get(nH(n, LG3.getEmptyHue())).add(nH(s, LG3.getEmptyHue()));
-                System.out.println(hS().get(nH(n, LG3.getEmptyHue())).size());
             }
             //TODO: mention lemma 3.1 in relation to node traversal
         }
@@ -134,20 +132,18 @@ class PartialStructure extends Pair<List<Node>, Pair<Map<Node, TreeSet<FormulaSe
     }
     public void sugarPrint() {
         for (Node n : this.nodes()) {
-            System.out.print(n.getName());
+            System.out.println("Node " + n.getName());
             for (FormulaSet h : this.getNodeColour(n)) {
-                h.sugarPrint();
+                System.out.println("\t Hue ");
+                System.out.println("\t" + h.sugarString());
                 System.out.println();
-                System.out.println("successors: ");
+                System.out.println("\t\twith successors: ");
                 Set<NodeHue> successors =  this.hS().get(nH(n,h));
-                Set<NodeHue> successors2 =  this.hS().get(nH(n, LG3.getEmptyHue()));
-                System.out.println(successors == null);
-                System.out.println(successors2 == null);
                 Iterator<NodeHue> i = successors.iterator();
                 while (i.hasNext()) {
                     NodeHue s = i.next();
-                    System.out.print(s.a.getName());
-                    s.b.sugarPrint();
+                    System.out.print("\t\t" + s.a.getName());
+                    System.out.println("\t\t" + s.b.sugarString());
                     System.out.println();
                 }
             }

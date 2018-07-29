@@ -32,6 +32,38 @@ public class Colour extends HueSet {
         return result;
     }
 
+    @Override
+    public String printString(int indentLevel) {
+        String indent = "";
+        for (int i = 0; i < indentLevel; i++) {
+            indent = indent + "  ";
+        }
+        return indent + this.name + ":\n" + super.printString(indentLevel);
+    }
+
+    @Override
+    public String nameString() {
+        return this.name + ": " + super.nameString();
+    }
+
+    @Override
+    public String sugarString(int indentLevel) {
+        String indent = "";
+        for (int i = 0; i < indentLevel; i++) {
+            indent = indent + "  ";
+        }
+        return indent + this.name + ":\n" + super.sugarString(indentLevel);
+    }
+
+    @Override
+    public String sugarString(int indentLevel, Map<Formula, String> formulaNames) {
+        String indent = "";
+        for (int i = 0; i < indentLevel; i++) {
+            indent = indent + "  ";
+        }
+        return indent + this.name + ":\n" + super.sugarString(indentLevel, formulaNames);
+    }
+
     //colours are immutable
     @Override
     public boolean add(Hue e) {
@@ -61,7 +93,4 @@ public class Colour extends HueSet {
     public void clear() {
         //TODO: error!
     }
-
 }
-
-

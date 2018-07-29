@@ -9,6 +9,7 @@ import static Prover.Formula.Formula.Connective.AND;
 import static Prover.Formula.Formula.Connective.ATOM;
 import static Prover.Formula.Formula.Connective.NOT;
 import static Prover.StatusMessage.finePrint;
+import static Prover.StatusMessage.statusPrint;
 
 public class LG3 {
 
@@ -26,12 +27,10 @@ public class LG3 {
         FormulaSet closure = f.getClosure();
         PartialStructure currentStructure = new PartialStructure();
         currentStructure.initialize(root);
-        currentStructure.sugarPrint();
 
         for (Formula g : closure) {
-            System.out.println("UPDATING WITH ");
-            g.sugarPrint();
-            System.out.println();
+            finePrint("LG: updating with: ");
+            //finePrint(g.);
             switch (g.getC()) {
                 case ATOM:
                 case TRUE:
@@ -60,19 +59,16 @@ public class LG3 {
                 default:
                     //TODO:ERROR
             }
-            currentStructure.sugarPrint();
         }
+        //TODO: subset checker
         boolean result = checkLabels(currentStructure);
         return result;
     }
     private static boolean checkLabels(PartialStructure s) {
         boolean result = true;
+        //statusPrint("LG final check. Partial Structure:");
+        //s.sugarPrint();
         for (Node n: s.nodes()) {
-            System.out.println("LG FINAL CHECK:");
-            n.z.sugarPrint();
-            for (FormulaSet h : s.getNodeColour(n)) {
-                h.sugarPrint();
-            }
             if (!n.z.equals(s.getNodeColour(n))) {
                 result = false;
             }
@@ -169,16 +165,10 @@ public class LG3 {
                         }
                     }
                 } else {
-                    finePrint("NOTLEAF");
                     for (Node possibleSuccessor : oldS.nodes()) {
-                        finePrint("CHECKING NODE " + possibleSuccessor.getName());
                         for (FormulaSet possibleHueSuccessor : oldS.pC().get(possibleSuccessor)) {
-                            finePrint("CHECKING HUE ");
-                            possibleHueSuccessor.sugarPrint();
                             if (oldS.isSuccessor(nodeToCheck, hueToCheck, possibleSuccessor, possibleHueSuccessor)) {
-                                finePrint("FOUND SUCCESSOR");
                                 if (possibleHueSuccessor.contains(xF.getSf1())) {
-                                    finePrint("Found positive extension");
                                     currentPositiveExtension = true;
                                 } else {
                                     currentNegativeExtension = true;

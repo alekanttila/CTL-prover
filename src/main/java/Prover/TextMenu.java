@@ -91,10 +91,14 @@ public class TextMenu {
                 int choice = scanner.nextInt();
                 scanner.nextLine();
                 switch (choice) {
+                    case 0:
+                        ColourSet ccc = ColourSet.getClassColours(f.getAllHues(), 2);
+                        System.out.println(ccc.sugarString(f.getFormulaNames()));
+                        System.out.print("Size: ");
+                        System.out.println(ccc.size());
                     case 1:
                         FormulaSet closure = f.getClosure();
-                        closure.sugarPrint(f.getFormulaNames());
-                        System.out.println();
+                        System.out.println(closure.sugarString(f.getFormulaNames()));
                         System.out.print("Size: ");
                         System.out.println(closure.size());
                         System.out.println("Enter any key to return to menu");
@@ -102,8 +106,7 @@ public class TextMenu {
                         break;
                     case 2:
                         HueSet hueSet = f.getAllHues();
-                        hueSet.sugarPrint(f.getFormulaNames());
-                        System.out.println();
+                        System.out.println(hueSet.sugarString(0, f.getFormulaNames()));
                         System.out.print("Size: ");
                         System.out.println(hueSet.size());
                         System.out.println("Enter any key to return to menu");
@@ -111,7 +114,7 @@ public class TextMenu {
                         break;
                     case 3:
                         ColourSet colourSet = f.getAllColours();
-                        colourSet.sugarPrint(f.getFormulaNames());
+                        System.out.println(colourSet.sugarString(f.getFormulaNames()));
                         System.out.print("Size: ");
                         System.out.println(colourSet.size());
                         System.out.println("Enter any key to return to menu");
@@ -119,8 +122,7 @@ public class TextMenu {
                         break;
                     case 4:
                         ColourSet colourSet2 = f.getAllColours();
-                        colourSet2.huePrint();
-                        System.out.println();
+                        System.out.println(colourSet2.hueString());
                         System.out.print("Size: ");
                         System.out.println(colourSet2.size());
                         System.out.println("Enter any key to return to menu");
@@ -145,8 +147,7 @@ public class TextMenu {
                         TreeSet<HueSet> rAClasses = f.getRAClasses();
                         System.out.println("{");
                         for (HueSet c : rAClasses) {
-                            c.sugarPrint(f.getFormulaNames());
-                            System.out.println();
+                            System.out.println(c.sugarString(1, f.getFormulaNames()));
                         }
                         System.out.println("}");
                         System.out.print("Size: ");

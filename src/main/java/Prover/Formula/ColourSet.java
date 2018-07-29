@@ -33,6 +33,30 @@ public class ColourSet extends TreeSet<Colour> {
         return result;
     }
 
+    public static ColourSet getClassColours(HueSet hS, int i) {
+        TreeSet<HueSet> rAClasses = hS.getrAClasses();
+        ColourSet result = new ColourSet();
+        TreeSet<HueSet> uninstantiated = new TreeSet<HueSet>();
+        Iterator<HueSet> classIterator = rAClasses.iterator();
+        HueSet rAC = null;
+        for (int j = 0; j < i; j++) {
+            rAC = classIterator.next();
+        }
+        uninstantiated.addAll(getClassColours(rAC));
+        Iterator<HueSet> ii = uninstantiated.iterator();
+        int counter = 0;
+        while (ii.hasNext()) {
+            HueSet c = ii.next();
+            if (c.instantiables.isEmpty()) {
+                result.add(new Colour(c, counter));
+                counter++;
+            }
+        }
+        result.generateRX(hS.getRX());
+        return result;
+
+    }
+
     public static TreeSet<HueSet> getClassColours(HueSet rAC) {
         HueSet rACCopy = new HueSet();
         rACCopy.addAll(rAC);
@@ -147,20 +171,6 @@ public class ColourSet extends TreeSet<Colour> {
         return result;
     }
 
-    /*
-    //safety, in case hueRX has not been set
-    private void generateLocalHueRX() {
-        HueSet localHues =  new HueSet();
-        for (Colour c: this) {
-            localHues.addAll(c);
-        }
-        setHueRX(localHues.getRX());
-    }
-
-    public void setHueRX(boolean[][] hueRX) {
-        this.hueRX = hueRX;
-    }*/
-
     public void generateRX(boolean[][] hueRX) {
         boolean[][] result = new boolean[this.size()][this.size()];
         Iterator<Colour> i = this.iterator();
@@ -219,38 +229,60 @@ public class ColourSet extends TreeSet<Colour> {
         return result;
     }
 
-    public void sugarPrint(Map<Formula, String> formulaNames) {
-        System.out.println("{");
+    public String printString() {
+        String result = "{\n";
         Iterator<Colour> i = this.iterator();
         while (i.hasNext()) {
             Colour c = i.next();
-            System.out.print(c.name + ": ");
-            c.sugarPrint(formulaNames);
-            if (i.hasNext()) {
-                System.out.println(",");
-            }
-        }
-        System.out.println();
-        System.out.println("}");
-    }
-
-    public String hueString() {
-        String result = "{ ";
-        Iterator<Colour> i = this.iterator();
-        while (i.hasNext()) {
-            Colour c = i.next();
-            result = result + c.name + ": ";
-            result = result + c.nameString();
+            result = result + c.printString(1);
             if (i.hasNext()) {
                 result = result + ",\n";
             }
         }
-        result = result + " }";
+        result = result + "\n}";
         return result;
     }
 
-    public void huePrint() {
-        System.out.println(this.hueString());
+    public String sugarString() {
+        String result = "{\n";
+        Iterator<Colour> i = this.iterator();
+        while (i.hasNext()) {
+            Colour c = i.next();
+            result = result + c.sugarString(1);
+            if (i.hasNext()) {
+                result = result + ",\n";
+            }
+        }
+        result = result + "\n}";
+        return result;
+    }
+
+    public String sugarString(Map<Formula, String> formulaNames) {
+        String result = "{\n";
+        Iterator<Colour> i = this.iterator();
+        while (i.hasNext()) {
+            Colour c = i.next();
+            result = result + c.sugarString(1, formulaNames);
+            if (i.hasNext()) {
+                result = result + ",\n";
+            }
+        }
+        result = result + "\n}";
+        return result;
+    }
+
+    public String hueString() {
+        String result = "{\n";
+        Iterator<Colour> i = this.iterator();
+        while (i.hasNext()) {
+            Colour c = i.next();
+            result = result + "  " + c.nameString();
+            if (i.hasNext()) {
+                result = result + ",\n";
+            }
+        }
+        result = result + "\n}";
+        return result;
     }
 
     public String nameString() {
@@ -265,9 +297,5 @@ public class ColourSet extends TreeSet<Colour> {
         }
         result = result + " }";
         return result;
-    }
-
-    public void namePrint() {
-        System.out.println(this.nameString());
     }
 }

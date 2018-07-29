@@ -32,42 +32,59 @@ public class FormulaSet extends TreeSet<Formula> implements Comparable<FormulaSe
         return result;
     }
 
-    public void print() {
-        System.out.print("{ ");
-        Iterator<Formula> i = this.iterator();
-        while (i.hasNext()) {
-            Formula f = i.next();
-            f.print();
-            if (i.hasNext()) {
-                System.out.print(", ");
+    //for minimising heap space
+    public Formula getReference(Formula f1) {
+        Formula result = null;
+        for (Formula f2 : this) {
+            if (f1.equals(f2)) {
+                result = f2;
             }
         }
-        System.out.print(" }");
+        if (result == null) {
+            //TODO: error
+        }
+        return result;
     }
 
-    public void sugarPrint() {
-        System.out.print("{ ");
+    public String printString() {
+        String result = "{";
         Iterator<Formula> i = this.iterator();
         while (i.hasNext()) {
             Formula f = i.next();
-            f.sugarPrint();
+            result = result + f.printString();
             if (i.hasNext()) {
-                System.out.print(", ");
+                result = result + ", ";
             }
         }
-        System.out.print(" }");
+        result = result + "}";
+        return result;
     }
 
-    public void sugarPrint(Map<Formula, String> formulaNames) {
-        System.out.print("{ ");
+    public String sugarString() {
+        String result = "{ ";
         Iterator<Formula> i = this.iterator();
         while (i.hasNext()) {
             Formula f = i.next();
-            f.sugarPrint(formulaNames);
+            result = result + f.sugarString();
             if (i.hasNext()) {
-                System.out.print(", ");
+                result = result + ", ";
             }
         }
-        System.out.print(" }");
+        result = result + " }";
+        return result;
+    }
+
+    public String sugarString(Map<Formula, String> formulaNames) {
+        String result = "{ ";
+        Iterator<Formula> i = this.iterator();
+        while (i.hasNext()) {
+            Formula f = i.next();
+            result = result + f.sugarString(formulaNames);
+            if (i.hasNext()) {
+                result = result + ", ";
+            }
+        }
+        result = result + " }";
+        return result;
     }
 }

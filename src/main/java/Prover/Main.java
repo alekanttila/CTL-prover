@@ -27,7 +27,6 @@
         }
         System.out.println();
         System.out.println("/////////////");
-        f.print();
         System.out.println();
         System.out.println("///////////////");
         System.out.println("FINIIISH");
@@ -36,7 +35,6 @@
         Map<Formula, String> names = new HashMap<Formula, String>();
         names.put(f, "φ");
         System.out.println("HUE");
-        hues.sugarPrint(names);
         System.out.println(hues.size());
         System.out.println("getClosure:");
         int x = 0;
@@ -46,9 +44,7 @@
             //}
         }
         System.out.println(x);
-        closure.sugarPrint(names);
         System.out.println("getClosure done");
-        f.sugarPrint(names);
         System.out.println();
         //printRelation(hues.generateRX(), "h", "rX");
         System.out.println();
