@@ -136,7 +136,7 @@ class PartialStructure extends Pair<List<Node>, Pair<Map<Node, TreeSet<FormulaSe
             result = result + "Node " + n.getName() + "\n";
             for (FormulaSet h : this.getNodeColour(n)) {
                 result = result + "  Hue ";
-                result = result + h.sugarString() + "\n";
+                result = result + h.sugarString(formulaNames) + "\n";
                 result = result + "  with successors:\n";
                 Set<NodeHue> successors =  this.hS().get(nH(n,h));
                 Iterator<NodeHue> i = successors.iterator();

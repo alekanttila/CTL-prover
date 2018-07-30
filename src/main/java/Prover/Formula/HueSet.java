@@ -68,7 +68,7 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
     }
 
     public static HueSet getAllHues(FormulaSet closure) {
-        TreeSet<FormulaSet> mutableHues = getAllHues(closure, closure);
+        TreeSet<FormulaSet> mutableHues = getAllXHues(closure, closure);
         HueSet immutableHues = new HueSet();
         //name the hues in the context of this complete set of hues
         int counter = 0;
@@ -210,6 +210,128 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         }
         return partialHues;
     }
+
+    public static TreeSet<FormulaSet> getAllXHues(FormulaSet closureConst, FormulaSet closureNonConst) {
+        FormulaSet closureCopy = new FormulaSet();
+        closureCopy.addAll(closureNonConst);
+
+        TreeSet<FormulaSet> partialHues = new TreeSet<FormulaSet>();
+
+        if (!closureCopy.isEmpty()) {
+            Formula f = closureCopy.last();
+            closureCopy.remove(f);
+            TreeSet<FormulaSet> previousHues = getAllXHues(closureConst, closureCopy);
+            Iterator<FormulaSet> i = previousHues.iterator();
+            switch (f.getC()) {
+                case NOT:
+                    boolean notNot = false;
+                    if (closureConst.contains(new Formula(f, NOT))) {
+                        notNot = true;
+                    }
+                    while (i.hasNext()) {
+                        FormulaSet h = i.next();
+                        if (notNot && h.contains(f.getSf1())) {
+                            h.add(closureConst.getReference(new Formula(f, NOT)));
+                        }
+                        partialHues.add(h);
+                    }
+                    break;
+                case AND:
+                    while (i.hasNext()) {
+                        FormulaSet h = i.next();
+                        //do check with or+negation to potentially avoid checking two subformulae
+                        if (h.contains(f.getSf1().negated()) || h.contains(f.getSf2().negated())) {
+                            h.add(closureConst.getReference(new Formula(f, NOT)));
+                        } else {
+                            h.add(f);
+                        }
+                        partialHues.add(h);
+                    }
+                    break;
+                case U:
+                    while (i.hasNext()) {
+                        FormulaSet h = i.next();
+                        if (h.contains(f.getSf1())) {
+                            if (h.contains(f.getSf2())) {
+                                h.add(f);
+                                partialHues.add(h);
+                            } else {
+                                FormulaSet notH = new FormulaSet();
+                                notH.addAll(h);
+                                h.add(f);
+                                notH.add(closureConst.getReference(new Formula(f, NOT)));
+                                partialHues.add(h);
+                                partialHues.add(notH);
+                            }
+                        } else {
+                            if (h.contains(f.getSf2())) {
+                                h.add(f);
+                                partialHues.add(h);
+                            } else {
+                                h.add(closureConst.getReference(new Formula(f, NOT)));
+                                partialHues.add(h);
+                            }
+                        }
+                    }
+                    break;
+                case A:
+                    while (i.hasNext()) {
+                        FormulaSet h = i.next();
+                        FormulaSet notH = new FormulaSet();
+                        notH.addAll(h);
+                        notH.add(closureConst.getReference(new Formula(f, NOT)));
+                        partialHues.add(notH);
+                        if (h.contains(f.getSf1())) {
+                           h.add(f);
+                           partialHues.add(h);
+                        }
+                    }
+                case TRUE://special case because we do not want to add bottom to a hue
+                    //TODO: mention in report
+                    while (i.hasNext()) {
+                        FormulaSet h = i.next();
+                        h.add(f);
+                        partialHues.add(h);
+                    }
+                    break;
+                case X:
+                    while (i.hasNext()) {
+                        FormulaSet h = i.next();
+                        //f = Xa; if ~X~a is not in h, we can add ~Xa
+                        if (!h.contains(new Formula(new Formula(f.getSf1().negated(), X), NOT))) {
+                            FormulaSet notH = new FormulaSet();
+                            notH.addAll(h);
+                            notH.add(closureConst.getReference(new Formula(f, NOT)));
+                            partialHues.add(notH);
+                        }
+                        //f = Xa; if X~a is not in h, we can add Xa
+                        if (!h.contains(new Formula(f.getSf1().negated(), X))) {
+                            h.add(f);
+                            partialHues.add(h);
+                        }
+                    }
+                    break;
+                default:
+                    while (i.hasNext()) {
+                        FormulaSet h = i.next();
+                        FormulaSet notH = new FormulaSet();
+                        notH.addAll(h);
+                        h.add(f);
+                        notH.add(closureConst.getReference(new Formula(f, NOT)));
+                        partialHues.add(h);
+                        partialHues.add(notH);
+                    }
+            }
+        } else {
+            FormulaSet empty = new FormulaSet();
+            TreeSet<FormulaSet> onlyEmpty = new TreeSet<FormulaSet>();
+            onlyEmpty.add(empty);
+            partialHues = onlyEmpty;
+        }
+        return partialHues;
+    }
+
+
 
     public boolean[][] getRX() {
         if (this.rX == null) {

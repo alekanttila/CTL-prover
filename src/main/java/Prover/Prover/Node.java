@@ -61,6 +61,10 @@ class Node {
     protected String getName() {
         return this.name;
     }
+
+
+    //do not want to store entire trees (to which other references have been lost)
+    //in our CheckedUpLinkTrees, so store just name
    /*
     //custom node creation
     protected Node(Colour z, Hue[] zT, List<Node> a, Node[] s) {

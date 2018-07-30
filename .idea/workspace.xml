@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bb46558-621d-4092-904f-ffb241203c6e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CTL.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CTL.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Formula/Colour.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Formula/Colour.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Formula/FormulaSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Formula/FormulaSet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Prover/LG3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Prover/LG3.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Prover/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Prover/Node.java" afterDir="false" />
@@ -15,40 +10,18 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Prover/Tableau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Prover/Tableau.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Prover/StatusMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/StatusMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Prover/TextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/TextMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Colour.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/ColourSet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Formula$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Formula$Arity.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Formula$Connective.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Formula.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/FormulaSet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Hue$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Hue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/HueSet$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/HueSet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Lexer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/LexerException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Parser$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Parser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/ParserException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Token$Type.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Token.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/LG3$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/LG3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/Node.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/Pair$NodeHue.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/Pair.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/PartialStructure$ExtensionData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/PartialStructure.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/Tableau$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/Tableau$CheckedUpLinkTree.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/Tableau$ExtendResult.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/Tableau.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/ResultSet.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/StatusMessage$Level.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/StatusMessage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Prover/TextMenu.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/HueSet$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Formula/HueSet$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/HueSet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Formula/HueSet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/LG3$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Prover/LG3$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/LG3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Prover/LG3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/PartialStructure.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Prover/PartialStructure.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/Tableau$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Prover/Tableau$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/Tableau$CheckedUpLinkTree.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Prover/Tableau$CheckedUpLinkTree.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/Tableau$ExtendResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Prover/Tableau$ExtendResult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Prover/Tableau.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Prover/Tableau.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/StatusMessage$Level.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/StatusMessage$Level.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/StatusMessage.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/StatusMessage.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/TextMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/TextMenu.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -61,33 +34,45 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Tableau.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Tableau.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Prover/Tableau.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+            <state relative-caret-position="525">
+              <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#23658#23659#0" expanded="true" />
+                <element signature="e#23728#23729#0" expanded="true" />
+                <element signature="e#24251#24252#0" expanded="true" />
+                <element signature="e#24298#24299#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HueSet.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="StatusMessage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/Prover/StatusMessage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="19" column="59" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="59" />
+              <folding>
+                <element signature="e#460#466#0" expanded="true" />
+                <element signature="e#750#751#0" expanded="true" />
+                <element signature="e#792#793#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HueSet.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1121">
-              <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+            <state relative-caret-position="270">
+              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#getRX#0;class#HueSet#0" />
                 <element signature="method#generateRX#0;class#HueSet#0" />
-                <element signature="e#9546#9547#0" expanded="true" />
-                <element signature="e#9606#9607#0" expanded="true" />
-                <element signature="e#10390#10391#0" expanded="true" />
-                <element signature="e#10450#10451#0" expanded="true" />
-                <element signature="e#11765#11766#0" expanded="true" />
-                <element signature="e#11807#11808#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -105,20 +90,8 @@
       <file leaf-file-name="Node.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Prover/Node.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="40" column="42" selection-start-line="40" selection-start-column="42" selection-end-line="40" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ColourSet.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/ColourSet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2685">
-              <caret line="183" column="23" selection-start-line="183" selection-start-column="23" selection-end-line="183" selection-end-column="23" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="840">
+              <caret line="66" column="50" selection-start-line="66" selection-start-column="50" selection-end-line="66" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -126,14 +99,13 @@
       <file leaf-file-name="Formula.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1890">
-              <caret line="134" column="8" selection-start-line="134" selection-start-column="8" selection-end-line="134" selection-end-column="8" />
+            <state relative-caret-position="3525">
+              <caret line="276" selection-start-line="276" selection-end-line="276" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="n#!!doc;n#ATOM#0;n#Connective#0;n#Formula#0" />
                 <element signature="n#!!doc;n#Arity#0;n#Formula#0" />
                 <element signature="method#getArity#0;class#Formula#0" />
-                <element signature="method#negated#0;class#Formula#0" />
               </folding>
             </state>
           </provider>
@@ -142,8 +114,8 @@
       <file leaf-file-name="Hue.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Hue.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1380">
-              <caret line="98" selection-start-line="98" selection-end-line="98" />
+            <state relative-caret-position="315">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
             </state>
           </provider>
         </entry>
@@ -151,8 +123,8 @@
       <file leaf-file-name="LG3.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Prover/LG3.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1365">
-              <caret line="71" column="79" selection-start-line="71" selection-start-column="79" selection-end-line="71" selection-end-column="79" />
+            <state relative-caret-position="485">
+              <caret line="467" column="41" selection-start-line="467" selection-start-column="41" selection-end-line="467" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -163,8 +135,11 @@
       <file leaf-file-name="TextMenu.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Prover/TextMenu.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="56" column="23" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
+            <state relative-caret-position="1245">
+              <caret line="188" column="73" selection-start-line="188" selection-start-column="73" selection-end-line="188" selection-end-column="73" />
+              <folding>
+                <element signature="method#infoMenu#0;class#TextMenu#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -172,8 +147,8 @@
       <file leaf-file-name="PartialStructure.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Prover/PartialStructure.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+            <state relative-caret-position="-8">
+              <caret line="138" column="59" selection-start-line="138" selection-start-column="59" selection-end-line="138" selection-end-column="59" />
               <folding>
                 <element signature="method#simpleSuccessorUpdate#0;class#PartialStructure#0" />
                 <element signature="method#isSuccessor#0;class#PartialStructure#0" />
@@ -277,33 +252,35 @@
         <option value="$PROJECT_DIR$/src/main/java/Prover/ResultSet.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/Pair.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/Tableau2.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/Hue.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/ColourSet.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/Colour.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/StatusMessage.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/Node.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/TextMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/PartialStructure.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/FormulaSet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/Node.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/Hue.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/PartialStructure.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/LG3.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/StatusMessage.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/TextMenu.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/Tableau.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="20" />
-    <option name="y" value="23" />
-    <option name="width" value="930" />
-    <option name="height" value="1037" />
+    <option name="y" value="3" />
+    <option name="width" value="1536" />
+    <option name="height" value="1077" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -390,9 +367,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -627,22 +601,22 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="20" y="23" width="930" height="1037" extended-state="0" />
+    <frame x="0" y="3" width="1536" height="1077" extended-state="0" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49946696" weight="0.31847134" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.4984375" weight="0.31809145" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="3" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.08155651" side_tool="true" weight="0.48301485" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.101174936" side_tool="true" visible="true" weight="0.38900203" />
       <window_info anchor="right" id="Maven Projects" order="3" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.9184435" visible="true" weight="0.38853502" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.89882505" weight="0.38900203" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.5410367" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2232376" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
@@ -661,14 +635,14 @@
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.9184435" visible="true" weight="0.48301485" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="right" id="Theme Preview" order="5" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.3326226" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.9184435" visible="true" weight="0.48301485" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -779,25 +753,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java</url>
-          <line>221</line>
+          <line>343</line>
           <properties />
           <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Prover/Tableau.java</url>
-          <line>510</line>
+          <line>448</line>
           <properties />
           <option name="timeStamp" value="64" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Prover/LG3.java</url>
-          <line>21</line>
+          <line>24</line>
           <properties />
           <option name="timeStamp" value="65" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Prover/LG3.java</url>
-          <line>431</line>
+          <line>435</line>
           <properties />
           <option name="timeStamp" value="68" />
         </line-breakpoint>
@@ -835,8 +809,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java</url>
-          <line>392</line>
-          <properties class="Prover.Formula.HueSet">
+          <line>514</line>
+          <properties class="Prover.Formula.HueSet" method="sugarString">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="34" />
@@ -868,7 +842,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java</url>
           <line>84</line>
-          <properties class="Prover.Formula.HueSet">
+          <properties class="Prover.Formula.HueSet" method="getAllHues">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="55" />
@@ -1061,13 +1035,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/StatusMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Colour.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
@@ -1095,41 +1062,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/TextMenu.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="56" column="23" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
+        <state relative-caret-position="315">
+          <caret line="21" column="32" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1890">
-          <caret line="134" column="8" selection-start-line="134" selection-start-column="8" selection-end-line="134" selection-end-column="8" />
+        <state relative-caret-position="3525">
+          <caret line="276" selection-start-line="276" selection-end-line="276" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="n#!!doc;n#ATOM#0;n#Connective#0;n#Formula#0" />
             <element signature="n#!!doc;n#Arity#0;n#Formula#0" />
             <element signature="method#getArity#0;class#Formula#0" />
-            <element signature="method#negated#0;class#Formula#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Prover/LG3.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Prover/Node.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1365">
-          <caret line="71" column="79" selection-start-line="71" selection-start-column="79" selection-end-line="71" selection-end-column="79" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="840">
+          <caret line="66" column="50" selection-start-line="66" selection-start-column="50" selection-end-line="66" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Hue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Prover/PartialStructure.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+        <state relative-caret-position="-8">
+          <caret line="138" column="59" selection-start-line="138" selection-start-column="59" selection-end-line="138" selection-end-column="59" />
           <folding>
             <element signature="method#simpleSuccessorUpdate#0;class#PartialStructure#0" />
             <element signature="method#isSuccessor#0;class#PartialStructure#0" />
@@ -1139,51 +1109,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="32" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
+        <state relative-caret-position="270">
+          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getRX#0;class#HueSet#0" />
+            <element signature="method#generateRX#0;class#HueSet#0" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Prover/Node.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Prover/LG3.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="40" column="42" selection-start-line="40" selection-start-column="42" selection-end-line="40" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Prover/Tableau.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="18" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+        <state relative-caret-position="485">
+          <caret line="467" column="41" selection-start-line="467" selection-start-column="41" selection-end-line="467" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Hue.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/StatusMessage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1380">
-          <caret line="98" selection-start-line="98" selection-end-line="98" />
+        <state relative-caret-position="210">
+          <caret line="19" column="59" selection-start-line="19" selection-start-column="59" selection-end-line="19" selection-end-column="59" />
+          <folding>
+            <element signature="e#460#466#0" expanded="true" />
+            <element signature="e#750#751#0" expanded="true" />
+            <element signature="e#792#793#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/TextMenu.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1121">
-          <caret line="21" column="12" selection-start-line="21" selection-start-column="12" selection-end-line="21" selection-end-column="12" />
+        <state relative-caret-position="1245">
+          <caret line="188" column="73" selection-start-line="188" selection-start-column="73" selection-end-line="188" selection-end-column="73" />
+          <folding>
+            <element signature="method#infoMenu#0;class#TextMenu#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Prover/Tableau.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="4" selection-start-line="35" selection-start-column="4" selection-end-line="35" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#getRX#0;class#HueSet#0" />
-            <element signature="method#generateRX#0;class#HueSet#0" />
-            <element signature="e#9546#9547#0" expanded="true" />
-            <element signature="e#9606#9607#0" expanded="true" />
-            <element signature="e#10390#10391#0" expanded="true" />
-            <element signature="e#10450#10451#0" expanded="true" />
-            <element signature="e#11765#11766#0" expanded="true" />
-            <element signature="e#11807#11808#0" expanded="true" />
+            <element signature="e#23658#23659#0" expanded="true" />
+            <element signature="e#23728#23729#0" expanded="true" />
+            <element signature="e#24251#24252#0" expanded="true" />
+            <element signature="e#24298#24299#0" expanded="true" />
           </folding>
         </state>
       </provider>

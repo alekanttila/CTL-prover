@@ -9,6 +9,10 @@ import java.util.Scanner;
 import java.util.Stack;
 import java.util.TreeSet;
 
+import static Prover.StatusMessage.Level.MAX;
+import static Prover.StatusMessage.Level.NONE;
+import static Prover.StatusMessage.Level.SOME;
+
 public class TextMenu {
     static Scanner scanner = new Scanner(System.in);
 
@@ -44,9 +48,10 @@ public class TextMenu {
         while (true) {
             System.out.println("Enter option number:");
             System.out.println("1. Check satisfiability");
-            System.out.println("2. Get information");
-            System.out.println("3. Quit");
-
+            System.out.println("2. Get formula information");
+            System.out.println("3. Settings");
+            System.out.println("4. New formula");
+            System.out.println("5. Quit");
 
             try {
                 int choice = scanner.nextInt();
@@ -59,12 +64,16 @@ public class TextMenu {
                     case 2:
                         infoMenu(f);
                     case 3:
+                        settings(f);
+                    case 4:
+                        start();
+                    case 5:
                         System.exit(0);
+                    case 6:
+                        Tableau t2 = new Tableau(f);
+                        t2.test2();
                     default:
                         System.out.println("No such option. Try again.");
-                    case 4:
-                        Tableau t2 = new Tableau(f);
-                        t2.test();
                 }
 
             } catch (InputMismatchException e) {
@@ -172,21 +181,132 @@ public class TextMenu {
         }
     }
 
-    static public void prompt(String s) {
-        try {
-            int count = System.in.available();
-            while (count > 0) {
-                System.in.skip(count);
-                count = System.in.available();
+    public static void settings(Formula f) {
+        while (true) {
+            System.out.println("Enter option number:");
+            System.out.println("1. Progress message settings");
+            System.out.println("2. Character settings");
+            System.out.println("3. Toggle hue type used (current: regular (slower))");
+            System.out.println("4. Return");
+
+            try {
+                int choice = scanner.nextInt();
+                switch (choice) {
+                    case 1:
+                        reportSettings(f);
+                    case 2:
+                        //characterSettings(f);
+                    case 3:
+                        formulaMenu(f);
+                    default:
+                        System.out.println("No such option. Try again.");
+                }
+            } catch (InputMismatchException e) {
+                scanner.nextLine();
+                System.out.println("Input incorrect. Try again.");
             }
-            if (s != null) {
-                System.out.print(s);
-            }
-            System.in.read();
-        } catch (IOException e) {
         }
     }
 
+    public static void reportSettings(Formula f) {
+        while (true) {
+            System.out.println("Enter option number:");
+            System.out.println("1. Set progress reporting level");
+            System.out.println("2. Set areas to report on");
+            System.out.println("3. Return");
+
+            try {
+                int choice = scanner.nextInt();
+                switch (choice) {
+                    case 1:
+                        reportLevelSettings(f);
+                    case 2:
+                        reportAreaSettings(f);
+                    case 3:
+                        settings(f);
+                    default:
+                        System.out.println("No such option. Try again.");
+                }
+            } catch (InputMismatchException e) {
+                scanner.nextLine();
+                System.out.println("Input incorrect. Try again.");
+            }
+        }
+    }
+
+    public static void reportAreaSettings(Formula f) {
+        while (true) {
+            if (StatusMessage.setAreas.isEmpty()) {
+                System.out.println("Currently no areas set");
+            } else {
+                System.out.print("Current areas are");
+                for (StatusMessage.Area a : StatusMessage.setAreas) {
+                    System.out.print(" " + a);
+                }
+                System.out.println();
+            }
+            System.out.println("Enter option number:");
+            for (int i = 0; i < StatusMessage.Area.values().length + 1; i++) {
+                if (i < StatusMessage.Area.values().length) {
+                    System.out.println((i + 1) + ". Toggle " + StatusMessage.Area.values()[i]);
+                } else {
+                    System.out.println((i + 1) + ". Return");
+                }
+            }
+            try {
+                int choice = scanner.nextInt();
+                if ((choice - 1) < StatusMessage.Area.values().length) {
+                    StatusMessage.Area a = StatusMessage.Area.values()[choice - 1];
+                    if (StatusMessage.setAreas.contains(a)) {
+                        StatusMessage.setAreas.remove(a);
+                    } else {
+                        StatusMessage.setAreas.add(a);
+                    }
+                    reportAreaSettings(f);
+                } else if (choice == StatusMessage.Area.values().length + 1) {
+                    reportSettings(f);
+                } else {
+                    System.out.println("No such option. Try again.");
+                }
+            } catch (InputMismatchException e) {
+                scanner.nextLine();
+                System.out.println("Input incorrect. Try again.");
+            }
+        }
+    }
+
+    public static void reportLevelSettings(Formula f) {
+        while (true) {
+            System.out.println("Enter option number:");
+            System.out.println("1. NONE");
+            System.out.println("2. SOME");
+            System.out.println("3. MAX");
+            System.out.println("(Current level is " + StatusMessage.setLevel + ")");
+
+            try {
+                int choice = scanner.nextInt();
+                switch (choice) {
+                    case 1:
+                        StatusMessage.setLevel = NONE;
+                        System.out.println("Level set to NONE");
+                        reportSettings(f);
+                    case 2:
+                        StatusMessage.setLevel = SOME;
+                        System.out.println("Level set to SOME");
+                        reportSettings(f);
+                    case 3:
+                        StatusMessage.setLevel = MAX;
+                        System.out.println("Level set to MAX");
+                        reportSettings(f);
+                    default:
+                        System.out.println("No such option. Try again.");
+                }
+            } catch (InputMismatchException e) {
+                scanner.nextLine();
+                System.out.println("Input incorrect. Try again.");
+            }
+        }
+    }
 
     public static void printRelation(boolean[][] r, String rName) {
         String memberInitial = null;
