@@ -511,7 +511,7 @@ public class Formula implements Comparable<Formula>{
                 break;
             case AND:
             case U:
-                result = result + "(" + this.sf1.sugarString(formulaNames) + this.c.printString() + " ";
+                result = result + "(" + this.sf1.sugarString(formulaNames) + " " + this.c.printString() + " ";
                 result = result + this.sf2.sugarString(formulaNames) + ")";
                 break;
             case E:

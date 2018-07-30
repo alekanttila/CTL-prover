@@ -1,13 +1,10 @@
 package Prover.Prover;
 
-import Prover.Formula.Formula;
-import Prover.Formula.FormulaSet;
+import Prover.Formula.*;
 
 import java.util.*;
 
-import static Prover.Formula.Formula.Connective.AND;
-import static Prover.Formula.Formula.Connective.ATOM;
-import static Prover.Formula.Formula.Connective.NOT;
+import static Prover.Formula.Formula.Connective.*;
 import static Prover.StatusMessage.finePrint;
 import static Prover.StatusMessage.statusPrint;
 
@@ -30,7 +27,7 @@ public class LG3 {
 
         for (Formula g : closure) {
             finePrint("LG: updating with: ");
-            //finePrint(g.);
+            finePrint(g.sugarString());
             switch (g.getC()) {
                 case ATOM:
                 case TRUE:
@@ -59,6 +56,7 @@ public class LG3 {
                 default:
                     //TODO:ERROR
             }
+            finePrint(currentStructure.sugarString(f.getFormulaNames()));
         }
         //TODO: subset checker
         boolean result = checkLabels(currentStructure);
@@ -66,13 +64,29 @@ public class LG3 {
     }
     private static boolean checkLabels(PartialStructure s) {
         boolean result = true;
-        //statusPrint("LG final check. Partial Structure:");
-        //s.sugarPrint();
+        statusPrint("LG final check. Partial Structure:");
+        statusPrint(s.sugarString(f.getFormulaNames()));
+
         for (Node n: s.nodes()) {
-            if (!n.z.equals(s.getNodeColour(n))) {
+            statusPrint(n.getName() + n.z.sugarString(0, f.getFormulaNames()));
+            //TODO: write method for getting colours out of treeset formulasets
+            HueSet hS = new HueSet();
+            for (FormulaSet h : s.getNodeColour(n) ) {
+                hS.add(new Hue(h, 0));
+            }
+            Colour c  = new Colour(hS, 0);
+            statusPrint(n.getName() + c.sugarString(0, f.getFormulaNames()));
+            if (!n.z.equals(c)) {
+                System.out.println("CHCHCHCHCH");
+                System.out.println(n.getName());
+                for (FormulaSet h : s.getNodeColour(n)) {
+                   statusPrint(h.sugarString(f.getFormulaNames()));
+                }
                 result = false;
+                //break;
             }
         }
+        System.out.println(result);
         return result;
     }
 
@@ -131,7 +145,7 @@ public class LG3 {
                 if (h.contains(fAndG.getSf1()) && h.contains(fAndG.getSf2())) {
                     newF = fAndG;
                 } else {
-                    newF = new Formula(fAndG, NOT);
+                    newF = f.getClosure().getReference(new Formula(fAndG, NOT));
                 }
                 newS.addHue(n, h, newF, updatedHues);
             }
@@ -298,8 +312,12 @@ public class LG3 {
             for (FormulaSet hueToCheck : oldS.pC().get(nodeToCheck)) {
                 negativeExtensions.setBoolean(nodeToCheck, hueToCheck, false);
                 if (hueToCheck.contains(chi)) {
+                    statusPrint("found " + chi.sugarString() + " in " + nodeToCheck.getName() + " " + hueToCheck.sugarString());
+                    statusPrint("no neg extension");
                     break HUE_LOOP;
                 } else if (hueToCheck.contains(new Formula(phi, NOT))) {
+                    statusPrint("found neg of " + phi.sugarString() + " in " + nodeToCheck.getName() + " " + hueToCheck.sugarString());
+                    statusPrint("neg extension");
                     negativeExtensions.setBoolean(nodeToCheck, hueToCheck, true);
                     newS.addHue(nodeToCheck, hueToCheck, notPhiUChi, negativeExtensions);
                     break HUE_LOOP;
@@ -307,6 +325,8 @@ public class LG3 {
                     for (FormulaSet endHue : nodeToCheck.z) {
                         if (endHue.containsAll(hueToCheck)) {
                             if (endHue.contains(notPhiUChi)) {
+                                statusPrint("found " + notPhiUChi.sugarString() + " in " + nodeToCheck.getName() + " " + hueToCheck.sugarString());
+                                statusPrint("leaf neg extension");
                                 negativeExtensions.setBoolean(nodeToCheck, hueToCheck, true);
                                 newS.addHue(nodeToCheck, hueToCheck, notPhiUChi, negativeExtensions);
                                 break HUE_LOOP;
@@ -314,6 +334,8 @@ public class LG3 {
                         }
                     }
                 } else if (fulfillingLoopCheck(new Formula(chi, NOT), oldS, nodeToCheck, hueToCheck)) {
+                    statusPrint("fulfilling loop via neg of " + chi.sugarString() + " thru " + nodeToCheck.getName() + " " + hueToCheck.sugarString());
+                    statusPrint("neg extension");
                     negativeExtensions.setBoolean(nodeToCheck, hueToCheck, true);
                     newS.addHue(nodeToCheck, hueToCheck, notPhiUChi, negativeExtensions);
                     break HUE_LOOP;
@@ -349,11 +371,12 @@ public class LG3 {
         int count = 0;
         List<Formula> eventualities = new ArrayList<Formula>();
         for (Formula chi : hueToCheck) {
-            if (chi.getC() == AND) {
+            if (chi.getC() == U) {
                 count++;
                 eventualities.add(chi.getSf2());
             }
         }
+        System.out.println("eventualities " + eventualities);
         Map<Pair.NodeHue, Integer> eventualityCount = new HashMap<Pair.NodeHue, Integer>();
         for (Node n : oldS.nodes()) {
             for (FormulaSet h : oldS.pC().get(n)) {
@@ -361,6 +384,7 @@ public class LG3 {
             }
         }
         eventualityCount.put(nH(nodeToCheck, hueToCheck), 0);
+        boolean loop = false;
         boolean change = true;
         while (change) {
             change = false;
@@ -368,17 +392,27 @@ public class LG3 {
                 for (FormulaSet h1 : oldS.pC().get(n1)) {
                     for (Node n2 : oldS.nodes()) {
                         for (FormulaSet h2 : oldS.pC().get(n2)) {
-                            if (oldS.isSuccessor(n1, h1, n2, h2) &&
-                                    eventualityCount.get(nH(n1, h1)) < eventualityCount.get(nH(n2, h2)) &&
-                                    h1.contains(phi)) {
-                                eventualityCount.put(nH(n1, h1), eventualityCount.get(nH(n2, h2)));
-                                change = true;
+                            if (oldS.isSuccessor(n1, h1, n2, h2) && h1.contains(phi)) {
+                                if (eventualityCount.get(nH(n1, h1)) < eventualityCount.get(nH(n2, h2))) {
+                                    eventualityCount.put(nH(n1, h1), eventualityCount.get(nH(n2, h2)));
+                                    System.out.println("putting " + n1.getName() + h1.sugarString() + eventualityCount.get(nH(n1, h1)));
+                                    change = true;
+                                    if (n1 == nodeToCheck && h1 == hueToCheck) {
+                                        loop = true;
+                                    }
+                                } else if (n1 == nodeToCheck && h1 == hueToCheck &&
+                                        eventualityCount.get(nH(n1, h1)) == eventualityCount.get(nH(n2, h2)) && !loop) {
+                                    System.out.println("loop w no eventualities");
+                                    change = true;
+                                    loop = true;
+                                }
                             }
                         }
                     }
                     for (int i = 1; i < (count + 1); i++) {
-                        if (eventualityCount.get(nH(n1, h1)) == i - 1 && h1.contains(eventualities.get(i))) {
+                        if (eventualityCount.get(nH(n1, h1)) == i - 1 && h1.contains(eventualities.get(i - 1))) {
                             eventualityCount.put(nH(n1, h1), i);
+                            System.out.println("putting2 " + n1.getName() + h1.sugarString() + eventualityCount.get(nH(n1,h1)));
                             change = true;
                         }
                     }
@@ -386,7 +420,7 @@ public class LG3 {
             }
         }
         boolean result;
-        if (eventualityCount.get(nH(nodeToCheck, hueToCheck)) == count) {
+        if (loop == true && eventualityCount.get(nH(nodeToCheck, hueToCheck)) == count) {
             result = true;
         } else {
             result = false;
@@ -410,10 +444,12 @@ public class LG3 {
                         boolean add = false;
                         if (hueToCheck.contains(fUG.getSf2())) {
                             add = true;
+                            statusPrint(nodeToCheck.getName() + " " + hueToCheck.sugarString() + " contains " + fUG.getSf2().sugarString());
                         } else if (nodeToCheck.isLeaf()) {
                             for (FormulaSet endHue : nodeToCheck.z) {
                                 if (endHue.containsAll(hueToCheck)) {
-                                    if (endHue.contains(fUG)) {
+                                    if (endHue.contains(fUG.getSf2())) {
+                                        statusPrint("leaf " + nodeToCheck.getName() + " " + hueToCheck.sugarString() + " contains " + fUG.getSf2().sugarString());
                                         add = true;
                                         break;
                                     }
@@ -425,6 +461,7 @@ public class LG3 {
                                 for (FormulaSet potentialHueSuccessor : oldS.pC().get(potentialSuccessor)) {
                                     if (oldS.isSuccessor(nodeToCheck, hueToCheck, potentialSuccessor, potentialHueSuccessor) &&
                                             positiveExtensions.getBoolean(potentialSuccessor, potentialHueSuccessor)) {
+                                        statusPrint(nodeToCheck.getName() + " " + hueToCheck.sugarString() + " precededs " + potentialSuccessor.getName() + " " + potentialHueSuccessor.sugarString());
                                         add = true;
                                         break POTENTIAL_SUCCESSOR_LOOP;
                                     }

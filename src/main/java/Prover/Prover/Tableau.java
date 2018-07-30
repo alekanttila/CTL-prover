@@ -1,15 +1,26 @@
 package Prover.Prover;
 
 import Prover.Formula.*;
+import Prover.StatusMessage;
+import Prover.TextMenu;
 
 import java.util.*;
 
 import static Prover.Prover.Tableau.ExtendResult.*;
+import static Prover.StatusMessage.Level.MAX;
+import static Prover.StatusMessage.Level.NONE;
+import static Prover.StatusMessage.Level.SOME;
 import static Prover.StatusMessage.finePrint;
 import static Prover.StatusMessage.newSectionPrint;
 import static Prover.StatusMessage.statusPrint;
 
 public class Tableau {
+    //TODO: write something in report or do something about some hues having both ~Xp and ~X~p (try G(p & Xp & E(X~p))
+    //h4 h5
+    //4x4
+    //5x9 5x10 5x11
+    //useless: h01678 12 13
+    //useful: h23459 10 11
     //TODO: CAN NEVER HAVE TWO UPLINKS FROM ONE NODE INTO SAME NODE BECAUSE OF LEMMA 3.1
 
     private class CheckedUpLinkTree {
@@ -107,48 +118,48 @@ public class Tableau {
     private final int maxBranchLength;
 
 
-    public void printInfo() {
-        printInfo(root, null);
+    public String infoString() {
+        return infoString(root, null);
     }
 
-    public void printInfo(Node n, Set<Node> printedNodes) {
+    public String infoString(Node n, Set<Node> printedNodes) {
+        String result = "";
         if (printedNodes == null) {
             printedNodes = new HashSet<>();
         }
         printedNodes.add(n);
-        System.out.print(n.getName());
-        System.out.print("{ ");
+        result = result + n.getName() + " {";
         for (int i = 0; i < n.zOrder.size(); i++) {
             Hue h = n.zOrder.get(i);
-            System.out.print(h.name);
+            result = result + h.name;
             if (i != n.zOrder.size() -1) {
-                System.out.print(", ");
+                result = result + ", ";
             }
-
         }
-        System.out.print(" }");
-        System.out.print("Successors: ");
+        result = result + " }";
+        result = result + " Successors:";
         Iterator<Node> i = n.successors.values().iterator();
         while (i.hasNext()) {
             Node s = i.next();
-            System.out.print(s.getName() + " ");
+            result = result + s.getName() + " ";
         }
-        System.out.println();
+        result = result + "\n";
         Iterator<Node> i2 = n.successors.values().iterator();
         while (i2.hasNext()) {
             Node s = i2.next();
             if (printedNodes.contains(s)) {
                 continue;
             }
-            printInfo(s, printedNodes);
+            result = result + infoString(s, printedNodes);
         }
+        return result;
     }
 
     public Tableau(Formula f) {
         //TODO: check result set
         this.f = f;
         //TODO: remove duplication (since these in result set)???
-        this.maxBranchLength = 8;//TODO: replace
+        this.maxBranchLength = 4;//TODO: replace
     }
 
     //init tree (CHOOSE ROOT COLOUR)
@@ -257,20 +268,24 @@ public class Tableau {
             if (firstHue.rX(a.zOrder.get(0))) {
                 //can skip double uplinks because of lemma 3.1
                 //TODO: write in report
+                //TODO: write in report that cases where two hues uplink to same node, but linking first causes infinite loop are covered by
+                //switching hue or
                 for (Hue hueInC : c) {
                     CheckedUpLinkTree potentialUpLink = checkedUpLinks.getUpLinks(c, firstHue, hueInC);
                     if (potentialUpLink != null && potentialUpLink.equals(new CheckedUpLinkTree(a))) {
                         continue ANCESTOR_LOOP;
                     }
                 }
+
                 addUpLink(n, a, firstHue);
                 statusPrint("Adding uplink to " + a.getName() + " and initiating LG with");
-                printInfo();
+                statusPrint(infoString());
                 if (LG3.check(f, root)) {
                     statusPrint("LG OK");
                     checkedUpLinks.add(c, firstHue, hueToCheck, n);
                     return CHECK_NEXT_HUE;
                 } else {
+                    statusPrint("LG FAILED");
                     removeUpLink(n, a);
                     continue ANCESTOR_LOOP;
                     //NEEDS TO BE SOMEWHERE ELSE
@@ -365,7 +380,7 @@ public class Tableau {
                                 //we recurse down to the lower levels
                             } else {
                                 HueSet possibleChildHues = f.getAllHues().getHueSuccessors(n.zOrder.get(i));
-                                ExtendResult lowerLevelResult = checkLevelUpLinks(possibleColours, possibleChildHues, n, hueToCheck, level - 1, hueUpLinks, checkAll);
+                                ExtendResult lowerLevelResult = checkLevelUpLinks(possibleChildColours, possibleChildHues, n, hueToCheck, level - 1, hueUpLinks, checkAll);
                                 if (!checkAll) {
                                     switch (lowerLevelResult) {
                                         case SUCCESS:
@@ -399,11 +414,7 @@ public class Tableau {
                         }
                     }
                     if (checkAll) {
-                        System.out.println("AAAAA");
-                        System.out.println(root.getName());
-                        System.out.println(n.getName());
                         removeNode(n);
-                        System.out.println(root == null);
                     } else {
                         statusPrint("LEVEL " + level + " SUCCESS\n\n\n\n\n  ");
                         result = SUCCESS;
@@ -580,10 +591,21 @@ public class Tableau {
         return result;
     }
 
+    public void test() {
+        Node testroot = new Node(f.getAllColours().getColour(3), f.getAllHues().getHue(2));
+        Node n1 = addLeaf(testroot, f.getAllHues().getHue(2), f.getAllColours().getColour(30), f.getAllHues().getHue(8));
+        Node n2 = addLeaf(n1, f.getAllHues().getHue(8), f.getAllColours().getColour(2), f.getAllHues().getHue(1));
+        addUpLink(n2, testroot, f.getAllHues().getHue(1));
+        root = testroot;
+        LG3.check(f, root);
+    }
+
     public Node addLeaf(Node parent, Hue predecessorHue, Colour c, Hue firstHue) {
+        //TODO: check if huerx holds, throw error if doesn't
         Node newLeaf;
         if (parent != null) {
             int index = parent.zOrder.indexOf(predecessorHue);
+            System.out.println(parent.zOrder.toString());
             newLeaf = new Node(c, firstHue, parent, "" + parent.zOrder.indexOf(predecessorHue));
             parent.successors.put(index, newLeaf);
         } else {

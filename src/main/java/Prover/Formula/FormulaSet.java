@@ -1,10 +1,35 @@
 package Prover.Formula;
 
+import java.text.Normalizer;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeSet;
 
 public class FormulaSet extends TreeSet<Formula> implements Comparable<FormulaSet> {
+
+    /*
+    @Override
+    public boolean equals(Object obj) {
+        boolean result = true;
+        if (this == obj) {
+            result = true;
+        } else if (!FormulaSet.class.isAssignableFrom(obj.getClass())) {
+            result = false;
+        } else {
+            FormulaSet fS = (FormulaSet) obj;
+            Iterator<Formula> i = this.iterator();
+            Iterator<Formula> i2 = fS.iterator();
+            while (i.hasNext() && i2.hasNext()) {
+                Formula f = i.next();
+                Formula f2 = i2.next();
+                if (!f.equals(f2)) {
+                    result = false;
+                    break;
+                }
+            }
+        }
+        return result;
+    }*/
 
     @Override
     public int compareTo(FormulaSet fS){
@@ -15,9 +40,8 @@ public class FormulaSet extends TreeSet<Formula> implements Comparable<FormulaSe
             while (i.hasNext() && i2.hasNext()) {
                 Formula f = i.next();
                 Formula f2 = i2.next();
-                int fDiff = f.compareTo(f2);
-                if (fDiff != 0) {
-                    result = fDiff;
+                if (!f.equals(f2)) {
+                    result = f.compareTo(f2);
                     break;
                 }
             }

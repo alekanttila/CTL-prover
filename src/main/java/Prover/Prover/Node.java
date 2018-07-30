@@ -18,6 +18,7 @@ class Node {
     private final String name;
 
     //standard node creation
+    //TODO: add check for firsthue(is it in c)
     protected Node(Colour c, Hue firstHue, Node parent, String name) {
         this.z = c;
         this.zOrder = new ArrayList<Hue>();

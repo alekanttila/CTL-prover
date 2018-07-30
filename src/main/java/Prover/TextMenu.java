@@ -54,7 +54,7 @@ public class TextMenu {
                     case 1:
                         Tableau t = new Tableau(f);
                         System.out.println(t.solveBreadthFirst());
-                        t.printInfo();
+                        System.out.println(t.infoString());
                         break;
                     case 2:
                         infoMenu(f);
@@ -62,6 +62,9 @@ public class TextMenu {
                         System.exit(0);
                     default:
                         System.out.println("No such option. Try again.");
+                    case 4:
+                        Tableau t2 = new Tableau(f);
+                        t2.test();
                 }
 
             } catch (InputMismatchException e) {

@@ -130,25 +130,23 @@ class PartialStructure extends Pair<List<Node>, Pair<Map<Node, TreeSet<FormulaSe
         //}
         successorNodeHues.add(nH(n2, e2.getHueMap().get(nH(n2, h2))));
     }
-    public void sugarPrint() {
+    public String sugarString(Map<Formula, String> formulaNames) {
+        String result = "";
         for (Node n : this.nodes()) {
-            System.out.println("Node " + n.getName());
+            result = result + "Node " + n.getName() + "\n";
             for (FormulaSet h : this.getNodeColour(n)) {
-                System.out.println("\t Hue ");
-                System.out.println("\t" + h.sugarString());
-                System.out.println();
-                System.out.println("\t\twith successors: ");
+                result = result + "  Hue ";
+                result = result + h.sugarString() + "\n";
+                result = result + "  with successors:\n";
                 Set<NodeHue> successors =  this.hS().get(nH(n,h));
                 Iterator<NodeHue> i = successors.iterator();
                 while (i.hasNext()) {
                     NodeHue s = i.next();
-                    System.out.print("\t\t" + s.a.getName());
-                    System.out.println("\t\t" + s.b.sugarString());
-                    System.out.println();
+                    result = result + "  " + s.a.getName() + " " + s.b.sugarString(formulaNames) + "\n";
                 }
             }
-            System.out.println();
         }
+        return result;
     }
 
     protected static class ExtensionData extends Pair<Map<NodeHue, FormulaSet>, Map<NodeHue, Boolean>> {

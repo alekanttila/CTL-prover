@@ -17,6 +17,26 @@ public class Colour extends HueSet {
 
     public boolean rX(Colour c, boolean[][] hueRX) {
         boolean result = true;
+        Iterator<Hue> cI = c.iterator();
+        A:
+        while (cI.hasNext()) {
+            Hue cHue = cI.next();
+            Iterator<Hue>  thisI = this.iterator();
+            while (thisI.hasNext()) {
+                Hue thisHue = thisI.next();
+                if (hueRX[thisHue.getIndex()][cHue.getIndex()]) {
+                    continue A;
+                }
+            }
+            result = false;
+            break A;
+        }
+        return result;
+
+
+
+                /*
+        boolean result = true;
         Iterator<Hue> i = c.iterator();
         A:
         while (i.hasNext()) {
@@ -30,6 +50,7 @@ public class Colour extends HueSet {
             break A;
         }
         return result;
+        */
     }
 
     @Override

@@ -18,29 +18,50 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         super();
     }
 
-    public HueSet(Formula f) {
-        FormulaSet closure = f.getClosure();
-        this.addAll(getAllHues(closure));
-    }
+    /*
+    @Override
+    public boolean equals(Object obj) {
+        boolean result = true;
+        if (this == obj) {
+            result = true;
+        } else if (!HueSet.class.isAssignableFrom(obj.getClass())) {
+            result = false;
+        } else {
+            HueSet hS = (HueSet) obj;
+            Iterator<Hue> i = this.iterator();
+            Iterator<Hue> i2 = hS.iterator();
+            while (i.hasNext() && i2.hasNext()) {
+                Hue h = i.next();
+                Hue h2 = i2.next();
+                if (!h.equals(h2)) {
+                    result = false;
+                    break;
+                }
+            }
+        }
+        return result;
+    }*/
 
     //@Override
     public int compareTo(HueSet hS) {
         int result = 0;
-        Iterator<Hue> i = this.iterator();
-        Iterator<Hue> i2 = hS.iterator();
-        while (i.hasNext()) {
-            Hue h = i.next();
-            if (i2.hasNext()) {
-                Hue h2 = i2.next();
-                int hDiff = h.compareTo(h2);
-                if (hDiff != 0) {
-                    result = hDiff;
-                    break;
+        if (this != hS) {
+            Iterator<Hue> i = this.iterator();
+            Iterator<Hue> i2 = hS.iterator();
+            while (i.hasNext()) {
+                Hue h = i.next();
+                if (i2.hasNext()) {
+                    Hue h2 = i2.next();
+                    int hDiff = h.compareTo(h2);
+                    if (hDiff != 0) {
+                        result = hDiff;
+                        break;
+                    }
+                } else {
+                    //if this set has the same first elements as hS but is larger:
+                    //TODO: why does this affect colour size???
+                    result = 1;
                 }
-            } else {
-                //if this set has the same first elements as hS but is larger:
-                //TODO: why does this affect colour size???
-                result = 1;
             }
         }
         return result;
