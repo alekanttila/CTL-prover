@@ -1,14 +1,14 @@
 /*
-package Prover.Prover;
+package BreadthTableau.BreadthTableau;
 
 
-import Prover.Formula.*;
+import BreadthTableau.Formula.*;
 
 import java.util.*;
 
-import static Prover.Prover.Tableau.ExtendResult.FAILURE;
-import static Prover.Prover.Tableau.ExtendResult.SUCCESS;
-import static Prover.StatusMessage.*;
+import static BreadthTableau.BreadthTableau.BreadthTableau.ExtendResult.FAILURE;
+import static BreadthTableau.BreadthTableau.BreadthTableau.ExtendResult.SUCCESS;
+import static BreadthTableau.StatusMessage.*;
 
 public class Tableau2 {
 

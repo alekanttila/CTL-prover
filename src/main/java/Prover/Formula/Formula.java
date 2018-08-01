@@ -368,6 +368,18 @@ public class Formula implements Comparable<Formula>{
         return result;
     }
 
+    public HueSet getFHues() {
+        HueSet result;
+        if (results != null && results.getFHues() != null) {
+            result = results.getFHues();
+        } else {
+            HueSet hueSet = getAllHues();
+            result = hueSet.getHuesWithF(this);
+            results.setFHues(result);
+        }
+        return result;
+    }
+
     public ColourSet getFColours() {
         ColourSet result;
         if (results != null && results.getFColours() != null) {

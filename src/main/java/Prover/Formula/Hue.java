@@ -22,10 +22,8 @@ public class Hue extends FormulaSet {
         return Integer.parseInt(this.name.substring(1));
     }
 
-    public HueSet getSuccessors() {
-        if (this.successors == null) {
-            //TODO: error
-        }
+    //only use for colour RX; for others specify the set
+    HueSet getSuccessors() {
         return this.successors;
     }
 
@@ -39,8 +37,9 @@ public class Hue extends FormulaSet {
     public HueSet generateRX(HueSet hS) {
         successors = new HueSet();
         for (Hue h : hS) {
-            if (this.rX(h));
-            successors.add(h);
+            if (this.rX(h)) {
+                successors.add(h);
+            }
         }
         return successors;
     }

@@ -11,7 +11,8 @@ import static Prover.Formula.Formula.Connective.*;
 
 public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
 
-    TreeSet<HueSet> rAClasses;
+    private TreeSet<HueSet> rAClasses;
+    private boolean rXGenerated = false;
 
     protected FormulaSet instantiables = new FormulaSet();
 
@@ -207,9 +208,12 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
     }
 
     public void generateRX() {
-        for (Hue h : this) {
-            h.getSuccessors(this);
+        if (!rXGenerated) {
+            for (Hue h : this) {
+                h.generateRX(this);
+            }
         }
+        rXGenerated = true;
     }
 
     public TreeSet<HueSet> getrAClasses() {
@@ -240,6 +244,16 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         return result;
     }
 
+    public HueSet getHuesWithF(Formula f) {
+        HueSet result = new HueSet();
+        for (Hue h : this) {
+            if (h.contains(f)) {
+                result.add(h);
+            }
+        }
+        return result;
+    }
+
     public Hue getHue(int index) {
         return getHue("h" + index);
     }
@@ -266,9 +280,10 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         return result;
     }
 
-    public void printRX(Map<Formula, String> formulanames) {
+    public void printRX() {
+        generateRX();
         for (Hue h : this) {
-            System.out.println(h.getSuccessors().sugarString(0, formulanames));
+            System.out.println(h.name + " rX: " + h.getSuccessors().nameString());
         }
     }
 

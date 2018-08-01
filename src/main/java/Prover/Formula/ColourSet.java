@@ -15,6 +15,8 @@ import static Prover.StatusMessage.subSectionPrint;
 
 public class ColourSet extends TreeSet<Colour> {
 
+    private boolean rXGenerated = false;
+
     public static ColourSet getAllColours(HueSet hS) {
         TreeSet<HueSet> rAClasses = hS.getrAClasses();
         ColourSet result = new ColourSet();
@@ -158,17 +160,23 @@ public class ColourSet extends TreeSet<Colour> {
         return result;
     }
 
-    public ColourSet getColourSuccessors(Colour c) {
-        return c.getSuccessors(this);
-    }
-
     public Colour getColour(int index) {
         return getColour("c" + index);
     }
 
-    public void printRX(Map<Formula, String> formulanames) {
+    public void generateRX() {
+        if (!rXGenerated) {
+            for (Colour c : this) {
+                c.generateRX(this);
+            }
+        }
+        rXGenerated = true;
+    }
+
+    public void printRX() {
+        generateRX();
         for (Colour c : this) {
-            System.out.println(c.getSuccessors().sugarString(formulanames));
+            System.out.println(c.name + " rX: " + c.getSuccessors().nameString());
         }
     }
 

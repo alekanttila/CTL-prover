@@ -1,7 +1,6 @@
-package Prover.Prover;
+package Prover.Tableau;
 
 import Prover.Formula.*;
-import Prover.StatusMessage;
 
 import java.util.*;
 

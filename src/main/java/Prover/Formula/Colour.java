@@ -16,11 +16,8 @@ public class Colour extends HueSet {
         return Integer.parseInt(this.name.substring(1));
     }
 
-    public ColourSet getSuccessors() {
-        if (this.successors == null) {
-            //TODO: error
-        }
-        return this.successors;
+    ColourSet getSuccessors() {
+        return successors;
     }
 
     public ColourSet getSuccessors(ColourSet cS) {
@@ -33,8 +30,9 @@ public class Colour extends HueSet {
     public ColourSet generateRX(ColourSet colours) {
         successors = new ColourSet();
         for (Colour c : colours) {
-            if (this.rX(c));
-            successors.add(c);
+            if (this.rX(c)) {
+                successors.add(c);
+            }
         }
         return successors;
     }
@@ -45,10 +43,13 @@ public class Colour extends HueSet {
         A:
         while (cI.hasNext()) {
             Hue cHue = cI.next();
-            Iterator<Hue>  thisI = this.iterator();
+            Iterator<Hue> thisI = this.iterator();
             while (thisI.hasNext()) {
                 Hue thisHue = thisI.next();
-                if (thisHue.getSuccessors().contains(cHue)) {
+                if (thisHue.getSuccessors() != null && thisHue.getSuccessors().contains(cHue)) {
+                    continue A;
+                }
+                if (thisHue.rX(cHue)) {
                     continue A;
                 }
             }

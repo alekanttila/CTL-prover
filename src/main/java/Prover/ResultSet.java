@@ -21,7 +21,8 @@ public class ResultSet {
     private FormulaSet closure;
     private HueSet allHues;
     private ColourSet allColours;
-    private ColourSet fColours;//remove
+    private ColourSet fColours;//remove?
+    private HueSet fHues;//remove?
 
     public void setOriginalFormula(String originalFormula) {
         //TODO: trim etc
@@ -97,6 +98,14 @@ public class ResultSet {
         return allColours;
     }
 
+    public void setFHues(HueSet fHues) {
+        this.fHues = fHues;
+    }
+
+    public HueSet getFHues() {
+        return fHues;
+    }
+
     public void setFColours(ColourSet fColours) {
         this.fColours = fColours;
     }
@@ -104,5 +113,6 @@ public class ResultSet {
     public ColourSet getFColours() {
         return fColours;
     }
+
 }
 

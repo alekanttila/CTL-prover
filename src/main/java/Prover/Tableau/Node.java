@@ -1,4 +1,4 @@
-package Prover.Prover;
+package Prover.Tableau;
 
 import Prover.Formula.Colour;
 import Prover.Formula.Hue;

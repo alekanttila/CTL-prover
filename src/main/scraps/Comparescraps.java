@@ -1,6 +1,6 @@
 
 /*
-package Prover;
+package BreadthTableau;
 
 public class Comparescraps {
     public int compareTo(Formula f) {

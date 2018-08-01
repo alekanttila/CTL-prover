@@ -1,9 +1,8 @@
 package Prover;
 
 import Prover.Formula.*;
-import Prover.Prover.Tableau;
+import Prover.Tableau.BreadthTableau;
 
-import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Stack;
@@ -110,12 +109,12 @@ public class TextMenu {
                 int choice = scanner.nextInt();
                 switch (choice) {
                     case 0:
-                        Tableau t = new Tableau(f);
+                        BreadthTableau t = new BreadthTableau(f);
                         System.out.println(t.solveBreadthFirst2());
                         System.out.println(t.infoString());
                         break;
                     case 1:
-                        Tableau t2 = new Tableau(f);
+                        BreadthTableau t2 = new BreadthTableau(f);
                         System.out.println(t2.solveBreadthFirst());
                         System.out.println(t2.infoString());
                         break;
@@ -191,12 +190,13 @@ public class TextMenu {
                         scanner.nextLine();
                         break;
                     case 5:
-                        f.getAllHues().printRX(f.getFormulaNames());
+                        f.getAllHues().printRX();
                         System.out.println("Enter any key to return to menu");
                         scanner.nextLine();
                         break;
                     case 6:
-                        f.getAllColours().printRX(f.getFormulaNames());
+                        f.getAllColours().generateRX();
+                        f.getAllColours().printRX();
                         System.out.println("Enter any key to return to menu");
                         scanner.nextLine();
                         break;

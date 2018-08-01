@@ -1,11 +1,4 @@
-package Prover.Prover;
-
-import Prover.Formula.Formula;
-import Prover.Formula.FormulaSet;
-
-import java.util.*;
-
-import static Prover.Formula.Formula.Connective.NOT;
+package Prover.Tableau;
 
 /*
 public class LG2 {

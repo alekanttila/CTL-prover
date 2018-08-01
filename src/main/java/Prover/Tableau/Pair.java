@@ -1,10 +1,8 @@
-package Prover.Prover;
+package Prover.Tableau;
 
 import Prover.Formula.FormulaSet;
 
-import java.util.Map;
 import java.util.Objects;
-import java.util.TreeSet;
 
 //simple pair for legibility
 class Pair<A, B> {

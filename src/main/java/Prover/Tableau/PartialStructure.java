@@ -1,11 +1,11 @@
-package Prover.Prover;
+package Prover.Tableau;
 
 import Prover.Formula.Formula;
 import Prover.Formula.FormulaSet;
 
 import java.util.*;
 
-import static Prover.Prover.LG3.nH;
+import static Prover.Tableau.LG3.nH;
 
 class PartialStructure extends Pair<List<Node>, Pair<Map<Node, TreeSet<FormulaSet>>, Map<Pair.NodeHue, Set<Pair.NodeHue>>>> {
     protected PartialStructure(List<Node> nodes, Map<Node, TreeSet<FormulaSet>> partialColouring, Map<NodeHue, Set<NodeHue>> hueSuccessors) {
