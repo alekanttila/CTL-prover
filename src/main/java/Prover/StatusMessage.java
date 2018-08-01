@@ -16,7 +16,7 @@ public class StatusMessage {
         PARSER, HUES, COLOURS, LG, TABLEAU
     }
 
-    public static Level setLevel = SOME;
+    public static Level setLevel = MAX;
     public static List<Area> setAreas = new ArrayList<Area>();
 
     public static void statusPrint(Area a, Level l, String message) {
