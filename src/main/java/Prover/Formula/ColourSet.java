@@ -1,15 +1,19 @@
 package Prover.Formula;
 
+import Prover.StatusMessage;
+
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeSet;
 
 import static Prover.Formula.Formula.Connective.*;
+import static Prover.StatusMessage.Area.COLOURS;
+import static Prover.StatusMessage.Level.MAX;
+import static Prover.StatusMessage.Level.SOME;
+import static Prover.StatusMessage.statusPrint;
+import static Prover.StatusMessage.subSectionPrint;
 
 public class ColourSet extends TreeSet<Colour> {
-
-    private boolean[][] rX;
-    private boolean[][] hueRX;
 
     public static ColourSet getAllColours(HueSet hS) {
         TreeSet<HueSet> rAClasses = hS.getrAClasses();
@@ -18,6 +22,7 @@ public class ColourSet extends TreeSet<Colour> {
         Iterator<HueSet> classIterator = rAClasses.iterator();
         while (classIterator.hasNext()) {
             HueSet rAC = classIterator.next();
+            subSectionPrint(COLOURS, SOME, "Getting colours for equivalence class containing " + rAC.nameString());
             uninstantiated.addAll(getClassColours(rAC));
         }
         Iterator<HueSet> i = uninstantiated.iterator();
@@ -29,32 +34,7 @@ public class ColourSet extends TreeSet<Colour> {
                 counter++;
             }
         }
-        result.generateRX(hS.getRX());
         return result;
-    }
-
-    public static ColourSet getClassColours(HueSet hS, int i) {
-        TreeSet<HueSet> rAClasses = hS.getrAClasses();
-        ColourSet result = new ColourSet();
-        TreeSet<HueSet> uninstantiated = new TreeSet<HueSet>();
-        Iterator<HueSet> classIterator = rAClasses.iterator();
-        HueSet rAC = null;
-        for (int j = 0; j < i; j++) {
-            rAC = classIterator.next();
-        }
-        uninstantiated.addAll(getClassColours(rAC));
-        Iterator<HueSet> ii = uninstantiated.iterator();
-        int counter = 0;
-        while (ii.hasNext()) {
-            HueSet c = ii.next();
-            if (c.instantiables.isEmpty()) {
-                result.add(new Colour(c, counter));
-                counter++;
-            }
-        }
-        result.generateRX(hS.getRX());
-        return result;
-
     }
 
     public static TreeSet<HueSet> getClassColours(HueSet rAC) {
@@ -64,6 +44,8 @@ public class ColourSet extends TreeSet<Colour> {
 
         Hue h = rACCopy.last();
         Iterator<Formula> fI = h.iterator();
+
+        statusPrint(COLOURS, MAX, "Generating colours with " + h.name);
 
         FormulaSet hInstantiables = new FormulaSet();
         //System.out.println("instantiables in ");
@@ -158,35 +140,8 @@ public class ColourSet extends TreeSet<Colour> {
             c.instantiables.sugarPrint();
             System.out.println();
         }*/
+        statusPrint(COLOURS, MAX, "Number of potential colours generated: " + result.size());
         return result;
-    }
-
-    public boolean[][] getRX() {
-        boolean[][] result = null;
-        if (this.rX == null) {
-            //TODO: error
-        } else {
-            result = this.rX;
-        }
-        return result;
-    }
-
-    public void generateRX(boolean[][] hueRX) {
-        boolean[][] result = new boolean[this.size()][this.size()];
-        Iterator<Colour> i = this.iterator();
-        while (i.hasNext()) {
-            Colour c = i.next();
-            Iterator<Colour> i2 = this.iterator();
-            while (i2.hasNext()) {
-                Colour c2 = i2.next();
-                if (c.rX(c2, hueRX)) {
-                    result[c.getIndex()][c2.getIndex()] = true;
-                } else {
-                    result[c.getIndex()][c2.getIndex()] = false;
-                }
-            }
-        }
-        this.rX = result;
     }
 
     public ColourSet getColoursWithF(Formula f) {
@@ -204,19 +159,17 @@ public class ColourSet extends TreeSet<Colour> {
     }
 
     public ColourSet getColourSuccessors(Colour c) {
-        boolean[][] rX = getRX();
-        ColourSet result = new ColourSet();
-        int index = c.getIndex();
-        for (int i = 0; i < rX[index].length; i++) {
-            if (rX[index][i]) {
-                result.add(getColour(i));
-            }
-        }
-        return result;
+        return c.getSuccessors(this);
     }
 
     public Colour getColour(int index) {
         return getColour("c" + index);
+    }
+
+    public void printRX(Map<Formula, String> formulanames) {
+        for (Colour c : this) {
+            System.out.println(c.getSuccessors().sugarString(formulanames));
+        }
     }
 
     public Colour getColour(String name) {
@@ -255,6 +208,20 @@ public class ColourSet extends TreeSet<Colour> {
         }
         result = result + "\n}";
         return result;
+    }
+
+    public void sugarPrint(Map<Formula, String> formulaNames) {
+        System.out.println("{");
+        Iterator<Colour> i = this.iterator();
+        while (i.hasNext()) {
+            Colour c = i.next();
+            System.out.print(c.sugarString(1, formulaNames));
+            if (i.hasNext()) {
+                System.out.println(",");
+            }
+        }
+        System.out.println();
+        System.out.println("}");
     }
 
     public String sugarString(Map<Formula, String> formulaNames) {

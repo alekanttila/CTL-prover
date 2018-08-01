@@ -5,6 +5,7 @@ import java.util.*;
 public class Colour extends HueSet {
 
     public final String name;
+    private ColourSet successors;
 
     public Colour(HueSet hS, int index) {
         super.addAll(hS);
@@ -15,7 +16,30 @@ public class Colour extends HueSet {
         return Integer.parseInt(this.name.substring(1));
     }
 
-    public boolean rX(Colour c, boolean[][] hueRX) {
+    public ColourSet getSuccessors() {
+        if (this.successors == null) {
+            //TODO: error
+        }
+        return this.successors;
+    }
+
+    public ColourSet getSuccessors(ColourSet cS) {
+        if (this.successors == null) {
+            generateRX(cS);
+        }
+        return this.successors;
+    }
+
+    public ColourSet generateRX(ColourSet colours) {
+        successors = new ColourSet();
+        for (Colour c : colours) {
+            if (this.rX(c));
+            successors.add(c);
+        }
+        return successors;
+    }
+
+    public boolean rX(Colour c) {
         boolean result = true;
         Iterator<Hue> cI = c.iterator();
         A:
@@ -24,7 +48,7 @@ public class Colour extends HueSet {
             Iterator<Hue>  thisI = this.iterator();
             while (thisI.hasNext()) {
                 Hue thisHue = thisI.next();
-                if (hueRX[thisHue.getIndex()][cHue.getIndex()]) {
+                if (thisHue.getSuccessors().contains(cHue)) {
                     continue A;
                 }
             }
@@ -32,26 +56,8 @@ public class Colour extends HueSet {
             break A;
         }
         return result;
-
-
-
-                /*
-        boolean result = true;
-        Iterator<Hue> i = c.iterator();
-        A:
-        while (i.hasNext()) {
-            Hue h = i.next();
-            for (boolean[] rXRow : hueRX) {
-                if (rXRow[h.getIndex()]) {
-                    continue A;
-                }
-            }
-            result = false;
-            break A;
-        }
-        return result;
-        */
     }
+
 
     @Override
     public String printString(int indentLevel) {

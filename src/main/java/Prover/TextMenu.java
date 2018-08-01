@@ -36,12 +36,65 @@ public class TextMenu {
                 System.out.println("Try again.");
             }
         }
-        System.out.println("(Optional) name formula");
-        String fName = scanner.nextLine();
+        nameMenu(f);
+
+    }
+
+    public static void nameMenu(Formula f) {
+        System.out.println("Parsed formula is " + f.sugarString());
+        System.out.println("(Optional) Name formula");
+        System.out.println("1. α");
+        System.out.println("2. β");
+        System.out.println("3. γ");
+        System.out.println("4. φ");
+        System.out.println("5. χ");
+        System.out.println("6. ψ");
+        System.out.println("7. Name subformulae");
+        System.out.println("8. Skip");
+
         //TODO: regex here for allowable names
         //TODO: name subformulae
-        f.addFormulaName(f, fName);
-        formulaMenu(f);
+
+        try {
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1:
+                    f.addFormulaName(f, "α");
+                    formulaMenu(f);
+                    break;
+                case 2:
+                    f.addFormulaName(f, "β");
+                    formulaMenu(f);
+                    break;
+                case 3:
+                    f.addFormulaName(f, "γ");
+                    formulaMenu(f);
+                    break;
+                case 4:
+                    f.addFormulaName(f, "φ");
+                    formulaMenu(f);
+                    break;
+                case 5:
+                    f.addFormulaName(f, "χ");
+                    formulaMenu(f);
+                    break;
+                case 6:
+                    f.addFormulaName(f, "ψ");
+                    formulaMenu(f);
+                    break;
+                case 7:
+                    //TODO
+                case 8:
+                    formulaMenu(f);
+                    break;
+                default:
+                    System.out.println("No such option. Try again.");
+            }
+
+        } catch (InputMismatchException e) {
+            scanner.nextLine();
+            System.out.println("Input incorrect. Try again.");
+        }
     }
 
     public static void formulaMenu(Formula f) {
@@ -56,22 +109,25 @@ public class TextMenu {
             try {
                 int choice = scanner.nextInt();
                 switch (choice) {
-                    case 1:
+                    case 0:
                         Tableau t = new Tableau(f);
-                        System.out.println(t.solveBreadthFirst());
+                        System.out.println(t.solveBreadthFirst2());
                         System.out.println(t.infoString());
+                        break;
+                    case 1:
+                        Tableau t2 = new Tableau(f);
+                        System.out.println(t2.solveBreadthFirst());
+                        System.out.println(t2.infoString());
                         break;
                     case 2:
                         infoMenu(f);
                     case 3:
                         settings(f);
                     case 4:
+                        scanner.nextLine();
                         start();
                     case 5:
                         System.exit(0);
-                    case 6:
-                        Tableau t2 = new Tableau(f);
-                        t2.test2();
                     default:
                         System.out.println("No such option. Try again.");
                 }
@@ -93,21 +149,15 @@ public class TextMenu {
             System.out.println("3. Display full colours (+size)");
             System.out.println("4. Display colours in terms of hues (+size)");
             System.out.println("5. Display hue successor relation (rX)");
-            System.out.println("6. Display rA");
-            System.out.println("7. Display color successor relation (RX)");
-            System.out.println("8. Display rA-equivalence classes (+size)");
-            System.out.println("9. Return");
-            System.out.println("10. Quit");
+            System.out.println("6. Display color successor relation (RX)");
+            System.out.println("7. Display rA-equivalence classes (+size)");
+            System.out.println("8. Return");
+            System.out.println("9. Quit");
 
             try {
                 int choice = scanner.nextInt();
                 scanner.nextLine();
                 switch (choice) {
-                    case 0:
-                        ColourSet ccc = ColourSet.getClassColours(f.getAllHues(), 2);
-                        System.out.println(ccc.sugarString(f.getFormulaNames()));
-                        System.out.print("Size: ");
-                        System.out.println(ccc.size());
                     case 1:
                         FormulaSet closure = f.getClosure();
                         System.out.println(closure.sugarString(f.getFormulaNames()));
@@ -126,7 +176,7 @@ public class TextMenu {
                         break;
                     case 3:
                         ColourSet colourSet = f.getAllColours();
-                        System.out.println(colourSet.sugarString(f.getFormulaNames()));
+                        colourSet.sugarPrint(f.getFormulaNames());
                         System.out.print("Size: ");
                         System.out.println(colourSet.size());
                         System.out.println("Enter any key to return to menu");
@@ -141,21 +191,16 @@ public class TextMenu {
                         scanner.nextLine();
                         break;
                     case 5:
-                        printRelation(f.getHueRX(), "rX");
+                        f.getAllHues().printRX(f.getFormulaNames());
                         System.out.println("Enter any key to return to menu");
                         scanner.nextLine();
                         break;
                     case 6:
-                        printRelation(f.getRA(), "rA");
+                        f.getAllColours().printRX(f.getFormulaNames());
                         System.out.println("Enter any key to return to menu");
                         scanner.nextLine();
                         break;
                     case 7:
-                        printRelation(f.getColourRX(), "RX");
-                        System.out.println("Enter any key to return to menu");
-                        scanner.nextLine();
-                        break;
-                    case 8:
                         TreeSet<HueSet> rAClasses = f.getRAClasses();
                         System.out.println("{");
                         for (HueSet c : rAClasses) {
@@ -167,9 +212,9 @@ public class TextMenu {
                         System.out.println("Enter any key to return to menu");
                         scanner.nextLine();
                         break;
-                    case 9:
+                    case 8:
                         formulaMenu(f);
-                    case 10:
+                    case 9:
                         System.exit(0);
                     default:
                         System.out.println("No such option. Try again.");
@@ -186,7 +231,11 @@ public class TextMenu {
             System.out.println("Enter option number:");
             System.out.println("1. Progress message settings");
             System.out.println("2. Character settings");
-            System.out.println("3. Toggle hue type used (current: regular (slower))");
+            if (!Mode.xHues) {
+                System.out.println("3. Toggle hue type used (current: regular (slower))");
+            } else {
+                System.out.println("3. Toggle hue type used (current: more restrictive hues (faster))");
+            }
             System.out.println("4. Return");
 
             try {
@@ -194,9 +243,15 @@ public class TextMenu {
                 switch (choice) {
                     case 1:
                         reportSettings(f);
-                    case 2:
-                        //characterSettings(f);
+                    case 2: //TODO
                     case 3:
+                        if (Mode.xHues) {
+                            Mode.xHues = false;
+                        } else {
+                            Mode.xHues = true;
+                        }
+                        settings(f);
+                    case 4:
                         formulaMenu(f);
                     default:
                         System.out.println("No such option. Try again.");

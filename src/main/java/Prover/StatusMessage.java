@@ -20,7 +20,7 @@ public class StatusMessage {
     public static List<Area> setAreas = new ArrayList<Area>();
 
     public static void statusPrint(Area a, Level l, String message) {
-        if (setAreas.contains(a) && l.compareTo(setLevel) >= 0)  {
+        if (setAreas.contains(a) && l.compareTo(setLevel) <= 0)  {
             System.out.println(message);
         }
 

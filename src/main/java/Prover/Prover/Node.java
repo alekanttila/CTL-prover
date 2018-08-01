@@ -36,6 +36,33 @@ class Node {
         this.name = parent.name + name;
         this.successors = new HashMap<Integer, Node>();
     }
+
+    protected Node(Colour c, Map<Integer, Hue> hueOrder, Node parent, String name) {
+        this.z = c;
+        this.zOrder = new ArrayList<Hue>();
+        for (int i = 0; i < c.size(); i ++) {
+            zOrder.add(hueOrder.get(i));
+        }
+        this.ancestors = new ArrayList<Node>(parent.ancestors);
+        this.ancestors.add(this);
+        this.branchLength = parent.branchLength + 1;
+        this.name = parent.name + name;
+        this.successors = new HashMap<Integer, Node>();
+    }
+
+    protected Node(Colour c, Map<Integer, Hue> hueOrder) {
+        this.z = c;
+        this.zOrder = new ArrayList<Hue>();
+        for (int i = 0; i < c.size(); i ++) {
+            zOrder.add(hueOrder.get(i));
+        }
+        this.ancestors = new ArrayList<>();
+        this.ancestors.add(this);
+        this.branchLength = 1;
+        this.name = "r";
+        this.successors = new HashMap<Integer, Node>();
+    }
+
     protected Node(Colour c, Hue firstHue) {
         this.z = c;
         this.zOrder = new ArrayList<Hue>();
@@ -65,34 +92,4 @@ class Node {
 
     //do not want to store entire trees (to which other references have been lost)
     //in our CheckedUpLinkTrees, so store just name
-   /*
-    //custom node creation
-    protected Node(Colour z, Hue[] zT, List<Node> a, Node[] s) {
-        this.z = z;
-        this.zOrder = zT;
-        this.ancestors = a;
-        this.successors = s;
-    }
-    //
-    protected Node(Colour z, List<Node> a, Node[] s) {
-        this(z, null, a, s);
-        zOrder = new Hue[z.size()];
-        int counter = 0;
-        for (Hue h : z) {
-            zOrder[counter] = h;
-        }
-        this.zOrder = zOrder;
-    }
-
-
-
-    //for creating root with natural hue order
-    protected Node(Colour z) {
-        this(z, null, null);
-    }
-    protected Node(Colour z, Hue firstHue) {
-        this(z, null, null);
-     //   List<Node> s =
-    }
-    */
 }

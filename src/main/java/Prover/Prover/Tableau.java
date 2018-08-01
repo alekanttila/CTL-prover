@@ -1,8 +1,6 @@
 package Prover.Prover;
 
 import Prover.Formula.*;
-import Prover.StatusMessage;
-import Prover.TextMenu;
 
 import java.util.*;
 
@@ -10,7 +8,6 @@ import static Prover.Prover.Tableau.ExtendResult.*;
 import static Prover.StatusMessage.*;
 import static Prover.StatusMessage.Area.TABLEAU;
 import static Prover.StatusMessage.Level.MAX;
-import static Prover.StatusMessage.Level.NONE;
 import static Prover.StatusMessage.Level.SOME;
 
 //investigate:
@@ -33,11 +30,11 @@ public class Tableau {
     //useful: h23459 10 11
     //TODO: CAN NEVER HAVE TWO UPLINKS FROM ONE NODE INTO SAME NODE BECAUSE OF LEMMA 3.1
 
-    private class CheckedUpLinkTree {
+    private class firstHueUpLinkTree {
         //TODO: store numbers, not colours. hues
-        private Map<Pair<Pair<Colour, Hue>, Hue>, CheckedUpLinkTree> map;
+        private Map<Pair<Pair<Colour, Hue>, Hue>, firstHueUpLinkTree> map;
         private Node n;
-        private CheckedUpLinkTree getUpLinks(Colour c, Hue firstHue, Hue successorIndex) {
+        private firstHueUpLinkTree getUpLinks(Colour c, Hue firstHue, Hue successorIndex) {
             return map.get(new Pair<>(new Pair<>(c, firstHue), successorIndex));
         }
 
@@ -46,10 +43,10 @@ public class Tableau {
             boolean result;
             if (this == obj) {
                 result = true;
-            } else if (obj.getClass() != CheckedUpLinkTree.class) {
+            } else if (obj.getClass() != firstHueUpLinkTree.class) {
                 result = false;
             } else {
-                CheckedUpLinkTree c = (CheckedUpLinkTree)obj;
+                firstHueUpLinkTree c = (firstHueUpLinkTree)obj;
                 if (this.isNode()) {
                     if (c.isNode()) {
                         //TODO: note somewhere we only use copies of nodes so that this works?
@@ -86,21 +83,21 @@ public class Tableau {
             return result;
         }
 
-        private CheckedUpLinkTree() {
+        private firstHueUpLinkTree() {
             this.map = new HashMap<>();
         }
-        private CheckedUpLinkTree(Node n) {
+        private firstHueUpLinkTree(Node n) {
             this.n = n;
         }
         private void add(Colour c, Hue firstHue, Hue successorIndex, Node n) {
             if (this.n == null) {
-                this.map.put(new Pair<>(new Pair<>(c, firstHue), successorIndex), new CheckedUpLinkTree(n));
+                this.map.put(new Pair<>(new Pair<>(c, firstHue), successorIndex), new firstHueUpLinkTree(n));
             } else {
                 throw new AssertionError();
                 //TODO: change the error here
             }
         }
-        private void add(Colour c, Hue firstHue, Hue successorIndex, CheckedUpLinkTree tree) {
+        private void add(Colour c, Hue firstHue, Hue successorIndex, firstHueUpLinkTree tree) {
             if (this.n == null) {
                 this.map.put(new Pair<>(new Pair<>(c, firstHue), successorIndex), tree);
             } else {
@@ -110,26 +107,99 @@ public class Tableau {
         }
     }
 
+    private class UpLinkTree {
+        //TODO: store numbers, not colours. hues
+        private Map<Pair<List<Hue>, Hue>, UpLinkTree> map;
+        private Node n;
+        private UpLinkTree getUpLinks(List<Hue> zOrder, Hue successorIndex) {
+            return map.get(new Pair<>(zOrder , successorIndex));
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            boolean result;
+            if (this == obj) {
+                result = true;
+            } else if (obj.getClass() != UpLinkTree.class) {
+                result = false;
+            } else {
+                UpLinkTree c = (UpLinkTree)obj;
+                if (this.isNode()) {
+                    if (c.isNode()) {
+                        //TODO: note somewhere we only use copies of nodes so that this works?
+                        result = (this.n == c.n);
+                    } else {
+                        result = false;
+                    }
+                } else {
+                    if (c.isNode()) {
+                        result = false;
+                    } else {
+                        result = this.map.equals(c.map);
+                    }
+                }
+            }
+            return result;
+        }
+
+        private boolean isNode() {
+            boolean result = false;
+            if (n!=null) {
+                if (map == null) {
+                    result = true;
+                } else {
+                    //TODO: throw assertionerro
+                }
+            } else {
+                if (map != null) {
+                    result = false;
+                } else {
+                    //TODO: throw assertionerro
+                }
+            }
+            return result;
+        }
+
+        private UpLinkTree() {
+            this.map = new HashMap<>();
+        }
+        private UpLinkTree(Node n) {
+            this.n = n;
+        }
+        private void add(List<Hue> zOrder, Hue successorIndex, Node n) {
+            if (this.n == null) {
+                this.map.put(new Pair<>(zOrder, successorIndex), new UpLinkTree(n));
+            } else {
+                throw new AssertionError();
+                //TODO: change the error here
+            }
+        }
+        private void add(List<Hue> zOrder, Hue successorIndex, UpLinkTree tree) {
+            if (this.n == null) {
+                this.map.put(new Pair<>(zOrder, successorIndex), tree);
+            } else {
+                throw new AssertionError();
+                //TODO:change the error here
+            }
+        }
+    }
+
     protected enum ExtendResult {
         SUCCESS, FAILURE, STEPS_COMPLETE, CHECK_NEXT_HUE, START_NEW_FIRST_HUE;
-        private CheckedUpLinkTree checkedUpLinks;
+        private firstHueUpLinkTree checkedUpLinks;
+        private UpLinkTree upLinks;
     }
 
     //TODO: do we even need t? i don't think so
-    //private TreeSet<Node> t;
     private Node root;
-    //private Queue<Node> upLinksNotTried;
     private int steps = 0;
     private int lgRuns = 0;
     private int maxSteps = -1;
     private final Formula f;
-
-    //private final ColourSet colours;
     private final int maxBranchLength;
 
-
     public String infoString() {
-        return infoString(root, null);
+        return infoString(root, null) + "LG runs: " + lgRuns;
     }
 
     public String infoString(Node n, Set<Node> printedNodes) {
@@ -170,7 +240,7 @@ public class Tableau {
         //TODO: check result set
         this.f = f;
         //TODO: remove duplication (since these in result set)???
-        this.maxBranchLength = 2;//TODO: replace
+        this.maxBranchLength = 3;//TODO: replace
     }
 
     //init tree (CHOOSE ROOT COLOUR)
@@ -237,7 +307,7 @@ public class Tableau {
 
     public ExtendResult solveBreadthFirst() {
         ExtendResult result = FAILURE;
-        result.checkedUpLinks = new CheckedUpLinkTree();
+        result.checkedUpLinks = new firstHueUpLinkTree();
         for (int i = 0; i < maxBranchLength; i++) {
             result = checkLevelUpLinks(f.getFColours(), f.getAllHues(), null, null, i, result.checkedUpLinks, false);
             if (result == SUCCESS) {
@@ -249,11 +319,25 @@ public class Tableau {
         return result;
     }
 
+    public ExtendResult solveBreadthFirst2() {
+        ExtendResult result = FAILURE;
+        result.upLinks = new UpLinkTree();
+        for (int i = 0; i < maxBranchLength; i++) {
+            result = breadthCheckAllColours(f.getFColours(), null, null, i, result.upLinks, false);
+            if (result == SUCCESS) {
+                break;
+            } else if (i != maxBranchLength - 1){
+                result = breadthCheckAllColours(f.getFColours(), null, null, i, result.upLinks, true);
+            }
+        }
+        return result;
+    }
+
     private boolean createDummies(Node n, ColourSet possibleChildColours) {
         boolean result = true;
         DUMMY_CREATION_LOOP:
         for (Hue predecessorHue : n.zOrder) {
-            HueSet possibleSuccessorHues = f.getAllHues().getHueSuccessors(predecessorHue);
+            HueSet possibleSuccessorHues = predecessorHue.getSuccessors();
             //MAKE DUMMY CHILDREN
             for (Colour candidateColour : possibleChildColours) {
                 for (Hue candidateHue : possibleSuccessorHues) {
@@ -272,7 +356,7 @@ public class Tableau {
         return  result;
     }
 
-    private ExtendResult level0UpLinkCheck(Node n, Colour c, Hue firstHue, Hue hueToCheck, Node dummyCopy, CheckedUpLinkTree checkedUpLinks, boolean checkAll) {
+    private ExtendResult level0UpLinkCheck(Node n, Colour c, Hue firstHue, Hue hueToCheck, Node dummyCopy, firstHueUpLinkTree checkedUpLinks, boolean checkAll) {
         //checked uplinks do not exist->if
         ANCESTOR_LOOP:
         for (Node a : n.ancestors) {
@@ -282,8 +366,8 @@ public class Tableau {
                 //TODO: write in report that cases where two hues uplink to same node, but linking first causes infinite loop are covered by
                 //switching hue or
                 for (Hue hueInC : c) {
-                    CheckedUpLinkTree potentialUpLink = checkedUpLinks.getUpLinks(c, firstHue, hueInC);
-                    if (potentialUpLink != null && potentialUpLink.equals(new CheckedUpLinkTree(a))) {
+                    firstHueUpLinkTree potentialUpLink = checkedUpLinks.getUpLinks(c, firstHue, hueInC);
+                    if (potentialUpLink != null && potentialUpLink.equals(new firstHueUpLinkTree(a))) {
                         continue ANCESTOR_LOOP;
                     }
                 }
@@ -305,7 +389,7 @@ public class Tableau {
             }
         }
         statusPrint(TABLEAU, MAX,"All ancestors checked. No uplinks possible");
-        checkedUpLinks.add(c, firstHue, hueToCheck, new CheckedUpLinkTree());
+        checkedUpLinks.add(c, firstHue, hueToCheck, new firstHueUpLinkTree());
         if (checkAll) {
             addLeaf(n, hueToCheck, dummyCopy.z, dummyCopy.zOrder.get(0));
             return CHECK_NEXT_HUE;
@@ -315,14 +399,52 @@ public class Tableau {
         }
     }
 
-    private ExtendResult checkLevelUpLinks(ColourSet possibleColours, HueSet possibleHues, Node parent, Hue parentHue, int level, CheckedUpLinkTree checkedUpLinks, boolean checkAll) {
+    private ExtendResult level0UpLinkCheck2(Node n, Hue hueToCheck, UpLinkTree checkedUpLinks, boolean checkAll) {
+        //checked uplinks do not exist->if
+        ANCESTOR_LOOP:
+        for (Node a : n.ancestors) {
+            if (hueToCheck.rX(a.zOrder.get(0))) {
+                //can skip double uplinks because of lemma 3.1
+                //TODO: write in report
+                //TODO: write in report that cases where two hues uplink to same node, but linking first causes infinite loop are covered by
+                //switching hue or
+                for (Hue hueInZ : n.z) {
+                    UpLinkTree potentialUpLink = checkedUpLinks.getUpLinks(n.zOrder, hueInZ);
+                    if (potentialUpLink != null && potentialUpLink.equals(new UpLinkTree(a))) {
+                        continue ANCESTOR_LOOP;
+                    }
+                }
+
+                addUpLink(n, a, hueToCheck);
+                statusPrint(TABLEAU, MAX, "Adding uplink to " + a.getName() + " and initiating LG with");
+                statusPrint(TABLEAU, MAX, infoString());
+                lgRuns++;
+                if (LG3.check(f, root)) {
+                    statusPrint(TABLEAU, MAX, "LG OK");
+                    checkedUpLinks.add(n.zOrder, hueToCheck, n);
+                    return SUCCESS;
+                } else {
+                    statusPrint(TABLEAU, MAX, "LG FAILED");
+                    removeUpLink(n, a);
+                    continue ANCESTOR_LOOP;
+                    //NEEDS TO BE SOMEWHERE ELSE
+                }
+            }
+        }
+        statusPrint(TABLEAU, MAX,"All ancestors checked. No uplinks possible");
+        checkedUpLinks.add(n.zOrder, hueToCheck, new UpLinkTree());
+        return FAILURE;
+    }
+
+
+    private ExtendResult checkLevelUpLinks(ColourSet possibleColours, HueSet possibleHues, Node parent, Hue parentHue, int level, firstHueUpLinkTree checkedUpLinks, boolean checkAll) {
         //TODO: check for empty possiblecolours
         ExtendResult result = FAILURE;
         sectionPrint(TABLEAU, SOME, "LEVEL " + level);
-        statusPrint(TABLEAU, MAX, "Possible colours");
-        statusPrint(TABLEAU, MAX, possibleColours.hueString());
-        statusPrint(TABLEAU, MAX, "Possible first hues");
-        statusPrint(TABLEAU, MAX, possibleHues.nameString());
+        //statusPrint(TABLEAU, MAX, "Possible colours");
+        //statusPrint(TABLEAU, MAX, possibleColours.hueString());
+        //statusPrint(TABLEAU, MAX, "Possible first hues");
+        //statusPrint(TABLEAU, MAX, possibleHues.nameString());
         COLOUR_LOOP:
         for (Colour c : possibleColours) {
             subSectionPrint(TABLEAU, SOME, "Fixing colour " + c.name);
@@ -341,8 +463,8 @@ public class Tableau {
                     }
 
                     ColourSet possibleChildColours = f.getAllColours().getColourSuccessors(c);
-                    statusPrint(TABLEAU, MAX, "Possible child colours:");
-                    statusPrint(TABLEAU, MAX, possibleChildColours.nameString());
+                    //statusPrint(TABLEAU, MAX, "Possible child colours:");
+                    //statusPrint(TABLEAU, MAX, possibleChildColours.nameString());
                     if (!createDummies(n, possibleChildColours)) {
                         removeNode(n);
                         continue COLOUR_LOOP;
@@ -358,7 +480,7 @@ public class Tableau {
                         removeNode(dummyCopy);
 
                         //CHECK FOR ALREADY CHECKED UPLINKS HERE
-                        CheckedUpLinkTree hueUpLinks = checkedUpLinks.getUpLinks(c, firstHue, hueToCheck);
+                        firstHueUpLinkTree hueUpLinks = checkedUpLinks.getUpLinks(c, firstHue, hueToCheck);
                         if (hueUpLinks != null) {
                             Node checkedChild = hueUpLinks.n;
 
@@ -384,13 +506,13 @@ public class Tableau {
                                     //if the uplinktree exists and has no node, and the level is 0, the uplinktree map
                                     //should be nonnull and empty
                                 } else {
-                                    throw new AssertionError("Incorrectly built CheckedUpLinkTree");
+                                    throw new AssertionError("Incorrectly built firstHueUpLinkTree");
                                 }
 
                                 //CASE 3: we have an existing uplinktree (which is not a node), and the level is not 0.
                                 //we recurse down to the lower levels
                             } else {
-                                HueSet possibleChildHues = f.getAllHues().getHueSuccessors(n.zOrder.get(i));
+                                HueSet possibleChildHues = n.zOrder.get(i).getSuccessors();
                                 ExtendResult lowerLevelResult = checkLevelUpLinks(possibleChildColours, possibleChildHues, n, hueToCheck, level - 1, hueUpLinks, checkAll);
                                 if (!checkAll) {
                                     switch (lowerLevelResult) {
@@ -412,7 +534,7 @@ public class Tableau {
                         } else {
                             //checked uplinks do not exist->if
                             if (level != 0) {
-                                throw new AssertionError("Incorrectly built CheckedUpLinkTree");
+                                throw new AssertionError("Incorrectly built firstHueUpLinkTree");
                             } else {
                                 switch(level0UpLinkCheck(n, c, firstHue, hueToCheck, dummyCopy, checkedUpLinks, checkAll)) {
                                     case CHECK_NEXT_HUE: //success or checkAll
@@ -442,6 +564,192 @@ public class Tableau {
             statusPrint(TABLEAU, SOME, "LEVEL " + level + "CHECKALL FINISHED");
         }
         result.checkedUpLinks = checkedUpLinks;
+        return result;
+    }
+
+    private ExtendResult breadthCheckNode(Node n, int level, UpLinkTree checkedUpLinks, boolean checkAll) {
+        ExtendResult result = null;
+        ColourSet possibleChildColours = n.z.getSuccessors(f.getAllColours());
+        //statusPrint(TABLEAU, MAX, "Possible child colours:");
+        //statusPrint(TABLEAU, MAX, possibleChildColours.nameString());
+        if (!createDummies(n, possibleChildColours)) {
+            removeNode(n);
+            result = FAILURE;
+            return result;
+        }
+
+        HUES_IN_NZ_LOOP:
+        for (int i = 0; i < n.z.size(); i++) {
+            Hue hueToCheck = n.zOrder.get(i);
+            statusPrint(TABLEAU, SOME, "Checking children/uplinks for " + hueToCheck.name);
+
+            //remove dummy leaf
+            Node dummyCopy = n.successors.get(i);
+            removeNode(dummyCopy);
+
+            //CHECK FOR ALREADY CHECKED UPLINKS HERE
+            UpLinkTree hueUpLinks = checkedUpLinks.getUpLinks(n.zOrder, hueToCheck);
+            if (hueUpLinks != null) {
+                Node checkedChild = hueUpLinks.n;
+
+                //CASE 1: we have a previously checked uplink. We attach it to the current tree
+                if (checkedChild != null) {
+                    statusPrint(TABLEAU, SOME, "Found previously checked uplink to " + checkedChild.getName());
+                    restoreUpLink(n, checkedChild.getName(), hueToCheck);
+                    continue HUES_IN_NZ_LOOP;
+
+                    //CASE 2: we have an empty uplinktree, indicating a previously failed uplink check if the level
+                    //is 0. We attach a leaf and continue with the next hue
+                } else if (level == 0) {
+                    if (hueUpLinks.map != null && hueUpLinks.map.isEmpty()) {
+                        statusPrint(TABLEAU, SOME, "Previously checked result: no uplinks possible");
+                        if (checkAll) {
+                            addLeaf(n, hueToCheck, dummyCopy.z, dummyCopy.zOrder.get(0));
+                            continue HUES_IN_NZ_LOOP;
+                            //should not be able to reach this unless there has been a previous check;
+                            //the method is meant to be used with checkAll off at each level first
+                        } else {
+                            throw new AssertionError("Incorrect level check sequence");
+                        }
+                        //if the uplinktree exists and has no node, and the level is 0, the uplinktree map
+                        //should be nonnull and empty
+                    } else {
+                        throw new AssertionError("Incorrectly built UpLinkTree");
+                    }
+
+                    //CASE 3: we have an existing uplinktree (which is not a node), and the level is not 0.
+                    //we recurse down to the lower levels
+                } else {
+                    ExtendResult lowerLevelResult = breadthCheckAllColours(n.z.getSuccessors(f.getAllColours()), n, hueToCheck, level -1, hueUpLinks, checkAll);
+                    if (!checkAll) {
+                        switch (lowerLevelResult) {
+                            case SUCCESS:
+                                continue HUES_IN_NZ_LOOP;
+                            case FAILURE:
+                                //removeNode(n);
+                                result = FAILURE;
+                                break HUES_IN_NZ_LOOP;
+                            default:
+                        }
+                    } else {
+                        //TODO: change?
+                        addLeaf(n, hueToCheck, dummyCopy.z, dummyCopy.zOrder.get(0));
+                        continue HUES_IN_NZ_LOOP;
+                    }
+                }
+
+                //CASE 4: there is no existing uplinktree. The level should be 0. We check the uplinks
+            } else {
+                //checked uplinks do not exist->if
+                if (level != 0) {
+                    throw new AssertionError("Incorrectly built UpLinkTree");
+                } else {
+                    switch(level0UpLinkCheck2(n, hueToCheck, checkedUpLinks, checkAll)) {
+                        case SUCCESS:
+                            continue HUES_IN_NZ_LOOP;
+                        case FAILURE:
+                            if (checkAll) {
+                                addLeaf(n, hueToCheck, dummyCopy.z, dummyCopy.zOrder.get(0));
+                                continue HUES_IN_NZ_LOOP;
+                            } else {
+                                //removeNode(n);
+                                result = FAILURE;
+                                break HUES_IN_NZ_LOOP;
+                            }
+                        default://TODO: error
+                    }
+                }
+            }
+        }
+        if (!checkAll) {
+            result = SUCCESS;
+        }
+
+        result.upLinks = checkedUpLinks;
+        return result;
+    }
+
+    private ExtendResult breadthCheckAllColours(ColourSet colours, Node parent, Hue parentHue, int level, UpLinkTree checkedUpLinks, boolean checkAll) {
+        //TODO: check for empty possiblecolours
+        ExtendResult result = FAILURE;
+        sectionPrint(TABLEAU, SOME, "LEVEL " + level);
+        //statusPrint(TABLEAU, MAX, "Possible colours");
+        //statusPrint(TABLEAU, MAX, possibleColours.hueString());
+        //statusPrint(TABLEAU, MAX, "Possible first hues");
+        //statusPrint(TABLEAU, MAX, possibleHues.nameString());
+
+        COLOUR_LOOP:
+        for (Colour c : colours) {
+            subSectionPrint(TABLEAU, SOME, "Fixing colour " + c.name);
+
+            Map<Integer, Hue> hueOrder = new HashMap<Integer, Hue>();
+            result = breadthCheckHuePermutations(parent, parentHue, level, checkedUpLinks, checkAll, c, hueOrder);
+        }
+        if (!checkAll) {
+            if (result != SUCCESS) {
+                statusPrint(TABLEAU, SOME, "LEVEL " + level + " SUCCESS");
+            } else {
+                statusPrint(TABLEAU, SOME, "LEVEL " + level + " FAILURE");
+            }
+        } else {
+            statusPrint(TABLEAU, SOME, "LEVEL " + level + "CHECKALL FINISHED");
+        }
+        result.upLinks = checkedUpLinks;
+        return result;
+    }
+
+    private ExtendResult breadthCheckHuePermutations(Node parent, Hue parentHue, int level, UpLinkTree checkedUpLinks, boolean checkAll, Colour c, Map<Integer, Hue> hueOrder) {
+        ExtendResult result = null;
+        Iterator<Hue> hueIterator = c.iterator();
+        Hue h;
+        PERMUTATION_LOOP:
+        for (int i = 0; i < c.size(); i++) {
+            if (hueIterator.hasNext()) {
+                if (hueOrder.get(i) == null) {
+                    h = hueIterator.next();
+                    hueOrder.put(i, h);
+
+                    //base case
+                    if (hueOrder.size() == c.size()) {
+                        Node n = addLeaf(parent, parentHue, c, hueOrder);
+                        if (root == null) {
+                            root = n;
+                            statusPrint(TABLEAU, SOME, "(This is the new root)");
+                        }
+                        result = breadthCheckNode(n, level, checkedUpLinks, checkAll);
+                        if (result == null || result == FAILURE) {
+                            removeNode(n);
+                            continue PERMUTATION_LOOP;
+                        } else {
+                            break PERMUTATION_LOOP;
+                        }
+
+                        //recursion case
+                    } else {
+                        switch (breadthCheckHuePermutations(parent, parentHue, level, checkedUpLinks, checkAll, c, hueOrder)) {
+                            case SUCCESS:
+                                if (!checkAll) {
+                                    result = SUCCESS;
+                                    break PERMUTATION_LOOP;
+                                } else {
+                                    hueOrder.remove(i);
+                                    continue PERMUTATION_LOOP;
+                                }
+                            case FAILURE:
+                                hueOrder.remove(i);
+                                continue PERMUTATION_LOOP;
+                            default:
+                        }
+                    }
+                } else {
+                    h = hueIterator.next();
+                }
+            } else {
+                result = FAILURE;
+                break PERMUTATION_LOOP;
+            }
+        }
+        result.upLinks = checkedUpLinks;
         return result;
     }
 
@@ -490,7 +798,7 @@ public class Tableau {
                 A:
                 //iterating through zOrder in key order
                 for (Hue h : n.zOrder) {
-                    HueSet successorHues = f.getAllHues().getHueSuccessors(h);
+                    HueSet successorHues = h.getSuccessors();
                     B:
                     for (Colour c : successorColours) {
                         for (Hue s : successorHues) {
@@ -556,6 +864,19 @@ public class Tableau {
             parent.successors.put(index, newLeaf);
         } else {
             newLeaf = new Node(c, firstHue);
+        }
+        return newLeaf;
+    }
+
+    public Node addLeaf(Node parent, Hue predecessorHue, Colour c, Map<Integer, Hue> hueOrder) {
+        //TODO: check if huerx holds, throw error if doesn't
+        Node newLeaf;
+        if (parent != null) {
+            int index = parent.zOrder.indexOf(predecessorHue);
+            newLeaf = new Node(c, hueOrder, parent, "" + index);
+            parent.successors.put(index, newLeaf);
+        } else {
+            newLeaf = new Node(c, hueOrder);
         }
         return newLeaf;
     }

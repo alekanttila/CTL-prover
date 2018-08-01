@@ -79,26 +79,6 @@ public class ResultSet {
         return allHues;
     }
 
-    public boolean[][] getHueRX() {
-        boolean[][] result;
-        if (getAllHues() != null) {
-            result = getAllHues().getRX();
-        } else {
-            result = null;
-        }
-        return result;
-    }
-
-    public boolean[][] getRA() {
-        boolean[][] result;
-        if (getAllHues() != null) {
-            result = getAllHues().getRA();
-        } else {
-            result = null;
-        }
-        return result;
-    }
-
     public TreeSet<HueSet> getRAClasses() {
         TreeSet<HueSet> result;
         if (getAllHues() != null) {
@@ -115,16 +95,6 @@ public class ResultSet {
 
     public ColourSet getAllColours() {
         return allColours;
-    }
-
-    public boolean[][] getColourRX() {
-        boolean[][] result;
-        if (getAllColours() != null) {
-            result = getAllColours().getRX();
-        } else {
-            result = null;
-        }
-        return result;
     }
 
     public void setFColours(ColourSet fColours) {

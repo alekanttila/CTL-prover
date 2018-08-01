@@ -11,6 +11,7 @@ public class Hue extends FormulaSet {
     //FormulaSet (and hence Hue) equality is defined in terms of member Formula equality.
     //Hues with the same members but different names are the same hue (to the equals method)
     public final String name;
+    private HueSet successors;
 
     public Hue(FormulaSet fS, int index) {
         super.addAll(fS);
@@ -21,7 +22,29 @@ public class Hue extends FormulaSet {
         return Integer.parseInt(this.name.substring(1));
     }
 
-    //only to be used by HueSet
+    public HueSet getSuccessors() {
+        if (this.successors == null) {
+            //TODO: error
+        }
+        return this.successors;
+    }
+
+    public HueSet getSuccessors(HueSet hS) {
+        if (this.successors == null) {
+            generateRX(hS);
+        }
+        return this.successors;
+    }
+
+    public HueSet generateRX(HueSet hS) {
+        successors = new HueSet();
+        for (Hue h : hS) {
+            if (this.rX(h));
+            successors.add(h);
+        }
+        return successors;
+    }
+
     public boolean rX(Hue h) {
         boolean result = true;
         Iterator<Formula> i = this.iterator();

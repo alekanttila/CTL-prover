@@ -345,28 +345,6 @@ public class Formula implements Comparable<Formula>{
         return result;
     }
 
-    public boolean[][] getHueRX() {
-        boolean[][] result;
-        if (results != null && results.getHueRX() != null) {
-            result = results.getHueRX();
-        } else {
-            HueSet allHues = this.getAllHues();
-            result = allHues.getRX();
-        }
-        return result;
-    }
-
-    public boolean[][] getRA() {
-        boolean[][] result;
-        if (results != null && results.getRA() != null) {
-            result = results.getRA();
-        } else {
-            HueSet allHues = this.getAllHues();
-            result = allHues.getRA();
-        }
-        return result;
-    }
-
     public TreeSet<HueSet> getRAClasses() {
         TreeSet<HueSet> result;
         if (results != null && results.getRAClasses() != null) {
@@ -386,17 +364,6 @@ public class Formula implements Comparable<Formula>{
             HueSet allHues = this.getAllHues();
             result = ColourSet.getAllColours(allHues);
             results.setAllColours(result);
-        }
-        return result;
-    }
-
-    public boolean[][] getColourRX() {
-        boolean[][] result;
-        if (results != null && results.getColourRX() != null) {
-            result = results.getColourRX();
-        } else {
-            ColourSet allColours = this.getAllColours();
-            result = allColours.getRX();
         }
         return result;
     }
