@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class UpLinkTree<A> {
     //TODO: store numbers, not colours. hues
-    final Class<A> type;
     protected Map<Pair<A, Hue>, UpLinkTree<A>> map;
     private Node n;
     protected UpLinkTree<A> getUpLinks(A a, Hue successorIndex) {
@@ -71,7 +70,6 @@ public class UpLinkTree<A> {
 
     protected UpLinkTree() {
         this.map = new HashMap<>();
-        this.type = ;
     }
     protected UpLinkTree(Node n) {
         this.n = n;

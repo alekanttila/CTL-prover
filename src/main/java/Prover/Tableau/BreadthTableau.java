@@ -42,6 +42,7 @@ public class BreadthTableau extends Tableau {
                 statusPrint(TABLEAU, MAX, infoString());
                 lgRuns++;
                 if (LG.check(f, root)) {
+                    tableausBuilt++;
                     statusPrint(TABLEAU, MAX, "LG OK");
                     checkedUpLinks.add(n.z, hueToCheck, n);
                     return SUCCESS;
@@ -83,6 +84,7 @@ public class BreadthTableau extends Tableau {
                         removeNode(n);
                         continue COLOUR_LOOP;
                     }
+                    tableausBuilt++;
 
                     HUES_IN_NZ_LOOP:
                     for (int i = 0; i < n.z.size(); i++) {
@@ -102,6 +104,7 @@ public class BreadthTableau extends Tableau {
                             if (checkedChild != null) {
                                 statusPrint(TABLEAU, SOME, "Found previously checked uplink to " + checkedChild.getName());
                                 restoreUpLink(n, checkedChild.getName(), hueToCheck);
+                                tableausBuilt++;
                                 continue HUES_IN_NZ_LOOP;
 
                                 //CASE 2: we have an empty uplinktree, indicating a previously failed uplink check if the level
@@ -111,6 +114,7 @@ public class BreadthTableau extends Tableau {
                                     statusPrint(TABLEAU, SOME, "Previously checked result: no upLinks possible");
                                     if (checkAll) {
                                         addLeaf(n, hueToCheck, dummyCopy.z, dummyCopy.zOrder.get(0));
+                                        tableausBuilt++;
                                         continue HUES_IN_NZ_LOOP;
                                         //should not be able to reach this unless there has been a previous check;
                                         //the method is meant to be used with checkAll off at each level first
@@ -133,6 +137,7 @@ public class BreadthTableau extends Tableau {
                                         continue HUES_IN_NZ_LOOP;
                                     case FAILURE:
                                         if (checkAll) {
+                                            tableausBuilt++;
                                             addLeaf(n, hueToCheck, dummyCopy.z, dummyCopy.zOrder.get(0));
                                             continue HUES_IN_NZ_LOOP;
                                         } else {
@@ -153,6 +158,7 @@ public class BreadthTableau extends Tableau {
                                         continue HUES_IN_NZ_LOOP;
                                     case FAILURE:
                                         if (checkAll) {
+                                            tableausBuilt++;
                                             addLeaf(n, hueToCheck, dummyCopy.z, dummyCopy.zOrder.get(0));
                                             continue HUES_IN_NZ_LOOP;
                                         } else {

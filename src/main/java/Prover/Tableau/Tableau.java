@@ -1,6 +1,7 @@
 package Prover.Tableau;
 
 import Prover.Formula.*;
+import com.sun.org.apache.xml.internal.resolver.readers.ExtendedXMLCatalogReader;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -11,9 +12,9 @@ import static Prover.StatusMessage.Level.MAX;
 import static Prover.StatusMessage.Level.SOME;
 import static Prover.StatusMessage.statusPrint;
 
-public class Tableau {
+public abstract class Tableau {
     protected Node root;
-    protected int steps = 0;
+    protected int tableausBuilt = 0;
     protected int lgRuns = 0;
     protected int maxSteps = -1;
     protected final Formula f;
@@ -26,7 +27,9 @@ public class Tableau {
         this.maxBranchLength = 4;//TODO: replace
     }
 
-    public Node addLeaf(Node parent, Hue predecessorHue, Colour c, Hue firstHue) {
+    public abstract ExtendResult solve();
+
+    protected Node addLeaf(Node parent, Hue predecessorHue, Colour c, Hue firstHue) {
         //TODO: check if huerx holds, throw error if doesn't
         Node newLeaf;
         if (parent != null) {
@@ -93,8 +96,13 @@ public class Tableau {
         return  result;
     }
 
+
+    public String fullInfoString() {
+        return infoString(root, null) + "\nTableaus built: " + tableausBuilt + " LG runs: " + lgRuns;
+    }
+
     public String infoString() {
-        return infoString(root, null) + "LG runs: " + lgRuns;
+        return infoString(root, null);
     }
 
     public String infoString(Node n, Set<Node> printedNodes) {

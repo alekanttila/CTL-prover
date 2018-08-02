@@ -4,6 +4,7 @@ import Prover.Formula.*;
 import Prover.Tableau.BreadthTableau;
 import Prover.Tableau.PermutationBreadthTableau;
 import Prover.Tableau.FHuesBreadthTableau;
+import Prover.Tableau.Tableau;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -111,19 +112,21 @@ public class TextMenu {
             try {
                 int choice = scanner.nextInt();
                 switch (choice) {
-                    case 6:
-                        BreadthTableau t = new BreadthTableau(f);
-                        System.out.println(t.solve());
-                        System.out.println(t.infoString());
-                    case 0:
-                        PermutationBreadthTableau t3 = new PermutationBreadthTableau(f);
-                        System.out.println(t3.solve());
-                        System.out.println(t3.infoString());
-                        break;
                     case 1:
-                        FHuesBreadthTableau t2 = new FHuesBreadthTableau(f);
-                        System.out.println(t2.solve());
-                        System.out.println(t2.infoString());
+                        Tableau t = null;
+                        switch (Mode.setAlgorithm) {
+                            case BREADTH:
+                                t = new BreadthTableau(f);
+                                break;
+                            case BREADTH_FIRST_HUE:
+                                t = new FHuesBreadthTableau(f);
+                                break;
+                            case BREADH_PERMUTATIONS:
+                                t = new PermutationBreadthTableau(f);
+                                break;
+                        }
+                        System.out.println(t.solve());
+                        System.out.println(t.fullInfoString());
                         break;
                     case 2:
                         infoMenu(f);
@@ -236,32 +239,66 @@ public class TextMenu {
     public static void settings(Formula f) {
         while (true) {
             System.out.println("Enter option number:");
-            System.out.println("1. Progress message settings");
-            System.out.println("2. Character settings");
+            System.out.println("1. Change tableau algorithm");
+            System.out.println("2. Progress message settings");
+            System.out.println("3. Character settings");
             if (!Mode.xHues) {
-                System.out.println("3. Toggle hue type used (current: regular (slower))");
+                System.out.println("4. Toggle hue type used (current: regular (slower))");
             } else {
-                System.out.println("3. Toggle hue type used (current: more restrictive hues (faster))");
+                System.out.println("4. Toggle hue type used (current: more restrictive hues (faster))");
             }
-            System.out.println("4. Return");
+            System.out.println("5. Return");
 
             try {
                 int choice = scanner.nextInt();
                 switch (choice) {
                     case 1:
+                        algorithmSettings(f);
+                    case 2:
                         reportSettings(f);
-                    case 2: //TODO
-                    case 3:
+                    case 3: //TODO
+                    case 4:
                         if (Mode.xHues) {
                             Mode.xHues = false;
                         } else {
                             Mode.xHues = true;
                         }
                         settings(f);
-                    case 4:
+                    case 5:
                         formulaMenu(f);
                     default:
                         System.out.println("No such option. Try again.");
+                }
+            } catch (InputMismatchException e) {
+                scanner.nextLine();
+                System.out.println("Input incorrect. Try again.");
+            }
+        }
+    }
+
+    public static void algorithmSettings(Formula f) {
+        while (true) {
+            System.out.println("Current algorithm is " + Mode.setAlgorithm.printString);
+            if (Mode.setAlgorithm == Mode.Algorithm.BREADTH_FIRST_HUE) {
+                System.out.println("Warning: this algorithm might miss some valid solutions");
+            }
+            System.out.println("Enter option number:");
+            int counter = 1;
+            for (Mode.Algorithm a : Mode.Algorithm.values()) {
+                System.out.println(counter + ". " + a.printString);
+                counter ++;
+            }
+            System.out.println(counter + ". Return");
+
+            try {
+                int choice = scanner.nextInt();
+                if (choice <= Mode.Algorithm.values().length) {
+                    Mode.setAlgorithm = Mode.Algorithm.values()[choice - 1];
+                    algorithmSettings(f);
+                } else if (choice == Mode.Algorithm.values().length + 1) {
+                    settings(f);
+                } else {
+                    System.out.println("No such option. Try again.");
                 }
             } catch (InputMismatchException e) {
                 scanner.nextLine();

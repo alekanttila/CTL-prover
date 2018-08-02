@@ -41,9 +41,9 @@ public class DepthTableau extends Tableau {
 
     private ExtendResult extend(Node n) {
         ExtendResult result = null;
-        if (maxSteps == -1 || steps <= maxSteps) {
+        if (maxSteps == -1 || tableausBuilt <= maxSteps) {
             if (upLinkCheck(n)) {
-                steps++;
+                tableausBuilt++;
                 result = SUCCESS;
             } else if (n.branchLength <= maxBranchLength) {
                 ColourSet successorColours = n.z.getSuccessors(f.getAllColours());
@@ -60,7 +60,7 @@ public class DepthTableau extends Tableau {
                             if (c.contains(s)) {
                                 /*
                                 Node newLeaf = addLeaf(n, c, s);
-                                steps++;
+                                tableausBuilt++;
                                 switch (extend(newLeaf)) {
                                     case SUCCESS:
                                         break B;

@@ -60,7 +60,7 @@ public class Tableau2 {
     //private TreeSet<Node> t;
     private Node root;
     //private Queue<Node> upLinksNotTried;
-    private int steps = 0;
+    private int tableausBuilt = 0;
     private int operations = 0;
     private int maxSteps = -1;
     private final Formula f;
@@ -131,7 +131,7 @@ public class Tableau2 {
     //      for all ancestors A of N
     //          check H2 RX zA(0)
     //              yes->check LG
-    //                  yes->create uplink and steps++ and continue (remove one leaf and check)
+    //                  yes->create uplink and tableausBuilt++ and continue (remove one leaf and check)
     //      no uplink for all A-> return FAIL
     //
 
@@ -330,10 +330,10 @@ public class Tableau2 {
 
     private ExtendResult extend(Node n) {
         ExtendResult result = null;
-        if (maxSteps == -1 || steps <= maxSteps) {
+        if (maxSteps == -1 || tableausBuilt <= maxSteps) {
             if (upLinkCheck(n)) {
                 System.out.println("uplinkcheck ok");
-                steps++;
+                tableausBuilt++;
                 result = SUCCESS;
             } else if (n.branchLength <= maxBranchLength) {
                 System.out.println("adding leaves");
@@ -352,7 +352,7 @@ public class Tableau2 {
                             if (c.contains(s)) {
                                 /*
                                 Node newLeaf = addLeaf(n, c, s);
-                                steps++;
+                                tableausBuilt++;
                                 switch (extend(newLeaf)) {
                                     case SUCCESS:
                                         break B;

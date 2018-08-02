@@ -60,6 +60,7 @@ public class PermutationBreadthTableau extends Tableau {
                 statusPrint(TABLEAU, MAX, infoString());
                 lgRuns++;
                 if (LG.check(f, root)) {
+                    tableausBuilt++;
                     statusPrint(TABLEAU, MAX, "LG OK");
                     checkedUpLinks.add(n.zOrder, hueToCheck, n);
                     return SUCCESS;
@@ -84,6 +85,8 @@ public class PermutationBreadthTableau extends Tableau {
             return result;
         }
 
+        tableausBuilt++;
+
         HUES_IN_NZ_LOOP:
         for (int i = 0; i < n.z.size(); i++) {
             Hue hueToCheck = n.zOrder.get(i);
@@ -102,6 +105,7 @@ public class PermutationBreadthTableau extends Tableau {
                 if (checkedChild != null) {
                     statusPrint(TABLEAU, SOME, "Found previously checked uplink to " + checkedChild.getName());
                     restoreUpLink(n, checkedChild.getName(), hueToCheck);
+                    tableausBuilt++;
                     continue HUES_IN_NZ_LOOP;
 
                     //CASE 2: we have an empty uplinktree, indicating a previously failed uplink check if the level
@@ -110,6 +114,7 @@ public class PermutationBreadthTableau extends Tableau {
                     if (hueUpLinks.getMap() != null && hueUpLinks.getMap().isEmpty()) {
                         statusPrint(TABLEAU, SOME, "Previously checked result: no upLinks possible");
                         if (checkAll) {
+                            tableausBuilt++;
                             result = FAILURE;
                             addLeaf(n, hueToCheck, dummyCopy.z, dummyCopy.zOrder.get(0));
                             continue HUES_IN_NZ_LOOP;
@@ -134,6 +139,7 @@ public class PermutationBreadthTableau extends Tableau {
                         case FAILURE:
                             result = FAILURE;
                             if (checkAll) {
+                                tableausBuilt++;
                                 addLeaf(n, hueToCheck, dummyCopy.z, dummyCopy.zOrder.get(0));
                                 continue HUES_IN_NZ_LOOP;
                             } else {
@@ -154,6 +160,7 @@ public class PermutationBreadthTableau extends Tableau {
                         case FAILURE:
                             result = FAILURE;
                             if (checkAll) {
+                                tableausBuilt++;
                                 addLeaf(n, hueToCheck, dummyCopy.z, dummyCopy.zOrder.get(0));
                                 continue HUES_IN_NZ_LOOP;
                             } else {
