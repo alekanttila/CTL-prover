@@ -6,11 +6,11 @@ import Prover.Formula.Hue;
 import java.util.HashMap;
 import java.util.Map;
 
-class FirstHueUpLinkTree {
+class FHueUpLinkTree {
     //TODO: store numbers, not colours. hues
-    private Map<Pair<Pair<Colour, Hue>, Hue>, FirstHueUpLinkTree> map;
+    private Map<Pair<Pair<Colour, Hue>, Hue>, FHueUpLinkTree> map;
     private Node n;
-    protected FirstHueUpLinkTree getUpLinks(Colour c, Hue firstHue, Hue successorIndex) {
+    protected FHueUpLinkTree getUpLinks(Colour c, Hue firstHue, Hue successorIndex) {
         return map.get(new Pair<>(new Pair<>(c, firstHue), successorIndex));
     }
 
@@ -19,10 +19,10 @@ class FirstHueUpLinkTree {
         boolean result;
         if (this == obj) {
             result = true;
-        } else if (obj.getClass() != FirstHueUpLinkTree.class) {
+        } else if (obj.getClass() != FHueUpLinkTree.class) {
             result = false;
         } else {
-            FirstHueUpLinkTree c = (FirstHueUpLinkTree)obj;
+            FHueUpLinkTree c = (FHueUpLinkTree)obj;
             if (this.isNode()) {
                 if (c.isNode()) {
                     //TODO: note somewhere we only use copies of nodes so that this works?
@@ -59,11 +59,11 @@ class FirstHueUpLinkTree {
         return result;
     }
 
-    protected FirstHueUpLinkTree() {
+    protected FHueUpLinkTree() {
         this.map = new HashMap<>();
     }
 
-    protected FirstHueUpLinkTree(Node n) {
+    protected FHueUpLinkTree(Node n) {
         this.n = n;
     }
 
@@ -71,19 +71,19 @@ class FirstHueUpLinkTree {
         return n;
     }
 
-    protected Map<Pair<Pair<Colour, Hue>, Hue>, FirstHueUpLinkTree> getMap() {
+    protected Map<Pair<Pair<Colour, Hue>, Hue>, FHueUpLinkTree> getMap() {
         return map;
     }
 
     protected void add(Colour c, Hue firstHue, Hue successorIndex, Node n) {
         if (this.n == null) {
-            this.map.put(new Pair<>(new Pair<>(c, firstHue), successorIndex), new FirstHueUpLinkTree(n));
+            this.map.put(new Pair<>(new Pair<>(c, firstHue), successorIndex), new FHueUpLinkTree(n));
         } else {
             throw new AssertionError();
             //TODO: change the error here
         }
     }
-    protected void add(Colour c, Hue firstHue, Hue successorIndex, FirstHueUpLinkTree tree) {
+    protected void add(Colour c, Hue firstHue, Hue successorIndex, FHueUpLinkTree tree) {
         if (this.n == null) {
             this.map.put(new Pair<>(new Pair<>(c, firstHue), successorIndex), tree);
         } else {

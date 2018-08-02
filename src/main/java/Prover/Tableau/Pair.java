@@ -36,7 +36,6 @@ class Pair<A, B> {
         return Objects.hash(a, b);
     }
 
-
     //TODO: check hashmap puts: must replace, not add multiple things to same; NO! put replaces; think
     //TODO: replace add/whatever for hashmaps (newS.pC) with replace; check logic
     //for code legibility

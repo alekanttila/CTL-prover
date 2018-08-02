@@ -13,7 +13,7 @@ public class StatusMessage {
     }
 
     public  enum Area {
-        PARSER, HUES, COLOURS, LG, TABLEAU
+        LEXER, PARSER, HUES, COLOURS, TABLEAU, LG
     }
 
     public static Level setLevel = MAX;
@@ -32,7 +32,7 @@ public class StatusMessage {
     public static void sectionPrint(Area a, Level l, String message) {
         statusPrint(a, l, "\n\n\n\n\n"
                 + new String(new char[100]).replace("\0", "-")
-                + message);
+                + "\n" + message);
     }
     //stackoverflow.com/questions/2255500
 

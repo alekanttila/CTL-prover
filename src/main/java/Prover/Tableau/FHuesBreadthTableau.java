@@ -6,19 +6,36 @@ import static Prover.StatusMessage.Area.TABLEAU;
 import static Prover.StatusMessage.Level.MAX;
 import static Prover.StatusMessage.Level.SOME;
 import static Prover.StatusMessage.*;
-import static Prover.Tableau.ExtendResult.FAILURE;
-import static Prover.Tableau.ExtendResult.SUCCESS;
+import static Prover.Tableau.ExtendResult.*;
 
+//investigate:
 
-public class BreadthTableau extends Tableau {
+//write all hue orders and change extendstructure etc
+//change rx etc
+//make method for temp colour
+//no successors (OK I THINK)
+//no solution with old hues (OK)
+//two roots (OK)
+//leafs in results (OK)
+//X~p vs ~Xp (OK)
+//TODO: hues vs xhues; changing must change all calculations
 
-    public BreadthTableau(Formula f) {
+public class FHuesBreadthTableau extends Tableau {
+    //TODO: write something in report or do something about some hues having both ~Xp and ~X~p (try G(p & Xp & E(X~p))
+    //h4 h5
+    //4x4
+    //5x9 5x10 5x11
+    //useless: h01678 12 13
+    //useful: h23459 10 11
+    //TODO: CAN NEVER HAVE TWO UPLINKS FROM ONE NODE INTO SAME NODE BECAUSE OF LEMMA 3.1
+
+    public FHuesBreadthTableau(Formula f) {
         super(f);
     }
 
     public ExtendResult solve() {
         ExtendResult result = FAILURE;
-        result.upLinks = new UpLinkTree<Colour>();
+        result.upLinks = new UpLinkTree<Pair<Colour, Hue>>();
         for (int i = 0; i < maxBranchLength; i++) {
             result = checkLevel(f.getFColours(), f.getAllHues(), null, null, i, result.upLinks, false);
             if (result == SUCCESS) {
@@ -30,7 +47,7 @@ public class BreadthTableau extends Tableau {
         return result;
     }
 
-    private ExtendResult checkUpLinks(Node n, Hue hueToCheck, UpLinkTree<Colour> checkedUpLinks) {
+    private ExtendResult checkUpLinks(Node n, Hue hueToCheck, UpLinkTree<Pair<Colour, Hue>> checkedUpLinks) {
         //checked upLinks do not exist->if
         ANCESTOR_LOOP:
         for (Node a : n.ancestors) {
@@ -43,36 +60,37 @@ public class BreadthTableau extends Tableau {
                 lgRuns++;
                 if (LG.check(f, root)) {
                     statusPrint(TABLEAU, MAX, "LG OK");
-                    checkedUpLinks.add(n.z, hueToCheck, n);
+                    checkedUpLinks.add(new Pair(n.z, n.zOrder.get(0)), hueToCheck, n);
                     return SUCCESS;
                 } else {
                     statusPrint(TABLEAU, MAX, "LG FAILED");
                     removeUpLink(n, a);
                     continue ANCESTOR_LOOP;
+                    //NEEDS TO BE SOMEWHERE ELSE
                 }
             }
         }
         statusPrint(TABLEAU, MAX,"All ancestors checked. No upLinks possible");
-        checkedUpLinks.add(n.z, hueToCheck, new UpLinkTree<Colour>());
+        checkedUpLinks.add(new Pair(n.z, n.zOrder.get(0)), hueToCheck, new UpLinkTree<Pair<Colour, Hue>>());
         return FAILURE;
     }
 
-    private ExtendResult checkLevel(ColourSet possibleColours, HueSet possibleHues, Node parent, Hue parentHue, int level, UpLinkTree<Colour> checkedUpLinks, boolean checkAll) {
+    private ExtendResult checkLevel(ColourSet possibleColours, HueSet possibleHues, Node parent, Hue parentHue, int level, UpLinkTree<Pair<Colour, Hue>> checkedUpLinks, boolean checkAll) {
         //TODO: check for empty possiblecolours
         ExtendResult result = FAILURE;
         sectionPrint(TABLEAU, SOME, "LEVEL " + level);
-        //TODO: repetition checking: if same colour on higher or same level already uplinked, uplink to same node
         COLOUR_LOOP:
         for (Colour c : possibleColours) {
             subSectionPrint(TABLEAU, SOME, "Fixing colour " + c.name);
 
-            for (Hue hue : possibleHues) {
-                statusPrint(TABLEAU, MAX, "Checking hue " + hue.name);
+            FIRST_HUE_LOOP:
+            for (Hue firstHue : possibleHues) {
+                statusPrint(TABLEAU, MAX, "Checking first hue " + firstHue.name);
 
-                if (c.contains(hue)) {
-                    statusPrint(TABLEAU, SOME, "Fixing successor for hue " + hue.name);
+                if (c.contains(firstHue)) {
+                    statusPrint(TABLEAU, SOME, "Fixing first hue " + firstHue.name);
 
-                    Node n = addLeaf(parent, parentHue, c, hue);
+                    Node n = addLeaf(parent, parentHue, c, firstHue);
                     if (root == null) {
                         root = n;
                         statusPrint(TABLEAU, SOME, "(This is the new root)");
@@ -94,7 +112,7 @@ public class BreadthTableau extends Tableau {
                         removeNode(dummyCopy);
 
                         //CHECK FOR ALREADY CHECKED UPLINKS HERE
-                        UpLinkTree<Colour> hueUpLinks = checkedUpLinks.getUpLinks(c, hueToCheck);
+                        UpLinkTree<Pair<Colour, Hue>> hueUpLinks = checkedUpLinks.getUpLinks(new Pair(c, firstHue), hueToCheck);
                         if (hueUpLinks != null) {
                             Node checkedChild = hueUpLinks.getNode();
 
@@ -137,7 +155,7 @@ public class BreadthTableau extends Tableau {
                                             continue HUES_IN_NZ_LOOP;
                                         } else {
                                             removeNode(n);
-                                            continue COLOUR_LOOP;
+                                            continue FIRST_HUE_LOOP;
                                         }
                                     default: //TODO
                                 }
@@ -157,7 +175,7 @@ public class BreadthTableau extends Tableau {
                                             continue HUES_IN_NZ_LOOP;
                                         } else {
                                             removeNode(n);
-                                            continue COLOUR_LOOP;
+                                            continue FIRST_HUE_LOOP;
                                         }
                                     default://TODO: error
                                 }
@@ -184,6 +202,28 @@ public class BreadthTableau extends Tableau {
         }
         result.upLinks = checkedUpLinks;
         return result;
+    }
+
+    //4,3,5 c50
+    //2 c48
+    //9 c67
+    public void test2() {
+        Node testroot = new Node(f.getAllColours().getColour(50), f.getAllHues().getHue(4));
+        Node n1 = addLeaf(testroot, f.getAllHues().getHue(3), f.getAllColours().getColour(48), f.getAllHues().getHue(2));
+        Node n2 = addLeaf(testroot, f.getAllHues().getHue(5), f.getAllColours().getColour(67), f.getAllHues().getHue(9));
+        addUpLink(testroot, testroot, f.getAllHues().getHue(4));
+        addUpLink(n1, testroot, f.getAllHues().getHue(2));
+        addUpLink(n2, testroot, f.getAllHues().getHue(9));
+        root = testroot;
+        LG.check(f, root);
+    }
+    public void test() {
+        Node testroot = new Node(f.getAllColours().getColour(3), f.getAllHues().getHue(2));
+        Node n1 = addLeaf(testroot, f.getAllHues().getHue(2), f.getAllColours().getColour(30), f.getAllHues().getHue(8));
+        Node n2 = addLeaf(n1, f.getAllHues().getHue(8), f.getAllColours().getColour(2), f.getAllHues().getHue(1));
+        addUpLink(n2, testroot, f.getAllHues().getHue(1));
+        root = testroot;
+        LG.check(f, root);
     }
 
 }

@@ -5,7 +5,7 @@ import Prover.Formula.FormulaSet;
 
 import java.util.*;
 
-import static Prover.Tableau.LG3.nH;
+import static Prover.Tableau.LG.nH;
 
 class PartialStructure extends Pair<List<Node>, Pair<Map<Node, TreeSet<FormulaSet>>, Map<Pair.NodeHue, Set<Pair.NodeHue>>>> {
     protected PartialStructure(List<Node> nodes, Map<Node, TreeSet<FormulaSet>> partialColouring, Map<NodeHue, Set<NodeHue>> hueSuccessors) {
@@ -67,16 +67,16 @@ class PartialStructure extends Pair<List<Node>, Pair<Map<Node, TreeSet<FormulaSe
     protected void initialize(Node n) {
         if (!nodes().contains(n)) {
             TreeSet<FormulaSet> startColour = new TreeSet<FormulaSet>();
-            startColour.add(LG3.getEmptyHue());
+            startColour.add(LG.getEmptyHue());
             pC().put(n, startColour);
             nodes().add(n);
-            hS().put(nH(n, LG3.getEmptyHue()), new HashSet<NodeHue>());
+            hS().put(nH(n, LG.getEmptyHue()), new HashSet<NodeHue>());
             Iterator<Node> i = n.successors.values().iterator();
             while (i.hasNext()) {
                 Node s = i.next();
                 initialize(s);
                 //TODO: change this
-                hS().get(nH(n, LG3.getEmptyHue())).add(nH(s, LG3.getEmptyHue()));
+                hS().get(nH(n, LG.getEmptyHue())).add(nH(s, LG.getEmptyHue()));
             }
             //TODO: mention lemma 3.1 in relation to node traversal
         }
@@ -125,7 +125,7 @@ class PartialStructure extends Pair<List<Node>, Pair<Map<Node, TreeSet<FormulaSe
         Set<NodeHue> successorNodeHues = this.hS().get(nH(n1, e1.getHueMap().get(nH(n1, h1))));
         //if (successorNodeHues == null) {
             //TODO: see above in addtonodecolour
-            //this.hS().put(nH(n1, e1.getHueMap().get(nH(n1,h1))), new HashSet<LG3.NodeHue>());
+            //this.hS().put(nH(n1, e1.getHueMap().get(nH(n1,h1))), new HashSet<LG.NodeHue>());
             //successorNodeHues = this.hS().get(nH(n1, e1.getHueMap().get(nH(n1, h1))));
         //}
         successorNodeHues.add(nH(n2, e2.getHueMap().get(nH(n2, h2))));

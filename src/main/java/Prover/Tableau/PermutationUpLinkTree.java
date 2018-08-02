@@ -6,24 +6,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UpLinkTree<A> {
+class PermutationUpLinkTree {
     //TODO: store numbers, not colours. hues
-    protected Map<Pair<A, Hue>, UpLinkTree<A>> map;
+    private Map<Pair<List<Hue>, Hue>, PermutationUpLinkTree> map;
     private Node n;
-    protected UpLinkTree<A> getUpLinks(A a, Hue successorIndex) {
-        return map.get(new Pair<>(a, successorIndex));
+    protected PermutationUpLinkTree getUpLinks(List<Hue> zOrder, Hue successorIndex) {
+        return map.get(new Pair<>(zOrder , successorIndex));
     }
 
-    //TODO: override  hashcode
     @Override
     public boolean equals(Object obj) {
         boolean result;
         if (this == obj) {
             result = true;
-        } else if (UpLinkTree.class.isInstance(obj)) {
+        } else if (obj.getClass() != PermutationUpLinkTree.class) {
             result = false;
         } else {
-            UpLinkTree c = (UpLinkTree)obj;
+            PermutationUpLinkTree c = (PermutationUpLinkTree)obj;
             if (this.isNode()) {
                 if (c.isNode()) {
                     //TODO: note somewhere we only use copies of nodes so that this works?
@@ -64,27 +63,27 @@ public class UpLinkTree<A> {
         return n;
     }
 
-    protected Map<Pair<A, Hue>, UpLinkTree<A>> getMap() {
+    protected Map<Pair<List<Hue>, Hue>, PermutationUpLinkTree> getMap() {
         return map;
     }
 
-    protected UpLinkTree() {
+    protected PermutationUpLinkTree() {
         this.map = new HashMap<>();
     }
-    protected UpLinkTree(Node n) {
+    protected PermutationUpLinkTree(Node n) {
         this.n = n;
     }
-    protected void add(A a, Hue successorIndex, Node n) {
+    protected void add(List<Hue> zOrder, Hue successorIndex, Node n) {
         if (this.n == null) {
-            this.map.put(new Pair<>(a, successorIndex), new UpLinkTree(n));
+            this.map.put(new Pair<>(zOrder, successorIndex), new PermutationUpLinkTree(n));
         } else {
             throw new AssertionError();
             //TODO: change the error here
         }
     }
-    protected void add(A a, Hue successorIndex, UpLinkTree tree) {
+    protected void add(List<Hue> zOrder, Hue successorIndex, PermutationUpLinkTree tree) {
         if (this.n == null) {
-            this.map.put(new Pair<>(a, successorIndex), tree);
+            this.map.put(new Pair<>(zOrder, successorIndex), tree);
         } else {
             throw new AssertionError();
             //TODO:change the error here

@@ -2,6 +2,8 @@ package Prover;
 
 import Prover.Formula.*;
 import Prover.Tableau.BreadthTableau;
+import Prover.Tableau.PermutationBreadthTableau;
+import Prover.Tableau.FHuesBreadthTableau;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -36,63 +38,64 @@ public class TextMenu {
             }
         }
         nameMenu(f);
-
     }
 
     public static void nameMenu(Formula f) {
-        System.out.println("Parsed formula is " + f.sugarString());
-        System.out.println("(Optional) Name formula");
-        System.out.println("1. α");
-        System.out.println("2. β");
-        System.out.println("3. γ");
-        System.out.println("4. φ");
-        System.out.println("5. χ");
-        System.out.println("6. ψ");
-        System.out.println("7. Name subformulae");
-        System.out.println("8. Skip");
+        while (true) {
+            System.out.println("Parsed formula is " + f.sugarString());
+            System.out.println("(Optional) Name formula");
+            System.out.println("1. α");
+            System.out.println("2. β");
+            System.out.println("3. γ");
+            System.out.println("4. φ");
+            System.out.println("5. χ");
+            System.out.println("6. ψ");
+            System.out.println("7. Name subformulae");
+            System.out.println("8. Skip");
 
-        //TODO: regex here for allowable names
-        //TODO: name subformulae
+            //TODO: regex here for allowable names
+            //TODO: name subformulae
 
-        try {
-            int choice = scanner.nextInt();
-            switch (choice) {
-                case 1:
-                    f.addFormulaName(f, "α");
-                    formulaMenu(f);
-                    break;
-                case 2:
-                    f.addFormulaName(f, "β");
-                    formulaMenu(f);
-                    break;
-                case 3:
-                    f.addFormulaName(f, "γ");
-                    formulaMenu(f);
-                    break;
-                case 4:
-                    f.addFormulaName(f, "φ");
-                    formulaMenu(f);
-                    break;
-                case 5:
-                    f.addFormulaName(f, "χ");
-                    formulaMenu(f);
-                    break;
-                case 6:
-                    f.addFormulaName(f, "ψ");
-                    formulaMenu(f);
-                    break;
-                case 7:
-                    //TODO
-                case 8:
-                    formulaMenu(f);
-                    break;
-                default:
-                    System.out.println("No such option. Try again.");
+            try {
+                int choice = scanner.nextInt();
+                switch (choice) {
+                    case 1:
+                        f.addFormulaName(f, "α");
+                        formulaMenu(f);
+                        break;
+                    case 2:
+                        f.addFormulaName(f, "β");
+                        formulaMenu(f);
+                        break;
+                    case 3:
+                        f.addFormulaName(f, "γ");
+                        formulaMenu(f);
+                        break;
+                    case 4:
+                        f.addFormulaName(f, "φ");
+                        formulaMenu(f);
+                        break;
+                    case 5:
+                        f.addFormulaName(f, "χ");
+                        formulaMenu(f);
+                        break;
+                    case 6:
+                        f.addFormulaName(f, "ψ");
+                        formulaMenu(f);
+                        break;
+                    case 7:
+                        //TODO
+                    case 8:
+                        formulaMenu(f);
+                        break;
+                    default:
+                        System.out.println("No such option. Try again.");
+                }
+
+            } catch (InputMismatchException e) {
+                scanner.nextLine();
+                System.out.println("Input incorrect. Try again.");
             }
-
-        } catch (InputMismatchException e) {
-            scanner.nextLine();
-            System.out.println("Input incorrect. Try again.");
         }
     }
 
@@ -108,14 +111,18 @@ public class TextMenu {
             try {
                 int choice = scanner.nextInt();
                 switch (choice) {
-                    case 0:
+                    case 6:
                         BreadthTableau t = new BreadthTableau(f);
-                        System.out.println(t.solveBreadthFirst2());
+                        System.out.println(t.solve());
                         System.out.println(t.infoString());
+                    case 0:
+                        PermutationBreadthTableau t3 = new PermutationBreadthTableau(f);
+                        System.out.println(t3.solve());
+                        System.out.println(t3.infoString());
                         break;
                     case 1:
-                        BreadthTableau t2 = new BreadthTableau(f);
-                        System.out.println(t2.solveBreadthFirst());
+                        FHuesBreadthTableau t2 = new FHuesBreadthTableau(f);
+                        System.out.println(t2.solve());
                         System.out.println(t2.infoString());
                         break;
                     case 2:

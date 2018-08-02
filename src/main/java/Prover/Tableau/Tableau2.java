@@ -1,14 +1,14 @@
 /*
-package BreadthTableau.BreadthTableau;
+package PermutationBreadthTableau.PermutationBreadthTableau;
 
 
-import BreadthTableau.Formula.*;
+import PermutationBreadthTableau.Formula.*;
 
 import java.util.*;
 
-import static BreadthTableau.BreadthTableau.BreadthTableau.ExtendResult.FAILURE;
-import static BreadthTableau.BreadthTableau.BreadthTableau.ExtendResult.SUCCESS;
-import static BreadthTableau.StatusMessage.*;
+import static PermutationBreadthTableau.PermutationBreadthTableau.PermutationBreadthTableau.ExtendResult.FAILURE;
+import static PermutationBreadthTableau.PermutationBreadthTableau.PermutationBreadthTableau.ExtendResult.SUCCESS;
+import static PermutationBreadthTableau.StatusMessage.*;
 
 public class Tableau2 {
 
@@ -156,7 +156,7 @@ public class Tableau2 {
     //
     //CHOOSE DIFFERENT ROOT COLOUR
 
-    public ExtendResult solveBreadthFirst() {
+    public ExtendResult solve() {
         ExtendResult result = FAILURE;
         result.checkedUpLinks = new CheckedUpLinkTree();
         result = checkLevelUpLinks(f.getFColours(), f.getAllHues(), null, null, 0, result.checkedUpLinks, false);
@@ -221,7 +221,7 @@ public class Tableau2 {
                         HUES_IN_NZ_LOOP:
                         for (int i = 0; i < n.z.size(); i++) {
                             Hue hueToCheck = n.zOrder.get(i);
-                            statusPrint("Checking uplinks for " + hueToCheck.name);
+                            statusPrint("Checking upLinks for " + hueToCheck.name);
                             //remove dummy leaf
                             Node dummyCopy = n.successors.get(i);
                             removeNode(dummyCopy);
@@ -235,7 +235,7 @@ public class Tableau2 {
                                     addUpLink(n, checkedChild, hueToCheck);
                                     continue HUES_IN_NZ_LOOP;
                                 } else if (hueUpLinks.map != null && hueUpLinks.map.isEmpty()) {
-                                    statusPrint("Previously checked result: no uplinks possible");
+                                    statusPrint("Previously checked result: no upLinks possible");
                                     if (checkAll) {
                                         addLeaf(n, hueToCheck, dummyCopy.z, dummyCopy.zOrder.get(0));
                                         continue HUES_IN_NZ_LOOP;
@@ -251,7 +251,7 @@ public class Tableau2 {
                                     if (firstHue.rX(a.zOrder.get(0))) {
                                         addUpLink(n, a, firstHue);
                                         statusPrint("Adding uplink to " + a.getName() + " and initiating LG");
-                                        if (LG3.check(f, root)) {
+                                        if (LG.check(f, root)) {
                                             checkedUpLinks.add(c, firstHue, hueToCheck, n);
                                             continue HUES_IN_NZ_LOOP;
                                         } else {
@@ -261,7 +261,7 @@ public class Tableau2 {
                                         }
                                     }
                                 }
-                                statusPrint("All ancestors checked. No uplinks possible");
+                                statusPrint("All ancestors checked. No upLinks possible");
                                 checkedUpLinks.add(c, firstHue, hueToCheck, new CheckedUpLinkTree());
                                 removeNode(n);
                                 if (checkAll) {
@@ -326,7 +326,7 @@ public class Tableau2 {
         return solve();
     }
 
-    //TODO: think: can it be the case that given a certain hue order for a node, we can uplink a hue, and find no uplinks for the rest of the hues, but with a different order, all the hues would eventually uplink?
+    //TODO: think: can it be the case that given a certain hue order for a node, we can uplink a hue, and find no upLinks for the rest of the hues, but with a different order, all the hues would eventually uplink?
 
     private ExtendResult extend(Node n) {
         ExtendResult result = null;

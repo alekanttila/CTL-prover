@@ -1,6 +1,6 @@
 
 /*
-package BreadthTableau;
+package PermutationBreadthTableau;
 
 public class Comparescraps {
     public int compareTo(Formula f) {
