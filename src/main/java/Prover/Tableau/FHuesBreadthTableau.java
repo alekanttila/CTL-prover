@@ -138,7 +138,7 @@ public class FHuesBreadthTableau extends Tableau {
                                     //if the uplinktree exists and has no node, and the level is 0, the uplinktree map
                                     //should be nonnull and empty
                                 } else {
-                                    throw new AssertionError("Incorrectly built FHueUpLinkTree");
+                                    throw new AssertionError("Incorrectly built UpLinkTree");
                                 }
 
                                 //CASE 3: we have an existing uplinktree (which is not a node), and the level is not 0.
@@ -164,7 +164,7 @@ public class FHuesBreadthTableau extends Tableau {
                         } else {
                             //checked upLinks do not exist->if
                             if (level != 0) {
-                                throw new AssertionError("Incorrectly built FHueUpLinkTree");
+                                throw new AssertionError("Incorrectly built UpLinkTree");
                             } else {
                                 switch(checkUpLinks(n, hueToCheck, checkedUpLinks)) {
                                     case SUCCESS:
