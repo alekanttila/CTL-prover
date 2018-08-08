@@ -6,7 +6,7 @@ import static Prover.StatusMessage.Area.TABLEAU;
 import static Prover.StatusMessage.Level.MAX;
 import static Prover.StatusMessage.Level.SOME;
 import static Prover.StatusMessage.*;
-import static Prover.Tableau.ExtendResult.*;
+import static Prover.Tableau.Tableau.ExtendResult.*;
 
 //investigate:
 
@@ -45,35 +45,6 @@ public class FHuesBreadthTableau extends Tableau {
             }
         }
         return result;
-    }
-
-    private ExtendResult checkUpLinks(Node n, Hue hueToCheck, UpLinkTree<Pair<Colour, Hue>> checkedUpLinks) {
-        //checked upLinks do not exist->if
-        ANCESTOR_LOOP:
-        for (Node a : n.ancestors) {
-            if (hueToCheck.getSuccessors(f.getAllHues()).contains(a.zOrder.get(0)) &&
-                    n.z.getSuccessors(f.getAllColours()).contains(a.z)) {
-
-                addUpLink(n, a, hueToCheck);
-                statusPrint(TABLEAU, MAX, "Adding uplink to " + a.getName() + " and initiating LG with");
-                statusPrint(TABLEAU, MAX, infoString());
-                lgRuns++;
-                if (LG.check(f, root)) {
-                    tableausBuilt++;
-                    statusPrint(TABLEAU, MAX, "LG OK");
-                    checkedUpLinks.add(new Pair(n.z, n.zOrder.get(0)), hueToCheck, n);
-                    return SUCCESS;
-                } else {
-                    statusPrint(TABLEAU, MAX, "LG FAILED");
-                    removeUpLink(n, a);
-                    continue ANCESTOR_LOOP;
-                    //NEEDS TO BE SOMEWHERE ELSE
-                }
-            }
-        }
-        statusPrint(TABLEAU, MAX,"All ancestors checked. No upLinks possible");
-        checkedUpLinks.add(new Pair(n.z, n.zOrder.get(0)), hueToCheck, new UpLinkTree<Pair<Colour, Hue>>());
-        return FAILURE;
     }
 
     private ExtendResult checkLevel(ColourSet possibleColours, HueSet possibleHues, Node parent, Hue parentHue, int level, UpLinkTree<Pair<Colour, Hue>> checkedUpLinks, boolean checkAll) {

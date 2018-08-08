@@ -2,7 +2,7 @@ package Prover.Tableau;
 
 import Prover.Formula.*;
 
-import static Prover.Tableau.ExtendResult.SUCCESS;
+import static Prover.Tableau.Tableau.ExtendResult.SUCCESS;
 
 public class DepthTableau extends Tableau {
 

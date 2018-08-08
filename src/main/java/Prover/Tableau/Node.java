@@ -2,15 +2,15 @@ package Prover.Tableau;
 
 import Prover.Formula.Colour;
 import Prover.Formula.Hue;
+import Prover.Tableau.Pair.NodeHue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class Node {
-    protected Map<Integer, Node> successors;
-    //note: must order colour!
+class Node<A> {
+    protected final Map<Integer, NodeHue> successors;
     protected final Colour z;
     protected final List<Hue> zOrder;
     protected final List<Node> ancestors;
@@ -19,6 +19,20 @@ class Node {
 
     //standard node creation
     //TODO: add check for firsthue(is it in c)
+
+    //for copying; parent can be null!
+    protected Node(Node n, Node parent) {
+        this.z = n.z;
+        this.zOrder = n.zOrder;
+        this.branchLength = n.branchLength;
+        this.name = n.name;
+        this.ancestors = new ArrayList<>();
+        if (parent != null) {
+            this.ancestors.addAll(parent.ancestors);
+        }
+        this.ancestors.add(this);
+        this.successors = new HashMap<>();
+    }
     protected Node(Colour c, Hue firstHue, Node parent, String name) {
         this.z = c;
         this.zOrder = new ArrayList<Hue>();
@@ -34,7 +48,7 @@ class Node {
         this.ancestors.add(this);
         this.branchLength = parent.branchLength + 1;
         this.name = parent.name + name;
-        this.successors = new HashMap<Integer, Node>();
+        this.successors = new HashMap<Integer, NodeHue>();
     }
 
     protected Node(Colour c, Map<Integer, Hue> hueOrder, Node parent, String name) {
@@ -47,7 +61,7 @@ class Node {
         this.ancestors.add(this);
         this.branchLength = parent.branchLength + 1;
         this.name = parent.name + name;
-        this.successors = new HashMap<Integer, Node>();
+        this.successors = new HashMap<Integer, NodeHue>();
     }
 
     protected Node(Colour c, Map<Integer, Hue> hueOrder) {
@@ -60,7 +74,7 @@ class Node {
         this.ancestors.add(this);
         this.branchLength = 1;
         this.name = "r";
-        this.successors = new HashMap<Integer, Node>();
+        this.successors = new HashMap<Integer, NodeHue>();
     }
 
     protected Node(Colour c, Hue firstHue) {
@@ -78,7 +92,7 @@ class Node {
         this.ancestors.add(this);
         this.branchLength = 1;
         this.name = "r";
-        this.successors = new HashMap<Integer, Node>();
+        this.successors = new HashMap<Integer, NodeHue>();
     }
 
     protected boolean isLeaf() {
@@ -89,7 +103,12 @@ class Node {
         return this.name;
     }
 
-
-    //do not want to store entire trees (to which other references have been lost)
-    //in our CheckedUpLinkTrees, so store just name
+    protected static Node copyTree(Node n, Node parent) {
+        Node newNode = new Node(n, parent);
+        for (int i = 0; i < n.successors.size(); i++) {
+            Node s = (copyTree(((NodeHue)(n.successors.get(i))).node(), newNode));
+            newNode.successors.put(i, s);
+        }
+        return newNode;
+    }
 }

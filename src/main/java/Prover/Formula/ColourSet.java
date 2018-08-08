@@ -135,13 +135,13 @@ public class ColourSet extends TreeSet<Colour> {
             }
         }
         //System.out.println();
-        //System.out.println("returning ");
-        /*for (Colour c : result) {
-            c.sugarPrint();
+        System.out.println("returning ");
+        for (HueSet c : result) {
+            System.out.println(c.sugarString(0));
             System.out.println("with instantiables: ");
-            c.instantiables.sugarPrint();
+            System.out.println(c.instantiables.sugarString());
             System.out.println();
-        }*/
+        }
         statusPrint(COLOURS, MAX, "Number of potential colours generated: " + result.size());
         return result;
     }

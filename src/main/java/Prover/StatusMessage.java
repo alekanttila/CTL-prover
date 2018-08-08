@@ -13,7 +13,7 @@ public class StatusMessage {
     }
 
     public  enum Area {
-        LEXER, PARSER, HUES, COLOURS, TABLEAU, LG
+        LEXER, PARSER, HUES, COLOURS, TABLEAU, TASKS, LG
     }
 
     public static Level setLevel = MAX;

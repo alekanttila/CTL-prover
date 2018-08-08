@@ -26,20 +26,23 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
         if (this != hS) {
             Iterator<Hue> i = this.iterator();
             Iterator<Hue> i2 = hS.iterator();
-            while (i.hasNext()) {
+            while (i.hasNext() && i2.hasNext()) {
                 Hue h = i.next();
-                if (i2.hasNext()) {
-                    Hue h2 = i2.next();
-                    int hDiff = h.compareTo(h2);
-                    if (hDiff != 0) {
-                        result = hDiff;
-                        break;
-                    }
-                } else {
-                    //if this set has the same first elements as hS but is larger:
-                    //TODO: why does this affect colour size???
-                    result = 1;
+                Hue h2 = i2.next();
+                int hDiff = h.compareTo(h2);
+                if (hDiff != 0) {
+                    result = hDiff;
+                    break;
                 }
+            }
+            if (result == 0 && i.hasNext() && !i2.hasNext()) {
+                result = 1;
+            } else if (result == 0 && !i.hasNext() && i2.hasNext()) {
+                result = -1;
+            } else {
+                //if this set has the same first elements as hS but is larger:
+                //TODO: why does this affect colour size???
+                //TODO: error
             }
         }
         return result;

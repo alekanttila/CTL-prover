@@ -2,16 +2,14 @@ package Prover.Tableau;
 
 import Prover.Formula.Hue;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 //TODO: write about synchronization (lack of a need to)
-public class UpLinkTree<A> {
-    Class<A> type;
-    protected Map<Pair<A, Hue>, UpLinkTree<A>> map;
+public class ConcurrentUpLinkTree<A> extends UpLinkTree<A> {
+    protected ConcurrentMap<Pair<A, Hue>, ConcurrentUpLinkTree<A>> map;
     private Node n;
-    protected UpLinkTree<A> getUpLinks(A a, Hue successorIndex) {
+    protected ConcurrentUpLinkTree<A> getUpLinks(A a, Hue successorIndex) {
         return map.get(new Pair<>(a, successorIndex));
     }
 
@@ -21,10 +19,10 @@ public class UpLinkTree<A> {
         boolean result;
         if (this == obj) {
             result = true;
-        } else if (UpLinkTree.class.isInstance(obj)) {
+        } else if (ConcurrentUpLinkTree.class.isInstance(obj)) {
             result = false;
         } else {
-            UpLinkTree c = (UpLinkTree)obj;
+            ConcurrentUpLinkTree c = (ConcurrentUpLinkTree)obj;
             if (this.isNode()) {
                 if (c.isNode()) {
                     //TODO: note somewhere we only use copies of nodes so that this works?
@@ -65,27 +63,25 @@ public class UpLinkTree<A> {
         return n;
     }
 
-    protected Map<Pair<A, Hue>, UpLinkTree<A>> getMap() {
-        return map;
+    protected ConcurrentMap<Pair<A, Hue>, UpLinkTree<A>> getMap() {
+        return (ConcurrentMap)map;
     }
 
-    protected UpLinkTree() {
-        this.type = (Class)getClass();
-        this.map = new HashMap<>();
+    protected ConcurrentUpLinkTree() {
+        this.map = new ConcurrentHashMap<>();
     }
-    protected UpLinkTree(Node n) {
-        this.type = (Class)getClass();
+    protected ConcurrentUpLinkTree(Node n) {
         this.n = n;
     }
     protected void add(A a, Hue successorIndex, Node n) {
         if (this.n == null) {
-            this.map.put(new Pair<>(a, successorIndex), new UpLinkTree(n));
+            this.map.put(new Pair<>(a, successorIndex), new ConcurrentUpLinkTree(n));
         } else {
             throw new AssertionError();
             //TODO: change the error here
         }
     }
-    protected void add(A a, Hue successorIndex, UpLinkTree tree) {
+    protected void add(A a, Hue successorIndex, ConcurrentUpLinkTree tree) {
         if (this.n == null) {
             this.map.put(new Pair<>(a, successorIndex), tree);
         } else {

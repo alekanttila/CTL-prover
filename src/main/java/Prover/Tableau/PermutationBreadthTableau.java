@@ -4,7 +4,7 @@ import Prover.Formula.*;
 
 import java.util.*;
 
-import static Prover.Tableau.ExtendResult.*;
+import static Prover.Tableau.Tableau.ExtendResult.*;
 import static Prover.StatusMessage.*;
 import static Prover.StatusMessage.Area.TABLEAU;
 import static Prover.StatusMessage.Level.MAX;
@@ -47,34 +47,6 @@ public class PermutationBreadthTableau extends Tableau {
             }
         }
         return result;
-    }
-
-    private ExtendResult checkUpLinks(Node n, Hue hueToCheck, UpLinkTree<List<Hue>> checkedUpLinks) {
-        ANCESTOR_LOOP:
-        for (Node a : n.ancestors) {
-            if (hueToCheck.getSuccessors(f.getAllHues()).contains(a.zOrder.get(0)) &&
-                    n.z.getSuccessors(f.getAllColours()).contains(a.z)) {
-
-                addUpLink(n, a, hueToCheck);
-                statusPrint(TABLEAU, MAX, "Adding uplink to " + a.getName() + " and initiating LG with");
-                statusPrint(TABLEAU, MAX, infoString());
-                lgRuns++;
-                if (LG.check(f, root)) {
-                    tableausBuilt++;
-                    statusPrint(TABLEAU, MAX, "LG OK");
-                    checkedUpLinks.add(n.zOrder, hueToCheck, n);
-                    return SUCCESS;
-                } else {
-                    statusPrint(TABLEAU, MAX, "LG FAILED");
-                    removeUpLink(n, a);
-                    continue ANCESTOR_LOOP;
-                    //NEEDS TO BE SOMEWHERE ELSE
-                }
-            }
-        }
-        statusPrint(TABLEAU, MAX,"All ancestors checked. No upLinks possible");
-        checkedUpLinks.add(n.zOrder, hueToCheck, new UpLinkTree<List<Hue>>());
-        return FAILURE;
     }
 
     private ExtendResult checkNode(Node n, int level, UpLinkTree<List<Hue>> checkedUpLinks, boolean checkAll) {
