@@ -96,7 +96,7 @@ public class DepthTableau extends Tableau {
             for (Node a : node.ancestors) {
                 if (h.rX(a.zOrder.get(0))) {
                     //check LG
-                    addUpLink(node, a, h);
+                    addUpLink(node, h, a, a.zOrder.get(0));
                     result = true;
                 }
             }

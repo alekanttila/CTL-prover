@@ -9,7 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class Node<A> {
+import static Prover.Tableau.Pair.nH;
+
+class Node {
     protected final Map<Integer, NodeHue> successors;
     protected final Colour z;
     protected final List<Hue> zOrder;
@@ -31,7 +33,7 @@ class Node<A> {
             this.ancestors.addAll(parent.ancestors);
         }
         this.ancestors.add(this);
-        this.successors = new HashMap<>();
+        this.successors = new HashMap<Integer, NodeHue>();
     }
     protected Node(Colour c, Hue firstHue, Node parent, String name) {
         this.z = c;
@@ -99,16 +101,22 @@ class Node<A> {
         return (this.successors.isEmpty());
     }
 
+    protected NodeHue getStandardNH() {
+        return nH(this, this.zOrder.get(0));
+    }
+
     protected String getName() {
         return this.name;
     }
 
+
+    /*
     protected static Node copyTree(Node n, Node parent) {
         Node newNode = new Node(n, parent);
         for (int i = 0; i < n.successors.size(); i++) {
-            Node s = (copyTree(((NodeHue)(n.successors.get(i))).node(), newNode));
+            Node s = (copyTree(n.successors.get(i).node(), newNode));
             newNode.successors.put(i, s);
         }
         return newNode;
-    }
+    }*/
 }

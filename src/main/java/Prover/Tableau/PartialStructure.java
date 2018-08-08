@@ -5,8 +5,6 @@ import Prover.Formula.FormulaSet;
 
 import java.util.*;
 
-import static Prover.Tableau.LG.nH;
-
 class PartialStructure extends Pair<List<Node>, Pair<Map<Node, TreeSet<FormulaSet>>, Map<Pair.NodeHue, Set<Pair.NodeHue>>>> {
     protected PartialStructure(List<Node> nodes, Map<Node, TreeSet<FormulaSet>> partialColouring, Map<NodeHue, Set<NodeHue>> hueSuccessors) {
         this.a = nodes;
@@ -71,9 +69,10 @@ class PartialStructure extends Pair<List<Node>, Pair<Map<Node, TreeSet<FormulaSe
             pC().put(n, startColour);
             nodes().add(n);
             hS().put(nH(n, LG.getEmptyHue()), new HashSet<NodeHue>());
-            Iterator<Node> i = n.successors.values().iterator();
+            Iterator<NodeHue> i = n.successors.values().iterator();
             while (i.hasNext()) {
-                Node s = i.next();
+                NodeHue sNH = i.next();
+                Node s = sNH.node();
                 initialize(s);
                 //TODO: change this
                 hS().get(nH(n, LG.getEmptyHue())).add(nH(s, LG.getEmptyHue()));

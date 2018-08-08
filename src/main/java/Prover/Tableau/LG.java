@@ -383,10 +383,10 @@ public class LG {
         Map<Pair.NodeHue, Integer> eventualityCount = new HashMap<Pair.NodeHue, Integer>();
         for (Node n : oldS.nodes()) {
             for (FormulaSet h : oldS.pC().get(n)) {
-                eventualityCount.put(nH(n, h), -1);
+                eventualityCount.put(Pair.nH(n, h), -1);
             }
         }
-        eventualityCount.put(nH(nodeToCheck, hueToCheck), 0);
+        eventualityCount.put(Pair.nH(nodeToCheck, hueToCheck), 0);
         boolean loop = false;
         boolean change = true;
         while (change) {
@@ -396,15 +396,15 @@ public class LG {
                     for (Node n2 : oldS.nodes()) {
                         for (FormulaSet h2 : oldS.pC().get(n2)) {
                             if (oldS.isSuccessor(n1, h1, n2, h2) && h1.contains(phi)) {
-                                if (eventualityCount.get(nH(n1, h1)) < eventualityCount.get(nH(n2, h2))) {
-                                    eventualityCount.put(nH(n1, h1), eventualityCount.get(nH(n2, h2)));
+                                if (eventualityCount.get(Pair.nH(n1, h1)) < eventualityCount.get(Pair.nH(n2, h2))) {
+                                    eventualityCount.put(Pair.nH(n1, h1), eventualityCount.get(Pair.nH(n2, h2)));
                                     //System.out.println("putting " + n1.getName() + h1.sugarString() + eventualityCount.get(nH(n1, h1)));
                                     change = true;
                                     if (n1 == nodeToCheck && h1 == hueToCheck) {
                                         loop = true;
                                     }
                                 } else if (n1 == nodeToCheck && h1 == hueToCheck &&
-                                        eventualityCount.get(nH(n1, h1)) == eventualityCount.get(nH(n2, h2)) && !loop) {
+                                        eventualityCount.get(Pair.nH(n1, h1)) == eventualityCount.get(Pair.nH(n2, h2)) && !loop) {
                                     //System.out.println("loop w no eventualities");
                                     change = true;
                                     loop = true;
@@ -413,8 +413,8 @@ public class LG {
                         }
                     }
                     for (int i = 1; i < (count + 1); i++) {
-                        if (eventualityCount.get(nH(n1, h1)) == i - 1 && h1.contains(eventualities.get(i - 1))) {
-                            eventualityCount.put(nH(n1, h1), i);
+                        if (eventualityCount.get(Pair.nH(n1, h1)) == i - 1 && h1.contains(eventualities.get(i - 1))) {
+                            eventualityCount.put(Pair.nH(n1, h1), i);
                             //System.out.println("putting2 " + n1.getName() + h1.sugarString() + eventualityCount.get(nH(n1,h1)));
                             change = true;
                         }
@@ -423,7 +423,7 @@ public class LG {
             }
         }
         boolean result;
-        if (loop == true && eventualityCount.get(nH(nodeToCheck, hueToCheck)) == count) {
+        if (loop == true && eventualityCount.get(Pair.nH(nodeToCheck, hueToCheck)) == count) {
             result = true;
         } else {
             result = false;
@@ -481,10 +481,6 @@ public class LG {
             }
         }
         return  positiveExtensions;
-    }
-
-    protected static Pair.NodeHue nH(Node n, FormulaSet h) {
-        return new Pair.NodeHue(n, h);
     }
 
     protected static FormulaSet getEmptyHue() {

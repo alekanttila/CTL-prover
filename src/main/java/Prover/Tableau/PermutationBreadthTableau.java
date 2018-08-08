@@ -1,9 +1,11 @@
 package Prover.Tableau;
 
 import Prover.Formula.*;
+import Prover.Tableau.Pair.NodeHue;
 
 import java.util.*;
 
+import static Prover.Tableau.Pair.nH;
 import static Prover.Tableau.Tableau.ExtendResult.*;
 import static Prover.StatusMessage.*;
 import static Prover.StatusMessage.Area.TABLEAU;
@@ -65,18 +67,18 @@ public class PermutationBreadthTableau extends Tableau {
             statusPrint(TABLEAU, SOME, "Checking children/upLinks for " + hueToCheck.name);
 
             //remove dummy leaf
-            Node dummyCopy = n.successors.get(i);
+            Node dummyCopy = n.successors.get(i).node();
             removeNode(dummyCopy);
 
             //CHECK FOR ALREADY CHECKED UPLINKS HERE
             UpLinkTree<List<Hue>> hueUpLinks = checkedUpLinks.getUpLinks(n.zOrder, hueToCheck);
             if (hueUpLinks != null) {
-                Node checkedChild = hueUpLinks.getNode();
+                NodeHue checkedChild = hueUpLinks.getNodeHue();
 
                 //CASE 1: we have a previously checked uplink. We attach it to the current tree
                 if (checkedChild != null) {
-                    statusPrint(TABLEAU, SOME, "Found previously checked uplink to " + checkedChild.getName());
-                    restoreUpLink(n, checkedChild.getName(), hueToCheck);
+                    statusPrint(TABLEAU, SOME, "Found previously checked uplink to " + checkedChild.node().getName());
+                    restoreUpLink(n, hueToCheck, checkedChild);
                     tableausBuilt++;
                     continue HUES_IN_NZ_LOOP;
 
@@ -248,7 +250,7 @@ public class PermutationBreadthTableau extends Tableau {
         if (parent != null) {
             int index = parent.zOrder.indexOf(predecessorHue);
             newLeaf = new Node(c, hueOrder, parent, "" + index);
-            parent.successors.put(index, newLeaf);
+            parent.successors.put(index, nH(newLeaf, hueOrder.get(0)));
         } else {
             newLeaf = new Node(c, hueOrder);
         }

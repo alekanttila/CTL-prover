@@ -1,6 +1,7 @@
 package Prover.Tableau;
 
 import Prover.Formula.FormulaSet;
+import Prover.Formula.Hue;
 
 import java.util.Objects;
 
@@ -50,6 +51,7 @@ class Pair<A, B> {
         protected FormulaSet hue() {
             return this.b;
         }
+        protected Hue hueAsHue() { return (Hue)(this.b); }
 
         @Override
         public boolean equals(Object obj) {
@@ -70,4 +72,10 @@ class Pair<A, B> {
             return Objects.hash(a, b);
         }
     }
+
+
+    protected static NodeHue nH(Node n, FormulaSet h) {
+        return new NodeHue(n, h);
+    }
+
 }

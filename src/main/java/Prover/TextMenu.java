@@ -110,27 +110,27 @@ public class TextMenu {
                 int choice = scanner.nextInt();
                 switch (choice) {
                     case 6:
-                        BreadthTableau tx = new BreadthTableau(f);
+                        MultiBreadthTableau tx = new MultiBreadthTableau(f);
                         tx.test();
                         break;
                     case 7:
-                        BreadthTableau txx = new BreadthTableau(f);
+                        MultiBreadthTableau txx = new MultiBreadthTableau(f);
                         txx.test2();
                         break;
                     case 1:
                         Tableau t = null;
                         switch (Mode.setAlgorithm) {
                             case BREADTH:
-                                t = new BreadthTableau(f);
+                                t = new MultiBreadthTableau(f);
                                 break;
                             case BREADTH_FIRST_HUE:
-                                t = new FHuesBreadthTableau(f);
+                                t = new BreadthTableau(f);
                                 break;
                             case BREADTH_PERMUTATIONS:
                                 t = new PermutationBreadthTableau(f);
                                 break;
                             case MULTI_BREADTH:
-                                t = new MultiBreadthTableau(f);
+                                t = new ConcurrentMultiBreadthTableau(f);
                                 break;
                         }
                         System.out.println(t.solve());

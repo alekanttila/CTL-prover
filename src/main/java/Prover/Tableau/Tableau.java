@@ -1,6 +1,7 @@
 package Prover.Tableau;
 
 import Prover.Formula.*;
+import Prover.Tableau.Pair.NodeHue;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -11,11 +12,13 @@ import static Prover.StatusMessage.Area.TABLEAU;
 import static Prover.StatusMessage.Level.MAX;
 import static Prover.StatusMessage.Level.SOME;
 import static Prover.StatusMessage.statusPrint;
+import static Prover.Tableau.Pair.nH;
 import static Prover.Tableau.Tableau.ExtendResult.FAILURE;
 import static Prover.Tableau.Tableau.ExtendResult.SUCCESS;
 
 public abstract class Tableau {
     protected Node root;
+    public boolean multiUpLinks;
     protected int tableausBuilt = 0;
     protected int lgRuns = 0;
     protected int maxSteps = -1;
@@ -37,7 +40,7 @@ public abstract class Tableau {
         if (parent != null) {
             int index = parent.zOrder.indexOf(predecessorHue);
             newLeaf = new Node(c, firstHue, parent, "" + index);
-            parent.successors.put(index, newLeaf);
+            parent.successors.put(index, nH(newLeaf, firstHue));
         } else {
             newLeaf = new Node(c, firstHue);
         }
@@ -47,7 +50,7 @@ public abstract class Tableau {
     protected void removeNode(Node node) {
         if (node != root) {
             Node parent = node.ancestors.get(node.ancestors.size() - 2);
-            parent.successors.values().remove(node);
+            parent.successors.values().remove(node.getStandardNH());
         } else {
             root = null;
         }
@@ -56,77 +59,55 @@ public abstract class Tableau {
     protected ExtendResult checkUpLinks(Node n, Hue hueToCheck, UpLinkTree checkedUpLinks) {
         ANCESTOR_LOOP:
         for (Node a : n.ancestors) {
-            System.out.println("checking if " + hueToCheck.name + " successors " + hueToCheck.getSuccessors(f.getAllHues()).nameString() + " contains " + a.zOrder.get(0).name);
-            if (hueToCheck.getSuccessors(f.getAllHues()).contains(a.zOrder.get(0)) &&
-                    n.z.getSuccessors(f.getAllColours()).contains(a.z)) {
-                System.out.println("YES");
-
-
-                addUpLink(n, a, hueToCheck);
-                statusPrint(TABLEAU, MAX, "Adding uplink to " + a.getName() + " and initiating LG with");
-                statusPrint(TABLEAU, MAX, infoString());
-                lgRuns++;
-                if (LG.check(f, root)) {
-                    tableausBuilt++;
-                    statusPrint(TABLEAU, MAX, "LG OK");
-                    if (this instanceof FHuesBreadthTableau) {
-                        checkedUpLinks.add(new Pair(n.z, n.zOrder.get(0)), hueToCheck, a);
-                    } else if (this instanceof PermutationBreadthTableau) {
-                        checkedUpLinks.add(n.zOrder, hueToCheck, a);
-                    } else {
-                        checkedUpLinks.add(n.z, hueToCheck, a);
-                    }
-                    return SUCCESS;
-                } else {
-                    statusPrint(TABLEAU, MAX, "LG FAILED");
-                    removeUpLink(n, a);
-                    continue ANCESTOR_LOOP;
-                }
-            }
-        }
-        statusPrint(TABLEAU, MAX,"All ancestors checked. No upLinks possible");
-        if (this instanceof FHuesBreadthTableau) {
-            checkedUpLinks.add(new Pair(n.z, n.zOrder.get(0)), hueToCheck, new UpLinkTree<Pair<Colour, Hue>>());
-        } else if (this instanceof PermutationBreadthTableau) {
-            checkedUpLinks.add(n.zOrder, hueToCheck, new UpLinkTree<List<Colour>>());
-        } else {
-            checkedUpLinks.add(n.z, hueToCheck, new UpLinkTree<Colour>());
-        }
-        return FAILURE;
-    }
-
-    protected ExtendResult checkUpLinks2(Node n, Hue hueToCheck, UpLinkTree checkedUpLinks) {
-        ANCESTOR_LOOP:
-        for (Node a : n.ancestors) {
             if (n.z.getSuccessors(f.getAllColours()).contains(a.z)) {
-                for (Hue h : a.z) {
-                    if (hueToCheck.getSuccessors(f.getAllHues()).contains(h)) {
-                        addUpLink(n, a, hueToCheck);
-                        statusPrint(TABLEAU, MAX, "Adding uplink to " + a.getName() + " and initiating LG with");
+                if (multiUpLinks) {
+                    for (Hue h : a.z) {
+                        if (hueToCheck.getSuccessors(f.getAllHues()).contains(h)) {
+                            addUpLink(n, hueToCheck, a, h);
+                            statusPrint(TABLEAU, MAX, "Adding uplink to " + a.getName() + " " + h.name + " and initiating LG with");
+                            statusPrint(TABLEAU, MAX, infoString());
+                            lgRuns++;
+                            if (LG.check(f, root)) {
+                                tableausBuilt++;
+                                statusPrint(TABLEAU, MAX, "LG OK");
+                                checkedUpLinks.add(n.z, hueToCheck, nH(a,h));
+                                return SUCCESS;
+                            } else {
+                                statusPrint(TABLEAU, MAX, "LG failed");
+                                removeUpLink(n, a, h);
+                                continue ANCESTOR_LOOP;
+                            }
+                        }
+                    }
+                } else {
+                    if (hueToCheck.getSuccessors(f.getAllHues()).contains(a.zOrder.get(0))) {
+                        addUpLink(n, hueToCheck, a, a.zOrder.get(0));
+                        statusPrint(TABLEAU, MAX, "Adding uplink to " + a.getName() + " " + a.zOrder.get(0).name + " and initiating LG with");
                         statusPrint(TABLEAU, MAX, infoString());
                         lgRuns++;
                         if (LG.check(f, root)) {
                             tableausBuilt++;
                             statusPrint(TABLEAU, MAX, "LG OK");
-                            if (this instanceof FHuesBreadthTableau) {
-                                checkedUpLinks.add(new Pair(n.z, n.zOrder.get(0)), hueToCheck, a);
+                            if (this instanceof BreadthTableau) {
+                                checkedUpLinks.add(new Pair(n.z, n.zOrder.get(0)), hueToCheck, a.getStandardNH());
                             } else if (this instanceof PermutationBreadthTableau) {
-                                checkedUpLinks.add(n.zOrder, hueToCheck, a);
+                                checkedUpLinks.add(n.zOrder, hueToCheck, a.getStandardNH());
                             } else {
-                                checkedUpLinks.add(n.z, hueToCheck, a);
+                                checkedUpLinks.add(n.z, hueToCheck, a.getStandardNH());
                             }
                             return SUCCESS;
                         } else {
-                            statusPrint(TABLEAU, MAX, "LG FAILED");
-                            removeUpLink(n, a);
+                            statusPrint(TABLEAU, MAX, "LG failed");
+                            removeUpLink(n, a, a.zOrder.get(0));
                             continue ANCESTOR_LOOP;
                         }
+
                     }
                 }
             }
         }
         statusPrint(TABLEAU, MAX,"All ancestors checked. No upLinks possible");
-        if (this instanceof FHuesBreadthTableau) {
+        if (this instanceof BreadthTableau) {
             checkedUpLinks.add(new Pair(n.z, n.zOrder.get(0)), hueToCheck, new UpLinkTree<Pair<Colour, Hue>>());
         } else if (this instanceof PermutationBreadthTableau) {
             checkedUpLinks.add(n.zOrder, hueToCheck, new UpLinkTree<List<Colour>>());
@@ -137,26 +118,33 @@ public abstract class Tableau {
     }
 
 
-    public void addUpLink(Node parent, Node child, Hue h) {
-        parent.successors.put(parent.zOrder.indexOf(h), child);
+    //when multiuplink = true
+    public void addUpLink(Node parent, Hue predecessor, Node child, Hue successor) {
+        parent.successors.put(parent.zOrder.indexOf(predecessor), nH(child, successor));
     }
 
     public Node retrieveNodeByName(String name) {
         name = name.substring(1);
         Node result = root;
         for (int i = 0; i < name.length(); i++) {
-            result = result.successors.get(Integer.parseInt(Character.toString(name.charAt(i))));
+            result = result.successors.get(Integer.parseInt(Character.toString(name.charAt(i)))).node();
         }
         return result;
     }
 
-    public void restoreUpLink(Node parent, String childName, Hue h) {
+    //TODO: write use name and retrieve by name here because WHY??
+    public void restoreUpLink(Node parent, Hue predecessor, NodeHue childNodeHue) {
+        String childName = childNodeHue.node().getName();
         Node child = retrieveNodeByName(childName);
-        addUpLink(parent, child, h);
+        if (multiUpLinks) {
+            addUpLink(parent, predecessor, child, childNodeHue.hueAsHue());
+        } else {
+            addUpLink(parent, predecessor, child, child.zOrder.get(0));
+        }
     }
 
-    public void removeUpLink(Node parent, Node child) {
-        parent.successors.remove(child);
+    public void removeUpLink(Node parent, Node child, Hue successor) {
+        parent.successors.remove(nH(child, successor));
     }
 
     protected boolean createDummies(Node n, ColourSet possibleChildColours) {
@@ -211,15 +199,16 @@ public abstract class Tableau {
         result = result + "}";
         result = result + " Successors:";
         result = result + n.successors.size() + " ";
-        Iterator<Node> i = n.successors.values().iterator();
+        Iterator<NodeHue> i = n.successors.values().iterator();
         while (i.hasNext()) {
-            Node s = i.next();
-            result = result + s.getName() + " ";
+            NodeHue s = i.next();
+            result = result + s.node().getName() + " ";
         }
         result = result + "\n";
-        Iterator<Node> i2 = n.successors.values().iterator();
+        Iterator<NodeHue> i2 = n.successors.values().iterator();
         while (i2.hasNext()) {
-            Node s = i2.next();
+            NodeHue sNH = i2.next();
+            Node s = sNH.node();
             if (printedNodes.contains(s)) {
                 continue;
             }

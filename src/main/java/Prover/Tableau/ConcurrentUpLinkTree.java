@@ -1,6 +1,7 @@
 package Prover.Tableau;
 
 import Prover.Formula.Hue;
+import Prover.Tableau.Pair.NodeHue;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -8,7 +9,7 @@ import java.util.concurrent.ConcurrentMap;
 //TODO: write about synchronization (lack of a need to)
 public class ConcurrentUpLinkTree<A> extends UpLinkTree<A> {
     protected ConcurrentMap<Pair<A, Hue>, ConcurrentUpLinkTree<A>> map;
-    private Node n;
+    private NodeHue n;
     protected ConcurrentUpLinkTree<A> getUpLinks(A a, Hue successorIndex) {
         return map.get(new Pair<>(a, successorIndex));
     }
@@ -60,6 +61,10 @@ public class ConcurrentUpLinkTree<A> extends UpLinkTree<A> {
     }
 
     protected Node getNode() {
+        return n.node();
+    }
+
+    protected NodeHue getNodeHue() {
         return n;
     }
 
@@ -70,10 +75,10 @@ public class ConcurrentUpLinkTree<A> extends UpLinkTree<A> {
     protected ConcurrentUpLinkTree() {
         this.map = new ConcurrentHashMap<>();
     }
-    protected ConcurrentUpLinkTree(Node n) {
+    protected ConcurrentUpLinkTree(NodeHue n) {
         this.n = n;
     }
-    protected void add(A a, Hue successorIndex, Node n) {
+    protected void add(A a, Hue successorIndex, NodeHue n) {
         if (this.n == null) {
             this.map.put(new Pair<>(a, successorIndex), new ConcurrentUpLinkTree(n));
         } else {
