@@ -7,30 +7,6 @@ import java.util.TreeSet;
 
 public class FormulaSet extends TreeSet<Formula> implements Comparable<FormulaSet> {
 
-    /*
-    @Override
-    public boolean equals(Object obj) {
-        boolean result = true;
-        if (this == obj) {
-            result = true;
-        } else if (!FormulaSet.class.isAssignableFrom(obj.getClass())) {
-            result = false;
-        } else {
-            FormulaSet fS = (FormulaSet) obj;
-            Iterator<Formula> i = this.iterator();
-            Iterator<Formula> i2 = fS.iterator();
-            while (i.hasNext() && i2.hasNext()) {
-                Formula f = i.next();
-                Formula f2 = i2.next();
-                if (!f.equals(f2)) {
-                    result = false;
-                    break;
-                }
-            }
-        }
-        return result;
-    }*/
-
     @Override
     public int compareTo(FormulaSet fS){
         int result = 0;
@@ -50,7 +26,6 @@ public class FormulaSet extends TreeSet<Formula> implements Comparable<FormulaSe
             } else if (result == 0 && !i.hasNext() && i2.hasNext()) {
                 result = -1;
             } else {
-                //TODO: error
             }
         }
         return result;
@@ -65,7 +40,6 @@ public class FormulaSet extends TreeSet<Formula> implements Comparable<FormulaSe
             }
         }
         if (result == null) {
-            //TODO: error
         }
         return result;
     }

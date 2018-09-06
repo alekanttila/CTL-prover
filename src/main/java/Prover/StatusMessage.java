@@ -13,7 +13,7 @@ public class StatusMessage {
     }
 
     public  enum Area {
-        LEXER, PARSER, HUES, COLOURS, TABLEAU, TASKS, LG
+         TABLEAU, LG, COLOURS, TASKS
     }
 
     public static Level setLevel = MAX;
@@ -34,6 +34,6 @@ public class StatusMessage {
                 + new String(new char[100]).replace("\0", "-")
                 + "\n" + message);
     }
-    //stackoverflow.com/questions/2255500
+    //Adapted from stackoverflow.com/questions/2255500
 
 }

@@ -2,26 +2,135 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3bb46558-621d-4092-904f-ffb241203c6e" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_3_0_M1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_3_0_RC1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_0_M1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_3_0_RC1.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2018-08-01-093527_1920x1080_scrot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/2018-08-01-093532_1920x1080_scrot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Formula/Colour.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Formula/Colour.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Formula/ColourSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Formula/ColourSet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Formula/FormulaSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Formula/FormulaSet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Formula/Hue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Formula/Hue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Mode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Mode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/StatusMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/StatusMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Tableau/BreadthTableau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Tableau/BreadthTableau.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentBreadthTableau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentBreadthTableau.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentTableau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentTableau.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Tableau/LG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Tableau/LG.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/Tableau/Tableau.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/Tableau/Tableau.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Prover/TextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Prover/TextMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scraps/ColourWithNull.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scraps/Comparescraps.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scraps/FormulaSetscraps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scraps/HueScraps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scraps/LG.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scraps/LG2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scraps/Parserscraps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scraps/Tableau2.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/scraps/TableauPseudocode" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Colour.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Formula/Colour.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/ColourSet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Formula/ColourSet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Formula$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Formula/Formula$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Formula.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Formula/Formula.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/FormulaSet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Formula/FormulaSet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/Hue.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Formula/Hue.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/HueSet$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Formula/HueSet$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Formula/HueSet.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Formula/HueSet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Mode$Algorithm.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Mode$Algorithm.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Mode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Mode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/StatusMessage$Area.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/StatusMessage$Area.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Tableau/BreadthTableau$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Tableau/BreadthTableau$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Tableau/BreadthTableau.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Tableau/BreadthTableau.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Tableau/LG.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Tableau/LG.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Tableau/Tableau$ExtendResult.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Tableau/Tableau$ExtendResult.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/Tableau/Tableau.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/Tableau/Tableau.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/TextMenu$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/TextMenu$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Prover/TextMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Prover/TextMenu.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="-1205781326">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="10" />
+          <entry key="project.open.time.14" value="2" />
+          <entry key="project.open.time.15" value="1" />
+          <entry key="project.open.time.16" value="1" />
+          <entry key="project.open.time.17" value="1" />
+          <entry key="project.open.time.19" value="2" />
+          <entry key="project.open.time.25" value="1" />
+          <entry key="project.open.time.28" value="1" />
+          <entry key="project.open.time.30" value="2" />
+          <entry key="project.opened" value="11" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="java" value="47" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JAVA" value="47" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="java" value="2395" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="JAVA" value="2395" />
+        </counts>
+      </usages-collector>
+    </session>
+  </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.5644208">
+    <splitter split-orientation="horizontal" split-proportion="0.6959554">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Tableau.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/Tableau.java">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/TextMenu.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="30">
-                  <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+                <state relative-caret-position="302">
+                  <caret line="273" column="42" selection-start-line="273" selection-start-column="42" selection-end-line="273" selection-end-column="42" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentBreadthTableau.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="195">
+                  <caret line="13" selection-start-line="13" selection-end-line="13" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Mode.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="90">
+                  <caret line="6" column="43" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/Node.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="547">
+                  <caret line="112" selection-start-line="112" selection-end-line="112" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -29,13 +138,46 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="PartialStructure.java" pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/Pair.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="385">
+                  <caret line="53" column="57" selection-start-line="53" selection-start-column="57" selection-end-line="53" selection-end-column="57" />
+                  <folding>
+                    <element signature="e#1838#1839#0" expanded="true" />
+                    <element signature="e#1887#1888#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/LG.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="210">
+                  <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/StatusMessage.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="150">
+                  <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/PartialStructure.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="240">
-                  <caret line="73" column="25" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
+                <state relative-caret-position="311">
+                  <caret line="62" column="35" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
                   <folding>
-                    <element signature="method#simpleSuccessorUpdate#0;class#PartialStructure#0" />
                     <element signature="method#isSuccessor#0;class#PartialStructure#0" />
                     <element signature="method#resetColour#0;class#PartialStructure#0" />
                     <element signature="method#addHueToNodeColour#0;class#PartialStructure#0" />
@@ -44,80 +186,34 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="BreadthTableau.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/BreadthTableau.java">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/ResultSet.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="195">
-                  <caret line="46" column="12" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
+                <state relative-caret-position="316">
+                  <caret line="102" column="4" selection-start-line="102" selection-start-column="4" selection-end-line="102" selection-end-column="4" />
                   <folding>
-                    <element signature="imports" expanded="true" />
+                    <element signature="e#2532#2533#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="ConcurrentBreadthTableau.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentBreadthTableau.java">
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Colour.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="226">
-                  <caret line="120" column="38" selection-start-line="120" selection-start-column="38" selection-end-line="120" selection-end-column="38" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="MultiBreadthTableau.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/MultiBreadthTableau.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1065">
-                  <caret line="77" column="12" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="12" />
+                <state relative-caret-position="547">
+                  <caret line="117" selection-start-line="117" selection-end-line="117" />
                   <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="PermutationBreadthTableau.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/PermutationBreadthTableau.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="270">
-                  <caret line="200" column="33" selection-start-line="200" selection-start-column="33" selection-end-line="200" selection-end-column="33" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ConcurrentUpLinkTree.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentUpLinkTree.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="93">
-                  <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#1852#1853#0" expanded="true" />
-                    <element signature="e#1883#1884#0" expanded="true" />
-                    <element signature="e#1921#1922#0" expanded="true" />
-                    <element signature="e#1945#1946#0" expanded="true" />
-                    <element signature="e#2080#2081#0" expanded="true" />
-                    <element signature="e#2106#2107#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="UpLinkTree.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/UpLinkTree.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="197">
-                  <caret line="64" column="4" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="4" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#1803#1804#0" expanded="true" />
-                    <element signature="e#1834#1835#0" expanded="true" />
-                    <element signature="e#1872#1873#0" expanded="true" />
-                    <element signature="e#1896#1897#0" expanded="true" />
+                    <element signature="e#379#380#0" expanded="true" />
+                    <element signature="e#412#413#0" expanded="true" />
+                    <element signature="e#2520#2521#0" expanded="true" />
+                    <element signature="e#2548#2549#0" expanded="true" />
+                    <element signature="e#2605#2606#0" expanded="true" />
+                    <element signature="e#2633#2634#0" expanded="true" />
+                    <element signature="e#2686#2687#0" expanded="true" />
+                    <element signature="e#2714#2715#0" expanded="true" />
+                    <element signature="e#2774#2775#0" expanded="true" />
+                    <element signature="e#2802#2803#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -126,14 +222,45 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
-          <file leaf-file-name="BreadthTableau.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/BreadthTableau.java">
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentMultiBreadthTableau.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="390">
-                  <caret line="58" lean-forward="true" selection-start-line="58" selection-end-line="58" />
+                <state relative-caret-position="15">
+                  <caret line="13" column="45" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/ColourSet.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="135">
+                  <caret line="9" column="43" lean-forward="true" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="43" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/Tableau.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="135">
+                  <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/UpLinkTree.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="547">
+                  <caret line="64" column="4" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="4" />
                   <folding>
                     <element signature="imports" expanded="true" />
+                    <element signature="e#1803#1804#0" expanded="true" />
+                    <element signature="e#1834#1835#0" expanded="true" />
+                    <element signature="e#1872#1873#0" expanded="true" />
+                    <element signature="e#1896#1897#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -153,10 +280,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>STokenType</find>
-      <find>TokenType.</find>
-      <find>.add</find>
-      <find>FOLLOW</find>
       <find>.getID()</find>
       <find>.getConnective()</find>
       <find>f1</find>
@@ -178,6 +301,15 @@
       <find>PermutationUpLinkTree</find>
       <find>FHueUpLinkTree</find>
       <find>incorrectly bui</find>
+      <find>initialize</find>
+      <find>system.o</find>
+      <find>system.ou</find>
+      <find>system.out</find>
+      <find>syst</find>
+      <find>TODO</find>
+      <find>todo</find>
+      <find>system.</find>
+      <find>system</find>
     </findStrings>
     <replaceStrings>
       <replace>Token.Type.</replace>
@@ -203,7 +335,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/Prover/PartialHue.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Hue.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/LG.java" />
@@ -216,14 +347,11 @@
         <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/Pair.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/Tableau2.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/FormulaSet.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/PartialStructure.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/LG3.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/HuePermutor.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/Node.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/ResultSet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/Hue.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Prover/Tableau.java" />
         <option value="$PROJECT_DIR$/src/main/scraps/TableauPseudocode" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/firstHueUpLinkTree.java" />
@@ -233,12 +361,6 @@
         <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/FHueUpLinkTree.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/BTableau.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/ExtendResult.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/StatusMessage.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/Colour.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/ColourSet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/TextMenu.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/Mode.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/Node.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/Pair.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/MultiTableau.java" />
@@ -248,19 +370,29 @@
         <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/DepthTableau.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/PartialStructure.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentUpLinkTree.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentBreadthTableau.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentTableau.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentMultiBreadthTableau.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/MultiBreadthTableau.java" />
-        <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/Tableau.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentTableau.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/Colour.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/FormulaSet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/Hue.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentBreadthTableau.java" />
         <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/BreadthTableau.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/Tableau.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/TextMenu.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/LG.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Mode.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Formula/ColourSet.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentMultiBreadthTableau.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Prover/StatusMessage.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="20" />
     <option name="y" value="23" />
-    <option name="width" value="930" />
+    <option name="width" value="1880" />
     <option name="height" value="1037" />
   </component>
   <component name="ProjectView">
@@ -269,7 +401,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -325,13 +456,6 @@
             <path>
               <item name="CTL-prover" type="b2602c69:ProjectViewProjectNode" />
               <item name="CTL-prover" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="scraps" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CTL-prover" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CTL-prover" type="462c0819:PsiDirectoryNode" />
               <item name="target" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -340,19 +464,81 @@
               <item name="target" type="462c0819:PsiDirectoryNode" />
               <item name="test-classes" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="CTL-prover" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="CTL-prover" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="CTL-prover" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CTL-prover" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CTL-prover" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="sun" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CTL-prover" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="sun" type="462c0819:PsiDirectoryNode" />
+              <item name="net" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CTL-prover" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="sun" type="462c0819:PsiDirectoryNode" />
+              <item name="net" type="462c0819:PsiDirectoryNode" />
+              <item name="ssl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CTL-prover" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="rt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="sun" type="462c0819:PsiDirectoryNode" />
+              <item name="net" type="462c0819:PsiDirectoryNode" />
+              <item name="ssl" type="462c0819:PsiDirectoryNode" />
+              <item name="https" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="SearchEverywhereHistoryKey" value="DT&#9;FILE&#9;file:///home/ale/workspace/CTL-prover/src/main/java/Prover/Tableau/BreadthTableau.java&#10;C&#9;null&#9;null" />
+    <property name="SearchEverywhereHistoryKey" value="www&#9;FILE&#9;jar:///usr/lib/jvm/java-8-openjdk/jre/lib/rt.jar!/com/sun/net/ssl/internal/www&#10;DT&#9;FILE&#9;file:///home/ale/workspace/CTL-prover/src/main/java/Prover/Tableau/BreadthTableau.java&#10;C&#9;null&#9;null" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536144912609" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/src/test/java" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
@@ -405,20 +591,15 @@
   <component name="RunManager" selected="Application.Main">
     <configuration name="FormulaSetTests.myFirstTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
       <module name="CTL" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="FormulaSetTests" />
       <option name="METHOD_NAME" value="myFirstTest" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Prover.Main" />
@@ -430,6 +611,9 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="Parser" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Prover.Formula.Parser" />
@@ -441,81 +625,51 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="FormulaSetTests.hueTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CTL" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="FormulaSetTests" />
       <option name="METHOD_NAME" value="hueTest" />
       <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration name="FormulaSetTests.powerSetTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CTL" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="FormulaSetTests" />
       <option name="METHOD_NAME" value="powerSetTest" />
       <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
       <properties />
       <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <list>
       <item itemvalue="Application.Parser" />
@@ -580,66 +734,36 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="3" width="960" height="1077" extended-state="0" />
-    <editor active="true" />
+    <frame x="20" y="23" width="1880" height="1037" extended-state="0" />
     <layout>
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Messages" order="9" sideWeight="0.4924594" weight="0.31422505" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info id="Image Layers" order="2" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.15899582" side_tool="true" weight="0.06163022" />
-      <window_info anchor="right" id="Maven Projects" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32908705" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8410042" weight="0.121181265" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info id="Capture Tool" order="7" />
-      <window_info id="Designer" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8801917" visible="true" weight="0.23849373" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.8039443" weight="0.0" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8801917" visible="true" weight="0.21810251" />
       <window_info id="Structure" order="1" sideWeight="0.12820514" side_tool="true" weight="0.25625" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4988399" weight="0.398167" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info id="Learn" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.8039443" weight="0.0" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8410042" weight="0.3474026" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4988399" weight="0.398167" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32908705" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Messages" order="9" sideWeight="0.4924594" weight="0.18398269" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.15899582" side_tool="true" weight="0.06163022" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Maven Projects" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
     </layout>
-    <layout-to-restore>
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.8410042" visible="true" weight="0.3747346" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8801917" visible="true" weight="0.22014925" />
-      <window_info id="Structure" order="1" sideWeight="0.12820514" side_tool="true" weight="0.25625" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info id="Image Layers" order="2" />
-      <window_info id="Designer" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.8039443" weight="0.0" />
-      <window_info id="Learn" order="5" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.4988399" weight="0.398167" />
-      <window_info anchor="right" id="Palette&#9;" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.15899582" side_tool="true" weight="0.06163022" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="7" weight="0.32908705" />
-      <window_info id="Capture Tool" order="7" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="bottom" id="Messages" order="9" sideWeight="0.4924594" weight="0.31422505" />
-      <window_info anchor="right" id="Maven Projects" order="6" />
-      <window_info id="Favorites" order="6" side_tool="true" />
-    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -673,25 +797,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java</url>
-          <line>246</line>
+          <line>238</line>
           <properties />
           <option name="timeStamp" value="20" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java</url>
-          <line>93</line>
+          <line>91</line>
           <properties />
           <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java</url>
-          <line>100</line>
+          <line>98</line>
           <properties />
           <option name="timeStamp" value="26" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java</url>
-          <line>366</line>
+          <line>356</line>
           <properties />
           <option name="timeStamp" value="27" />
         </line-breakpoint>
@@ -703,7 +827,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java</url>
-          <line>277</line>
+          <line>268</line>
           <properties />
           <option name="timeStamp" value="37" />
         </line-breakpoint>
@@ -733,13 +857,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Tableau/LG.java</url>
-          <line>435</line>
+          <line>417</line>
           <properties />
           <option name="timeStamp" value="68" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/TextMenu.java</url>
-          <line>226</line>
+          <line>229</line>
           <properties />
           <option name="timeStamp" value="72" />
         </line-breakpoint>
@@ -795,7 +919,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java</url>
-          <line>184</line>
+          <line>180</line>
           <properties class="Prover.Formula.Formula" method="compareTo">
             <option name="EMULATED" value="true" />
           </properties>
@@ -803,7 +927,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java</url>
-          <line>225</line>
+          <line>219</line>
           <properties class="Prover.Formula.Formula">
             <option name="EMULATED" value="true" />
           </properties>
@@ -811,7 +935,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java</url>
-          <line>179</line>
+          <line>175</line>
           <properties class="Prover.Formula.HueSet">
             <option name="EMULATED" value="true" />
           </properties>
@@ -819,7 +943,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java</url>
-          <line>348</line>
+          <line>338</line>
           <properties class="Prover.Formula.Formula">
             <option name="EMULATED" value="true" />
           </properties>
@@ -834,7 +958,6 @@
           <option name="timeStamp" value="67" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="81" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -866,13 +989,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/PermutationBreadthTableau.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="2" selection-start-line="24" selection-start-column="2" selection-end-line="24" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scraps/FormulaSetscraps">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="930">
@@ -896,13 +1012,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/PartialHue.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Token.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/LexerException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -921,21 +1030,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="21" column="32" selection-start-line="21" selection-start-column="32" selection-end-line="21" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Hue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1275">
-          <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
-          <folding>
-            <element signature="e#766#767#0" expanded="true" />
-            <element signature="e#804#805#0" expanded="true" />
-            <element signature="e#3648#3649#0" expanded="true" />
-            <element signature="e#3709#3710#0" expanded="true" />
-            <element signature="e#3758#3759#0" expanded="true" />
-            <element signature="e#3819#3820#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -967,36 +1061,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Lexer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="18" column="58" selection-start-line="18" selection-start-column="58" selection-end-line="18" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Parser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="17" column="27" selection-start-line="17" selection-start-column="27" selection-end-line="17" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5040">
-          <caret line="377" column="36" selection-start-line="377" selection-start-column="36" selection-end-line="377" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="n#!!doc;n#ATOM#0;n#Connective#0;n#Formula#0" />
-            <element signature="n#!!doc;n#Arity#0;n#Formula#0" />
-            <element signature="method#getArity#0;class#Formula#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/HuePermutor.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/PermutationUpLinkTree.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/FHueUpLinkTree.java" />
@@ -1009,172 +1073,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="148">
+        <state relative-caret-position="675">
           <caret line="47" column="25" selection-start-line="47" selection-start-column="25" selection-end-line="47" selection-end-column="25" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/StatusMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="15" column="52" selection-start-line="15" selection-start-column="52" selection-end-line="15" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/ResultSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="20" column="30" selection-start-line="20" selection-start-column="30" selection-end-line="20" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/ExtendResult.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/ColourSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="145" column="21" selection-start-line="145" selection-start-column="21" selection-end-line="145" selection-end-column="21" />
-          <folding>
-            <element signature="e#6267#6268#0" expanded="true" />
-            <element signature="e#6312#6313#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Colour.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1575">
-          <caret line="109" selection-start-line="109" selection-end-line="109" />
-          <folding>
-            <element signature="e#379#380#0" expanded="true" />
-            <element signature="e#412#413#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/FormulaSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="42" column="35" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/TextMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1605">
-          <caret line="117" column="35" selection-start-line="117" selection-start-column="35" selection-end-line="117" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Mode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="18" column="27" selection-start-line="18" selection-start-column="27" selection-end-line="18" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/LG.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
-          <caret line="485" column="4" selection-start-line="485" selection-start-column="4" selection-end-line="485" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#check#0;class#LG#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/Node.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="112" selection-start-line="112" selection-end-line="112" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#3410#3411#0" expanded="true" />
-            <element signature="e#3435#3436#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/Pair.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="53" column="57" selection-start-line="53" selection-start-column="57" selection-end-line="53" selection-end-column="57" />
-          <folding>
-            <element signature="e#1838#1839#0" expanded="true" />
-            <element signature="e#1887#1888#0" expanded="true" />
-            <element signature="e#1949#1950#0" expanded="true" />
-            <element signature="e#1989#1990#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scraps/Tableau2.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1336">
           <caret line="392" column="17" selection-start-line="392" selection-start-column="17" selection-end-line="392" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/DepthTableau.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/PartialStructure.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="73" column="25" selection-start-line="73" selection-start-column="25" selection-end-line="73" selection-end-column="25" />
-          <folding>
-            <element signature="method#simpleSuccessorUpdate#0;class#PartialStructure#0" />
-            <element signature="method#isSuccessor#0;class#PartialStructure#0" />
-            <element signature="method#resetColour#0;class#PartialStructure#0" />
-            <element signature="method#addHueToNodeColour#0;class#PartialStructure#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/UpLinkTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="197">
-          <caret line="64" column="4" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="4" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1803#1804#0" expanded="true" />
-            <element signature="e#1834#1835#0" expanded="true" />
-            <element signature="e#1872#1873#0" expanded="true" />
-            <element signature="e#1896#1897#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentUpLinkTree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="69" lean-forward="true" selection-start-line="69" selection-end-line="69" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1852#1853#0" expanded="true" />
-            <element signature="e#1883#1884#0" expanded="true" />
-            <element signature="e#1921#1922#0" expanded="true" />
-            <element signature="e#1945#1946#0" expanded="true" />
-            <element signature="e#2080#2081#0" expanded="true" />
-            <element signature="e#2106#2107#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1188,20 +1096,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentTableau.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/DepthTableau.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="41" selection-start-line="41" selection-end-line="41" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentMultiBreadthTableau.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="64" column="59" selection-start-line="64" selection-start-column="59" selection-end-line="64" selection-end-column="59" />
+        <state relative-caret-position="225">
+          <caret line="17" column="8" selection-start-line="17" selection-start-column="8" selection-end-line="17" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1210,38 +1108,247 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/MultiBreadthTableau.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1065">
-          <caret line="77" column="12" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="12" />
+        <state relative-caret-position="495">
+          <caret line="43" selection-start-line="43" selection-end-line="43" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentTableau.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="810">
+          <caret line="67" column="17" selection-start-line="67" selection-start-column="17" selection-end-line="67" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentUpLinkTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="915">
+          <caret line="69" selection-start-line="69" selection-end-line="69" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Formula.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="91" column="23" selection-start-line="91" selection-start-column="23" selection-end-line="91" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="n#!!doc;n#ATOM#0;n#Connective#0;n#Formula#0" />
+            <element signature="n#!!doc;n#Arity#0;n#Formula#0" />
+            <element signature="e#6776#6777#0" expanded="true" />
+            <element signature="e#6802#6803#0" expanded="true" />
+            <element signature="e#6833#6834#0" expanded="true" />
+            <element signature="e#6859#6860#0" expanded="true" />
+            <element signature="e#6891#6892#0" expanded="true" />
+            <element signature="e#6915#6916#0" expanded="true" />
+            <element signature="method#getArity#0;class#Formula#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/FormulaSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Hue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="33" column="21" selection-start-line="33" selection-start-column="21" selection-end-line="33" selection-end-column="21" />
+          <folding>
+            <element signature="e#4113#4114#0" expanded="true" />
+            <element signature="e#4141#4142#0" expanded="true" />
+            <element signature="e#4198#4199#0" expanded="true" />
+            <element signature="e#4226#4227#0" expanded="true" />
+            <element signature="e#4279#4280#0" expanded="true" />
+            <element signature="e#4307#4308#0" expanded="true" />
+            <element signature="e#4367#4368#0" expanded="true" />
+            <element signature="e#4395#4396#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/HueSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="163" selection-start-line="163" selection-end-line="163" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Lexer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Parser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="102" column="45" selection-start-line="102" selection-start-column="45" selection-end-line="102" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Token.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/BreadthTableau.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/Colour.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="547">
+          <caret line="117" selection-start-line="117" selection-end-line="117" />
+          <folding>
+            <element signature="e#379#380#0" expanded="true" />
+            <element signature="e#412#413#0" expanded="true" />
+            <element signature="e#2520#2521#0" expanded="true" />
+            <element signature="e#2548#2549#0" expanded="true" />
+            <element signature="e#2605#2606#0" expanded="true" />
+            <element signature="e#2633#2634#0" expanded="true" />
+            <element signature="e#2686#2687#0" expanded="true" />
+            <element signature="e#2714#2715#0" expanded="true" />
+            <element signature="e#2774#2775#0" expanded="true" />
+            <element signature="e#2802#2803#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/ResultSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="316">
+          <caret line="102" column="4" selection-start-line="102" selection-start-column="4" selection-end-line="102" selection-end-column="4" />
+          <folding>
+            <element signature="e#2532#2533#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/Tableau.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
+        <state relative-caret-position="135">
+          <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/UpLinkTree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="547">
+          <caret line="64" column="4" selection-start-line="64" selection-start-column="4" selection-end-line="64" selection-end-column="4" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1803#1804#0" expanded="true" />
+            <element signature="e#1834#1835#0" expanded="true" />
+            <element signature="e#1872#1873#0" expanded="true" />
+            <element signature="e#1896#1897#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/TextMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="302">
+          <caret line="273" column="42" selection-start-line="273" selection-start-column="42" selection-end-line="273" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/PartialStructure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="62" column="35" selection-start-line="62" selection-start-column="35" selection-end-line="62" selection-end-column="35" />
+          <folding>
+            <element signature="method#isSuccessor#0;class#PartialStructure#0" />
+            <element signature="method#resetColour#0;class#PartialStructure#0" />
+            <element signature="method#addHueToNodeColour#0;class#PartialStructure#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/LG.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="28" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/BreadthTableau.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Mode.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="46" column="12" selection-start-line="46" selection-start-column="12" selection-end-line="46" selection-end-column="12" />
+        <state relative-caret-position="90">
+          <caret line="6" column="43" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/Node.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="547">
+          <caret line="112" selection-start-line="112" selection-end-line="112" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/Pair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="53" column="57" selection-start-line="53" selection-start-column="57" selection-end-line="53" selection-end-column="57" />
+          <folding>
+            <element signature="e#1838#1839#0" expanded="true" />
+            <element signature="e#1887#1888#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Formula/ColourSet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="43" lean-forward="true" selection-start-line="9" selection-start-column="43" selection-end-line="9" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentMultiBreadthTableau.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="13" column="45" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/Prover/Tableau/ConcurrentBreadthTableau.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="120" column="38" selection-start-line="120" selection-start-column="38" selection-end-line="120" selection-end-column="38" />
+        <state relative-caret-position="195">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/Prover/StatusMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="15" column="36" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
         </state>
       </provider>
     </entry>

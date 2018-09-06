@@ -48,11 +48,7 @@ public class TextMenu {
             System.out.println("4. φ");
             System.out.println("5. χ");
             System.out.println("6. ψ");
-            System.out.println("7. Name subformulae");
-            System.out.println("8. Skip");
-
-            //TODO: regex here for allowable names
-            //TODO: name subformulae
+            System.out.println("7. Skip");
 
             try {
                 int choice = scanner.nextInt();
@@ -82,8 +78,6 @@ public class TextMenu {
                         formulaMenu(f);
                         break;
                     case 7:
-                        //TODO
-                    case 8:
                         formulaMenu(f);
                         break;
                     default:
@@ -109,33 +103,41 @@ public class TextMenu {
             try {
                 int choice = scanner.nextInt();
                 switch (choice) {
-                    case 6:
-                        MultiBreadthTableau tx = new MultiBreadthTableau(f);
-                        tx.test();
-                        break;
-                    case 7:
-                        MultiBreadthTableau txx = new MultiBreadthTableau(f);
-                        txx.test2();
-                        break;
                     case 1:
-                        Tableau t = null;
+                        System.out.println("Enter maximum branch length:");
+                        try {
+                            int bL = scanner.nextInt();
+                            Tableau t = null;
                         switch (Mode.setAlgorithm) {
-                            case BREADTH:
+                            case MULTI_BREADTH:
                                 t = new MultiBreadthTableau(f);
+                                t.maxBranchLength = bL;
                                 break;
-                            case BREADTH_FIRST_HUE:
+                            case BREADTH:
                                 t = new BreadthTableau(f);
+                                t.maxBranchLength = bL;
                                 break;
                             case BREADTH_PERMUTATIONS:
                                 t = new PermutationBreadthTableau(f);
+                                t.maxBranchLength = bL;
                                 break;
-                            case MULTI_BREADTH:
+                            case CONCURRENT_BREADTH:
+                                t = new ConcurrentBreadthTableau(f);
+                                t.maxBranchLength = bL;
+                                break;
+                            case CONCURRENT_MULTI_BREADTH:
                                 t = new ConcurrentMultiBreadthTableau(f);
+                                t.maxBranchLength = bL;
                                 break;
                         }
                         System.out.println(t.solve());
                         System.out.println(t.fullInfoString());
                         break;
+                        } catch (InputMismatchException e) {
+                            scanner.nextLine();
+                            break;
+                        }
+
                     case 2:
                         infoMenu(f);
                     case 3:
@@ -168,8 +170,9 @@ public class TextMenu {
             System.out.println("5. Display hue successor relation (rX)");
             System.out.println("6. Display color successor relation (RX)");
             System.out.println("7. Display rA-equivalence classes (+size)");
-            System.out.println("8. Return");
-            System.out.println("9. Quit");
+            System.out.println("8. Display colours with "+ f.sugarString(f.getFormulaNames()));
+            System.out.println("9. Return");
+            System.out.println("10. Quit");
 
             try {
                 int choice = scanner.nextInt();
@@ -231,8 +234,16 @@ public class TextMenu {
                         scanner.nextLine();
                         break;
                     case 8:
-                        formulaMenu(f);
+                        ColourSet colourSet3 = f.getFColours();
+                        System.out.println(colourSet3.hueString());
+                        System.out.print("Size: ");
+                        System.out.println(colourSet3.size());
+                        System.out.println("Enter any key to return to menu");
+                        scanner.nextLine();
+                        break;
                     case 9:
+                        formulaMenu(f);
+                    case 10:
                         System.exit(0);
                     default:
                         System.out.println("No such option. Try again.");
@@ -249,13 +260,12 @@ public class TextMenu {
             System.out.println("Enter option number:");
             System.out.println("1. Change tableau algorithm");
             System.out.println("2. Progress message settings");
-            System.out.println("3. Character settings");
             if (!Mode.xHues) {
-                System.out.println("4. Toggle hue type used (current: regular (slower))");
+                System.out.println("3. Toggle hue type used (current: regular (slower))");
             } else {
-                System.out.println("4. Toggle hue type used (current: more restrictive hues (faster))");
+                System.out.println("3. Toggle hue type used (current: more restrictive hues (condition H5 switched on) (faster))");
             }
-            System.out.println("5. Return");
+            System.out.println("4. Return");
 
             try {
                 int choice = scanner.nextInt();
@@ -264,15 +274,18 @@ public class TextMenu {
                         algorithmSettings(f);
                     case 2:
                         reportSettings(f);
-                    case 3: //TODO
-                    case 4:
+                    case 3:
                         if (Mode.xHues) {
                             Mode.xHues = false;
+                            f.getAllHues();
+                            f.getAllColours();
                         } else {
                             Mode.xHues = true;
+                            f.getAllHues();
+                            f.getAllColours();
                         }
                         settings(f);
-                    case 5:
+                    case 4:
                         formulaMenu(f);
                     default:
                         System.out.println("No such option. Try again.");
@@ -287,9 +300,6 @@ public class TextMenu {
     public static void algorithmSettings(Formula f) {
         while (true) {
             System.out.println("Current algorithm is " + Mode.setAlgorithm.printString);
-            if (Mode.setAlgorithm == Mode.Algorithm.BREADTH_FIRST_HUE) {
-                System.out.println("Warning: this algorithm might miss some valid solutions");
-            }
             System.out.println("Enter option number:");
             int counter = 1;
             for (Mode.Algorithm a : Mode.Algorithm.values()) {

@@ -9,26 +9,9 @@ import static Prover.StatusMessage.Level.SOME;
 import static Prover.StatusMessage.*;
 import static Prover.Tableau.Tableau.ExtendResult.*;
 
-//investigate:
 
-//write all hue orders and change extendstructure etc
-//change rx etc
-//make method for temp colour
-//no successors (OK I THINK)
-//no solution with old hues (OK)
-//two roots (OK)
-//leafs in results (OK)
-//X~p vs ~Xp (OK)
-//TODO: hues vs xhues; changing must change all calculations
 
 public class BreadthTableau extends Tableau {
-    //TODO: write something in report or do something about some hues having both ~Xp and ~X~p (try G(p & Xp & E(X~p))
-    //h4 h5
-    //4x4
-    //5x9 5x10 5x11
-    //useless: h01678 12 13
-    //useful: h23459 10 11
-    //TODO: CAN NEVER HAVE TWO UPLINKS FROM ONE NODE INTO SAME NODE BECAUSE OF LEMMA 3.1
 
     public BreadthTableau(Formula f) {
         super(f);
@@ -50,7 +33,6 @@ public class BreadthTableau extends Tableau {
     }
 
     private ExtendResult checkLevel(ColourSet possibleColours, HueSet possibleHues, Node parent, Hue parentHue, int level, UpLinkTree<Pair<Colour, Hue>> checkedUpLinks, boolean checkAll) {
-        //TODO: check for empty possiblecolours
         ExtendResult result = FAILURE;
         sectionPrint(TABLEAU, SOME, "LEVEL " + level);
         COLOUR_LOOP:
@@ -135,7 +117,7 @@ public class BreadthTableau extends Tableau {
                                             removeNode(n);
                                             continue FIRST_HUE_LOOP;
                                         }
-                                    default: //TODO
+                                    default:
                                 }
                             }
                             //CASE 4: there is no existing uplinktree. The level should be 0. We check the upLinks
@@ -156,7 +138,7 @@ public class BreadthTableau extends Tableau {
                                             removeNode(n);
                                             continue FIRST_HUE_LOOP;
                                         }
-                                    default://TODO: error
+                                    default:
                                 }
                             }
                         }

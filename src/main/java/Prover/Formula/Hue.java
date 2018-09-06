@@ -132,31 +132,26 @@ public class Hue extends FormulaSet {
     //hues are immutable
     @Override
     public boolean add(Formula e) {
-        //TODO: error!
         return false;
     }
 
     @Override
     public boolean addAll(Collection e) {
-        //TODO: error!
         return false;
     }
 
     @Override
     public boolean remove(Object e) {
-        //TODO: error!
         return false;
     }
 
     @Override
     public boolean removeAll(Collection c) {
-        //TODO: error!
         return false;
     }
 
     @Override
     public void clear() {
-        //TODO: error!
     }
 
 

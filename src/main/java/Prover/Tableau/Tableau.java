@@ -23,19 +23,16 @@ public abstract class Tableau {
     protected int lgRuns = 0;
     protected int maxSteps = -1;
     protected final Formula f;
-    protected final int maxBranchLength;
+    public int maxBranchLength;
 
     public Tableau(Formula f) {
-        //TODO: check result set
         this.f = f;
-        //TODO: remove duplication (since these in result set)???
-        this.maxBranchLength = 5;//TODO: replace
+        this.maxBranchLength = 5;
     }
 
     public abstract ExtendResult solve();
 
     protected Node addLeaf(Node parent, Hue predecessorHue, Colour c, Hue firstHue) {
-        //TODO: check if huerx holds, throw error if doesn't
         Node newLeaf;
         if (parent != null) {
             int index = parent.zOrder.indexOf(predecessorHue);

@@ -95,30 +95,25 @@ public class Colour extends HueSet {
     //colours are immutable
     @Override
     public boolean add(Hue e) {
-        //TODO: error!
         return false;
     }
 
     @Override
     public boolean addAll(Collection e) {
-        //TODO: error!
         return false;
     }
 
     @Override
     public boolean remove(Object e) {
-        //TODO: error!
         return false;
     }
 
     @Override
     public boolean removeAll(Collection c) {
-        //TODO: error!
         return false;
     }
 
     @Override
     public void clear() {
-        //TODO: error!
     }
 }

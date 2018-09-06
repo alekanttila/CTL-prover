@@ -50,22 +50,13 @@ public class ColourSet extends TreeSet<Colour> {
         statusPrint(COLOURS, MAX, "Generating colours with " + h.name);
 
         FormulaSet hInstantiables = new FormulaSet();
-        //System.out.println("instantiables in ");
-        //System.out.print(h.name);
-        //h.sugarPrint();
-        //System.out.println("iiii: ");
         while (fI.hasNext()) {
             Formula f = fI.next();
             //do not include the formulae that h instantaties own its own
             if (f.getC()== NOT && f.getSf1().getC()== A && !h.contains(f.getSf1().getSf1().negated())) {
-                hInstantiables.add(f.getSf1().getSf1().negated()); //TODO: write in report
-                //f.sugarPrint();
-                //System.out.print("---");
-                //f.getSf1().getSf1().negated().sugarPrint();
-                //System.out.println(" AND ");
+                hInstantiables.add(f.getSf1().getSf1().negated());
             }
         }
-        //System.out.println();
 
         //make a new potential colour consisting of only h
         HueSet justH = new HueSet();
@@ -88,8 +79,6 @@ public class ColourSet extends TreeSet<Colour> {
             while (i.hasNext()) {
                 FormulaSet newCInstantiables = new FormulaSet();
                 HueSet c = i.next();
-                //System.out.println("processing colour ");
-                //c.sugarPrint();
                 //two loops here to avoid checking the hues in c for c-instatiables again
                 Iterator<Formula> fI2 = hInstantiables.iterator();
                 B:
@@ -100,19 +89,12 @@ public class ColourSet extends TreeSet<Colour> {
                         Iterator<Hue> hI = c.iterator();
                         while (hI.hasNext()) {
                             Hue h2 = hI.next();
-                            //System.out.print("processing ");
-                            //System.out.println(h2.name);
                             if (h2.contains(f)) {
-                                //System.out.print("found: ");
-                                //f.sugarPrint();
-                                //System.out.println();
                                 //found a hue that instantiates an h-formula->continue with next formula
                                 continue B;
                             }
                         }
-                        //System.out.print("adding to instantiables: ");
                         //f.sugarPrint();
-                        //System.out.println();
                         //add formulae that were not found in any hue to instantiables of new set
                         newCInstantiables.add(f);
                     }
@@ -134,19 +116,12 @@ public class ColourSet extends TreeSet<Colour> {
                 result.add(withH);
             }
         }
-        //System.out.println();
-        System.out.println("returning ");
-        for (HueSet c : result) {
-            System.out.println(c.sugarString(0));
-            System.out.println("with instantiables: ");
-            System.out.println(c.instantiables.sugarString());
-            System.out.println();
-        }
         statusPrint(COLOURS, MAX, "Number of potential colours generated: " + result.size());
         return result;
     }
 
     public ColourSet getColoursWithF(Formula f) {
+
         ColourSet result = new ColourSet();
         A:
         for (Colour c : this) {

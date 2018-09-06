@@ -53,43 +53,29 @@ public class LG {
                 case U:
                     currentStructure = updateU(g, currentStructure);
                     break;
-                    //TODO: add true to all hues?
                 case FALSE:
                 default:
-                    //TODO:ERROR
             }
             statusPrint(LG, SOME, currentStructure.sugarString(phi.getFormulaNames()));
         }
-        //TODO: subset checker
         boolean result = checkLabels(currentStructure);
         return result;
     }
     private static boolean checkLabels(PartialStructure s) {
         boolean result = true;
-        //statusPrint("LG final check. Partial Structure:");
-        //statusPrint(s.sugarString(f.getFormulaNames()));
 
         for (Node n: s.nodes()) {
             statusPrint(LG, MAX, "Actual colours");
             statusPrint(LG, MAX, n.getName() + n.z.sugarString(0, f.getFormulaNames()));
-            //TODO: write method for getting colours out of treeset formulasets
             HueSet hS = new HueSet();
             for (FormulaSet h : s.getNodeColour(n) ) {
                 hS.add(new Hue(h, 0));
             }
             Colour c  = new Colour(hS, 0);
-            //statusPrint(n.getName() + c.sugarString(0, f.getFormulaNames()));
             if (!n.z.equals(c)) {
-                //System.out.println("CHCHCHCHCH");
-                //System.out.println(n.getName());
-                //for (FormulaSet h : s.getNodeColour(n)) {
-                //   statusPrint(h.sugarString(f.getFormulaNames()));
-                //}
                 result = false;
-                //break;
             }
         }
-        //System.out.println(result);
         return result;
     }
 
@@ -379,7 +365,6 @@ public class LG {
                 eventualities.add(chi.getSf2());
             }
         }
-        //System.out.println("eventualities " + eventualities);
         Map<Pair.NodeHue, Integer> eventualityCount = new HashMap<Pair.NodeHue, Integer>();
         for (Node n : oldS.nodes()) {
             for (FormulaSet h : oldS.pC().get(n)) {
@@ -398,14 +383,12 @@ public class LG {
                             if (oldS.isSuccessor(n1, h1, n2, h2) && h1.contains(phi)) {
                                 if (eventualityCount.get(Pair.nH(n1, h1)) < eventualityCount.get(Pair.nH(n2, h2))) {
                                     eventualityCount.put(Pair.nH(n1, h1), eventualityCount.get(Pair.nH(n2, h2)));
-                                    //System.out.println("putting " + n1.getName() + h1.sugarString() + eventualityCount.get(nH(n1, h1)));
                                     change = true;
                                     if (n1 == nodeToCheck && h1 == hueToCheck) {
                                         loop = true;
                                     }
                                 } else if (n1 == nodeToCheck && h1 == hueToCheck &&
                                         eventualityCount.get(Pair.nH(n1, h1)) == eventualityCount.get(Pair.nH(n2, h2)) && !loop) {
-                                    //System.out.println("loop w no eventualities");
                                     change = true;
                                     loop = true;
                                 }
@@ -415,7 +398,6 @@ public class LG {
                     for (int i = 1; i < (count + 1); i++) {
                         if (eventualityCount.get(Pair.nH(n1, h1)) == i - 1 && h1.contains(eventualities.get(i - 1))) {
                             eventualityCount.put(Pair.nH(n1, h1), i);
-                            //System.out.println("putting2 " + n1.getName() + h1.sugarString() + eventualityCount.get(nH(n1,h1)));
                             change = true;
                         }
                     }

@@ -56,7 +56,7 @@ public abstract class ConcurrentTableau extends Tableau{
                         if (LG.check(f, root)) {
                             tableausBuilt.addAndGet(1);
                             statusPrint(TABLEAU, MAX, "Task " + taskID +  " LG OK");
-                            checkedUpLinks.add(n.z, hueToCheck, a.getStandardNH());
+                            checkedUpLinks.add(new Pair(n.z, n.zOrder.get(0)), hueToCheck, a.getStandardNH());
                             return SUCCESS;
                         } else {
                             statusPrint(TABLEAU, MAX, "Task " + taskID +  " LG failed");
@@ -69,7 +69,11 @@ public abstract class ConcurrentTableau extends Tableau{
             }
         }
         statusPrint(TABLEAU, MAX,"Task " + taskID +  " All ancestors checked. No upLinks possible");
-        checkedUpLinks.add(n.z, hueToCheck, new ConcurrentUpLinkTree<Colour>());
+        if (this instanceof ConcurrentBreadthTableau) {
+            checkedUpLinks.add(new Pair(n.z, n.zOrder.get(0)), hueToCheck, new ConcurrentUpLinkTree<Pair<Colour, Hue>>());
+        } else {
+            checkedUpLinks.add(n.z, hueToCheck, new ConcurrentUpLinkTree<Colour>());
+        }
         return FAILURE;
     }
 

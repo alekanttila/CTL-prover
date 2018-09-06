@@ -40,9 +40,6 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
             } else if (result == 0 && !i.hasNext() && i2.hasNext()) {
                 result = -1;
             } else {
-                //if this set has the same first elements as hS but is larger:
-                //TODO: why does this affect colour size???
-                //TODO: error
             }
         }
         return result;
@@ -164,7 +161,6 @@ public class HueSet extends TreeSet<Hue> implements Comparable<HueSet> {
                         }
                     }
                 case TRUE://special case because we do not want to add bottom to a hue
-                    //TODO: mention in report
                     while (i.hasNext()) {
                         FormulaSet h = i.next();
                         h.add(f);

@@ -80,8 +80,6 @@ public class Formula implements Comparable<Formula>{
         this.c = c;
         this.id = null;
         this.length = sf1.length + sf2.length + 1;
-        System.out.println("CONS");
-        System.out.println(this.c);
     }
     public Formula(Formula sf1, Connective c) {
         this.sf1 = sf1;
@@ -128,7 +126,6 @@ public class Formula implements Comparable<Formula>{
 
     //note: this ensures sets work correctly!
     //only properly works on sugar-free formulae (think more, maybe remove this)
-    //TODO: check nulls!
     @Override
     public boolean equals(Object obj) {
         boolean result = false;
@@ -159,7 +156,6 @@ public class Formula implements Comparable<Formula>{
                         result = (this.c == f.c);
                         break;
                     default:
-                        //TODO: error
                 }
             } else {
                 //not required; included for clarity;
@@ -212,7 +208,6 @@ public class Formula implements Comparable<Formula>{
                             break;
                         default:
                             //if arity is TRUE, we should have gotten this.equals(f) = true
-                            //TODO:error
                     }
                 }
             }
@@ -222,17 +217,14 @@ public class Formula implements Comparable<Formula>{
 
     public Formula getSf1() {
         return sf1;
-        //TODO: exception/asserror?
     }
 
     public Formula getSf2() {
         return sf2;
-        //TODO: exception/asserror?
     }
 
     public Connective getC() {
         return c;
-        //TODO: assertionerror??
     }
 
     public int getLength() {
@@ -269,7 +261,6 @@ public class Formula implements Comparable<Formula>{
                 result = BINARY;
                 break;
             default:
-                //TODO:error
         }
         return result;
     }
@@ -323,7 +314,6 @@ public class Formula implements Comparable<Formula>{
                 case BOOL:
                     break;
                 default:
-                    //TODO:error
             }
             if (results == null) {
                 createResultSet();
@@ -449,7 +439,6 @@ public class Formula implements Comparable<Formula>{
                 result = this.c.printString();
                 break;
             default:
-                //TODO:error
         }
         return result;
     }
@@ -464,8 +453,6 @@ public class Formula implements Comparable<Formula>{
         return sugarString(formulaNames);
     }
 
-    //TODO: note in report that sugarprint not necessarily same as original (eg theta1)
-    //TODO: check subformulae for names before applying sugar?
     public String sugarString(Map<Formula, String> formulaNames) {
         String result = "";
         String name = formulaNames.get(this);
@@ -476,7 +463,7 @@ public class Formula implements Comparable<Formula>{
             case ATOM:
                 result = result + this.id;
                 break;
-            case TRUE://TODO: change logic here to allow giving name to true?
+            case TRUE:
                 result = result + this.c.printString();
                 break;
             case FALSE:
@@ -518,7 +505,6 @@ public class Formula implements Comparable<Formula>{
                 result = result + this.sf2.sf1.sf1.sugarString(formulaNames) + ")";
                 break;
             default:
-                //TODO:error
         }
         return result;
     }
